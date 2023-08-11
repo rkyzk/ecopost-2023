@@ -1,0 +1,1 @@
+web: gunicorn ecopost2023.wsgi

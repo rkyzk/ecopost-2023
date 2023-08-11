@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
+from django.shortcuts import reverse
 
 
 STATUS = ((0, "Draft"), (1, "Submitted"), (2, "Published"), (3, "Declined"))
@@ -98,6 +99,13 @@ class Post(models.Model):
             return self.published_on.strftime("%B %d, %Y")
         else:
             return 'Not published'
+
+    def get_absolute_url(self):
+        """
+        Returns the URL of 'Detail Page.'
+        :return: reverse
+        """
+        return reverse('detail_page', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):

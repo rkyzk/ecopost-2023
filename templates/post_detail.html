@@ -33,7 +33,7 @@
                 <!-- if the post has been published and the user is logged in show 'like' buttons -->
                 {% if post.status == 2 %}
                 {% if user.is_authenticated %}
-                <form class="d-inline" action="#">
+                <form class="d-inline" action="{% url 'post_like' post.slug %}" method="POST">
                     {% csrf_token %}
                     <!-- if liked, show a solid heart -->
                     {% if liked %}
@@ -86,7 +86,7 @@
                 {% csrf_token %}
                 <button class="btn btn-submit" name="update-post" type="submit">update</button>
             </form>
-            <form method="POST" id="delete-post" action="{% url 'delete_post' post.slug %}">
+            <form method="POST" id="delete-post" action="#">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-submit btn-right" name="delete_post"
                     value="{{post.slug}}">delete</button>

@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
@@ -118,6 +119,25 @@ class PostDetail(View):
                 "comment_form": CommentForm()
             },
         )
+
+
+class PostLike(View):
+    """Add or remove user in the foreign key likes of the post."""
+
+    def post(self, request, slug, *args, **kwargs):
+        """
+        If user exists in 'likes' of the post, removes him/her.
+        If not, add the user to 'likes.'
+        arguments: self, request, slug, *args, **kwargs
+        :return: HttpResponseRedirect
+        """
+        post = get_object_or_404(Post, slug=slug)
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        post.save()
+        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
 
 
 class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):

@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-rkyzk-ecopost2023-1b6dzt1ltp1.ws-us102.gitpod.io'
+    '8000-rkyzk-ecopost2023-1b6dzt1ltp1.ws-us102.gitpod.io',
     'ecopost2023-9f46edbaba4f.herokuapp.com'
 ]
 

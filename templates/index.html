@@ -31,6 +31,7 @@
                     <span><strong>{{ post.title }}</strong></span>
                     <span class="excerpt-author">By {{ post.author }}</span>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
+                    <a href="{% url 'detail_page' post.slug %}">Read the full article</a>
                 </div>
                 <hr class="line">
             </div>

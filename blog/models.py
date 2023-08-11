@@ -87,6 +87,18 @@ class Post(models.Model):
         excerpt = str(self.content)[0:199] + "..."
         return excerpt
 
+    def pub_date(self):
+        """
+        Returns the published date.
+        If the post hasn't been published, return 'Not published.'
+        :returns: published_on or 'Not published'
+        :rtype: str
+        """
+        if self.status == 2:
+            return self.published_on.strftime("%B %d, %Y")
+        else:
+            return 'Not published'
+
 
 class Comment(models.Model):
     """Lists fields of Comment model and the functions around them."""

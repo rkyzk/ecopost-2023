@@ -78,6 +78,15 @@ class Post(models.Model):
             self.num_of_likes = self.likes.count()
         super().save(*args, **kwargs)
 
+    def excerpt(self):
+        """
+        Returns the first 200 letters of the post.
+        :returns: excerpt
+        :rtype: str
+        """
+        excerpt = str(self.content)[0:199] + "..."
+        return excerpt
+
 
 class Comment(models.Model):
     """Lists fields of Comment model and the functions around them."""

@@ -1,0 +1,21 @@
+/* Common rules for multiple pages */
+
+.post-text>p {
+    line-height: 20px;
+}
+
+/*   ------------ index.html ------------------------  */
+h1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 3rem;
+    color: rgb(141, 111, 56);
+}
+
+.posts {
+    margin-top: 40px;
+}
+
+image-wrapper {
+    width: 510px;
+    height: 340px;
+}

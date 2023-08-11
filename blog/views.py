@@ -221,8 +221,8 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def get(self, request, id, *args, **kwargs):
         """
-        Gets comment from the DB,
-        stores it in comment form and displays the update form
+        Get comment from the DB,
+        store it in comment form and display the update form
         for users to update the body.
         arguments: self, request, id: comment id, *args, **kwargs
         :returns: render()
@@ -241,9 +241,9 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def post(self, request, id, *args, **kwargs):
         """
-        Receives comment form, validates it.
-        If it's valid, updates the comment.
-        If not, stores an error message. Redirects to "Detail Page."
+        Receive comment form, validate it.
+        If it's valid, update the comment.
+        If not, store an error message. Redirect to "Detail Page."
         arguments: id: comment id
         :returns: HttpResponseRedirect()
         :rtype: method

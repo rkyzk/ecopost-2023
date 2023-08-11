@@ -12,3 +12,4 @@ dj_database_url and psycopg2 are libraries needed for PostgreSQL
 cloudinary  library
 django_countries for dropdown menu of countries
 django-summernote
+django-crispy-forms

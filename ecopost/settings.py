@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'django_countries',
     'django_summernote',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'blog'
 ]
 
@@ -61,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 ROOT_URLCONF = 'ecopost.urls'
 

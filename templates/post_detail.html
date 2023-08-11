@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <main class="justify-content-center container">
-    <section class="d-md-flex title-img-box mt-2">
+    <section class="row d-md-flex title-img-box mt-2">
         <div class="col-md-6 title-box">
             <h1>{{ post.title }}</h1>
             <span class="mt-3">by {{ post.author }}</span>
@@ -21,11 +21,13 @@
             </div>
         </div> <!-- title-box -->
         <div class="img-box col-md-6 container">
-            {% if "placeholder" in post.featured_image.url %}
-            default image
-            {% else %}
-            <img src="{{ post.featured_image.url }}" class="ml-3" alt="{{ post.title }}">
-            {% endif %}
+            <div class="image-wrapper">
+                {% if "placeholder" in post.featured_image.url %}
+                default image
+                {% else %}
+                <img src="{{ post.featured_image.url }}" class="ml-3" alt="{{ post.title }}">
+                {% endif %}
+            </div>
             <!-- likes and bookmark buttons -->
             <div class="d-flex justify-content-start">
                 <!-- if the post has been published and the user is logged in show 'like' buttons -->
@@ -79,8 +81,8 @@
     </section>
     <!-- Comments section if the post has been published -->
     {% if post.status == 2 %}
-    <section class="d-lg-flex justify-content-between mt-5 comments">
-        <div class="comments-left">
+    <section class="row d-lg-flex mt-5 comments">
+        <div class="comments-left col-lg-7">
             <h2>Comments</h2>
             {% for comment in comments %}
             <!-- if the comment has been edited, say 'edited.' -->
@@ -106,7 +108,7 @@
             <p>No comments</p>
             {% endfor %}
         </div>
-        <div class="mt-custom comments-right">
+        <div class="mt-custom comments-right col-lg-5">
             <!-- if user is logged in, invite them to leave comments -->
             {% if user.is_authenticated %}
             <h2>Leave a comment:</h2>
@@ -114,7 +116,7 @@
             <form method="post" class="mt-3">
                 {{ comment_form | crispy }}
                 {% csrf_token %}
-                <button type="submit" class="btn-submit btn-lg mt-3" name="submit-comment">Submit</button>
+                <button type="submit" class="btn-submit btn-lg mt-3" name="submit-comment">post</button>
             </form>
             {% else %}
             <!-- if user is not logged in, provide the links to sign up or sign in -->

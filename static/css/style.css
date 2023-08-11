@@ -31,9 +31,13 @@ a:hover {
     text-decoration: underline;
 }
 
-
 .post-text>p {
     line-height: 20px;
+}
+
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 2;
 }
 
 /*   ------------ index.html ------------------------  */
@@ -59,5 +63,14 @@ image-wrapper {
 }
 
 .title-img-box .title-box .date-city>ul {
-    list-style-type: none;
+    list-style: none;
+}
+
+.btn-submit {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+    background-color: rgb(141, 111, 56);
+    border: none;
+    color: #fff;
 }

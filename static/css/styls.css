@@ -1,5 +1,38 @@
 /* Common rules for multiple pages */
 
+/* Nav bar ------------------------*/
+
+.header .nav-menu .list-item {
+    width: min-content;
+    white-space: nowrap;
+    list-style: none;
+}
+
+.nav-list a {
+    color: rgb(141, 111, 56);
+    text-decoration: none;
+}
+
+.nav-list a:hover {
+    color: rgb(65, 60, 53);
+    text-decoration: underline;
+}
+
+a,
+.font-blue {
+    color: rgb(46, 122, 145);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(13, 48, 59);
+    text-decoration: underline;
+}
+
+
 .post-text>p {
     line-height: 20px;
 }

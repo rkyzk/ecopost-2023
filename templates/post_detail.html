@@ -86,7 +86,7 @@
                 {% csrf_token %}
                 <button class="btn btn-submit" name="update-post" type="submit">update</button>
             </form>
-            <form method="POST" id="delete-post" action="#">
+            <form method="POST" id="delete-post" action="{% url 'delete_post' post.slug %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-submit btn-right" name="delete_post"
                     value="{{post.slug}}">delete</button>
@@ -138,8 +138,8 @@
             <!-- if user is not logged in, provide the links to sign up or sign in -->
             <h2>Want to leave comments?</h2>
             <p>
-                <a href="#">Become a member</a>or
-                <a href="#">Log in</a>.
+                <a href="{% url 'account_signup' %}">Become a member</a>or
+                <a href="{% url 'account_login' %}">Log in</a>.
             </p>
             {% endif %}
         </div>

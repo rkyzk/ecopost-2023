@@ -3,6 +3,7 @@ from django.views import generic, View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from .models import Post
 from .forms import CommentForm, PostForm
 
@@ -193,3 +194,64 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
         slug = self.kwargs.get('slug')
         post = get_object_or_404(Post, slug=slug)
         return post.status == 0 and post.author == self.request.user
+
+
+class DeletePost(LoginRequiredMixin, View):
+    """Deletes posts."""
+
+    def post(self, request, slug, *args, **kwargs):
+        """
+        Delete post and redirect to 'home.'
+        arguments: self, request, slug, *args. **kwargs
+        :returns: HttpResponseRedirect()
+        :rtype: method
+        """
+        post = get_object_or_404(Post, slug=slug)
+        if post.author == self.request.user and post.status == 0:
+            post.delete()
+            message = 'Your draft has been deleted.'
+            messages.add_message(request, messages.SUCCESS, message)
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            raise PermissionDenied()
+
+
+class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    def get(self, request, pk, *args, **kwargs):
+        """
+        Make lists of 1) the posts written by the user,
+        2) posts commented by the user
+        3) posts bookmarked by the user,
+        send the three lists to 'My page'
+        arguments: self, request, pk: pk of the user, *args, **kwargs
+        :returns: render()
+        :rtype: method
+        """
+        my_posts = Post.objects.filter(author=pk)
+        # Make a list of posts commented by the user
+        comments = Comment.objects.filter(commenter__id=pk,
+                                          comment_status__in=[0, 1])
+        commented_posts = [comment.post for comment in comments]
+        # remove duplicates
+        commented_posts = list(dict.fromkeys(commented_posts))
+        # Make a list of posts bookmarked by the user
+        bookmarked_posts = Post.objects.filter(bookmark__in=[request.user.id])
+
+        return render(
+            request,
+            "my_page.html",
+            {
+                "my_posts": my_posts,
+                "commented_posts": commented_posts,
+                "bookmarked_posts": bookmarked_posts
+            },
+        )
+
+    def test_func(self):
+        """
+        Tests if the user is the owner of 'My Page'
+        :returns: True/False
+        :rtype: boolean
+        """
+        return self.kwargs.get('pk') == self.request.user.pk

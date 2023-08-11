@@ -9,6 +9,8 @@ urlpatterns = [
   path('add_story/', views.AddStory.as_view(), name='add_story'),
   path('update/<slug:slug>/', views.UpdatePost.as_view(),
        name='update_post'),
+  path('delete/<slug:slug>/', views.DeletePost.as_view(),
+       name='delete_post'),
   path('like/<slug:slug>/', views.PostLike.as_view(), name='post_like'),
   path('bookmark/<slug:slug>/', views.Bookmark.as_view(),
        name='bookmark'),

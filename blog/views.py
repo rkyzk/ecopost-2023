@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from .models import Post, Comment
+from .models import Post, Comment, Photo
 from .forms import CommentForm, PostForm
 
 

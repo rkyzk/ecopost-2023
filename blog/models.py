@@ -128,3 +128,17 @@ class Comment(models.Model):
         :rtype: str
         """
         return f"{self.body} by {self.commenter.username}"
+
+
+class Photo(models.Model):
+    """Lists fields of Photo model and a function."""
+    name = models.CharField(max_length=25)
+    image = CloudinaryField('image', blank=True)
+
+    def __str__(self):
+        """
+        Returns the name of the photo.
+        :return: name
+        :rtype: str
+        """
+        return self.name

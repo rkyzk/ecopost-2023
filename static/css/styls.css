@@ -2,10 +2,9 @@
 
 /* Nav bar ------------------------*/
 
-.header .nav-menu .list-item {
-    width: min-content;
-    white-space: nowrap;
-    list-style: none;
+.burger {
+    rotate: 90deg;
+    color: rgb(65, 60, 53);
 }
 
 .nav-list a {

@@ -216,6 +216,63 @@ class DeletePost(LoginRequiredMixin, View):
             raise PermissionDenied()
 
 
+class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
+    """Updates comments."""
+
+    def get(self, request, id, *args, **kwargs):
+        """
+        Gets comment from the DB,
+        stores it in comment form and displays the update form
+        for users to update the body.
+        arguments: self, request, id: comment id, *args, **kwargs
+        :returns: render()
+        :rtype: method
+        """
+        comment = get_object_or_404(Comment, id=id)
+        comment_form = CommentForm(instance=comment)
+        return render(
+            request,
+            "update_comment.html",
+            {
+                "comment_form": comment_form,
+                "slug": comment.post.slug
+            }
+        )
+
+    def post(self, request, id, *args, **kwargs):
+        """
+        Receives comment form, validates it.
+        If it's valid, updates the comment.
+        If not, stores an error message. Redirects to "Detail Page."
+        arguments: id: comment id
+        :returns: HttpResponseRedirect()
+        :rtype: method
+        """
+        comment = get_object_or_404(Comment, id=id)
+        slug = comment.post.slug
+        comment_form = CommentForm(self.request.POST, instance=comment)
+        if comment_form.is_valid():
+            updated = comment_form.save(commit=False)
+            updated.commneter = request.user
+            updated.comment_status = 1
+            updated.save()
+        else:
+            comment_form = CommentForm()
+            messages.add_message(request, messages.INFO, "Error occurred." +
+                                 " Your comment was not saved.")
+        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
+
+    def test_func(self):
+        """
+        Tests if the user has written the comment.
+        :returns: True/False
+        :rtype: boolean
+        """
+        id = self.kwargs.get('id')
+        comment = get_object_or_404(Comment, id=id)
+        return comment.commenter == self.request.user
+
+
 class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def get(self, request, pk, *args, **kwargs):

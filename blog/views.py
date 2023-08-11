@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
 from .forms import CommentForm, PostForm
 
@@ -120,4 +120,37 @@ class PostDetail(View):
         )
 
 
+class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    """Update post."""
+    model = Post
+    template_name = "update_post.html"
+    form_class = PostForm
 
+    def form_valid(self, form):
+        """
+        validate the form and save it.
+        arguments: self, form
+        :return: super()
+        :rtype: method
+        """
+        form.instance.author = self.request.user
+        message = 'The change has been saved.'
+        # If the post is submitted, set status to 1 ('Submitted')
+        if 'submit' in self.request.POST.keys():
+            form.instance.status = 1
+            message = "You submitted your post. " + \
+                      "We'll contact you when decision has been made."
+        form.save()
+        messages.add_message(self.request, messages.SUCCESS, message)
+        return super(UpdatePost, self).form_valid(form)
+
+    def test_func(self):
+        """
+        test if status of the post is 0 ('draft')
+        and user is the author of the post.
+        :return: True/False
+        :rtype: boolean
+        """
+        slug = self.kwargs.get('slug')
+        post = get_object_or_404(Post, slug=slug)
+        return post.status == 0 and post.author == self.request.user

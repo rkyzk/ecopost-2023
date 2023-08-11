@@ -140,6 +140,25 @@ class PostLike(View):
         return HttpResponseRedirect(reverse('detail_page', args=[slug]))
 
 
+class Bookmark(View):
+    """Add or remove user to/from the foreign key 'bookmark' of the post."""
+
+    def post(self, request, slug, *args, **kwargs):
+        """
+        If user exists in 'bookmark,' removes him/her.
+        If not, add the user to 'bookmark.'
+        arguments: self, request, slug, *args, **kwargs
+        :return: HttpResponseRedirect()
+        :rtype: method
+        """
+        post = get_object_or_404(Post, slug=slug)
+        if post.bookmark.filter(id=request.user.id).exists():
+            post.bookmark.remove(request.user)
+        else:
+            post.bookmark.add(request.user)
+        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
+
+
 class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     """Update post."""
     model = Post

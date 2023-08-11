@@ -54,7 +54,7 @@
                 <span class="text-secondary mt-2">{{ post.num_of_likes }}</span>
                 <!-- bookmark -->
                 {% if user.is_authenticated %}
-                <form class="d-inline" action="#">
+                <form class="d-inline" action="{% url 'bookmark' post.slug %}" method="POST">
                     {% csrf_token %}
                     <!-- if already bookmarked, show a filled-out book icon -->
                     {% if bookmarked %}

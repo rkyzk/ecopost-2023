@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
+import random, string
 
 STATUS = ((0, "Draft"), (1, "Submitted"), (2, "Published"), (3, "Declined"))
 
@@ -18,7 +19,7 @@ CATEGORY = (('animals', 'protecting animals'),
 class Post(models.Model):
     """Lists fields of Post model and functions around them."""
     title = models.CharField(max_length=80)
-    slug = models.SlugField(max_length=80, unique=True)
+    slug = models.SlugField(max_length=80, unique=True, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="posts")
     featured_flag = models.BooleanField(default=False)
@@ -58,3 +59,13 @@ class Post(models.Model):
         :rtype: str
         """
         return self.title
+
+    def save(self, *args, **kwargs):
+        """
+        As the post is saved for the first time, assign a slug.
+        """
+        if not self.slug:
+            # add a random string after the title
+            random_str = ''.join(random.choices(string.ascii_letters +
+                                 string.digits, k=16))
+            self.slug = slugify(self.title + '-' + random_str)

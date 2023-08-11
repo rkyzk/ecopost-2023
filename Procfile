@@ -1,1 +1,1 @@
-web: gunicorn ecopost2023.wsgi
+web: gunicorn ecopost.wsgi

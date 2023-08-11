@@ -7,6 +7,7 @@ from django.urls import path
 urlpatterns = [ 
   path('', views.PostList.as_view(), name='home'),
   path('add_story/', views.AddStory.as_view(), name='add_story'),
+  path('my_page/<int:pk>', views.MyPage.as_view(), name='my_page'),
   path('update/<slug:slug>/', views.UpdatePost.as_view(),
        name='update_post'),
   path('delete/<slug:slug>/', views.DeletePost.as_view(),

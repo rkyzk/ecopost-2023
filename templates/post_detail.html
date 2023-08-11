@@ -78,6 +78,22 @@
     </section>
     <section class="post-content mt-3">
         <div>{{ post.content | safe }}</div>
+        <!-- Update and Delete buttons, if the user is the author, and the post hasn't been submitted -->
+        {% if post.status == 0 %}
+        {% if post.author == user %}
+        <div class="mt-3 d-flex justify-content-start">
+            <form method="GET" action="{% url 'update_post' post.slug %}">
+                {% csrf_token %}
+                <button class="btn btn-submit" name="update-post" type="submit">update</button>
+            </form>
+            <form method="POST" id="delete-post" action="{% url 'delete_post' post.slug %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-submit btn-right" name="delete_post"
+                    value="{{post.slug}}">delete</button>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
     </section>
     <!-- Comments section if the post has been published -->
     {% if post.status == 2 %}

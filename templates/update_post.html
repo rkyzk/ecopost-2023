@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container form-section">
+    <div class="row">
+        <h1>Update your story</h1>
+        <form method="POST" class="mt-3" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="mt-3">
+                <p class="mt-2">By clicking 'Submit' you'll submit the draft to be evaluated
+                    for publication. Once submitted, you won't be able to edit or delete it.
+                </p>
+                <div class="update-post-btn-box">
+                    <button type="submit" class="btn-submit update-post-btn" name="save" value="draft">save
+                        changes</button>
+                    <button type="submit" class="btn-submit update-post-btn submit-post" name="submit"
+                        value="complete">submit</button>
+                    <a href="{% url 'detail_page' post.slug %}" class="btn-submit cancel">cancel update</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="padding-bottom"></div>
+</div>
+{% endblock content %}

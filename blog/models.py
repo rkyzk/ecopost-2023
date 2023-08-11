@@ -3,6 +3,7 @@
 import random
 import string
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
@@ -73,6 +74,9 @@ class Post(models.Model):
             random_str = ''.join(random.choices(string.ascii_letters +
                                  string.digits, k=16))
             self.slug = slugify(self.title + '-' + random_str)
+        if self.id is not None:
+            self.num_of_likes = self.likes.count()
+        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

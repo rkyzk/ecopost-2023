@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- heading -->
+<div class="d-flex justify-content-center">
+    <h1 class="align-self-center">ecopost</h1>
+    image
+</div>
+<!-- Introduction -->
+<div class="d-flex justify-content-center">
+    <div class="intro-box mt-2">
+        <hr>
+        <p>introduction</p>
+        <hr>
+    </div>
+</div>
+<!-- Featured stories -->
+<div class="d-flex justify-content-center mt-5">
+    <div class="content">
+        <h2>Featured Stories</h2>
+        <div class="row posts">
+            {% for post in post_list %}
+            <div class="col-md-4">
+                <div class="image-wrapper d-flex justify-content-center">
+                    {% if "placeholder" in post.featured_image.url %}
+                    <span>default image</span>
+                    {% else %}
+                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    {% endif %}
+                </div>
+                <div class="mx-2 mt-2 post-text">
+                    <span><strong>{{ post.title }}</strong></span>
+                    <span class="excerpt-author">By {{ post.author }}</span>
+                </div>
+                <hr class="line">
+            </div>
+            {% empty %}
+            <p>No posts</p>
+            {% endfor %}
+            <!-- links to 'More Stories' and 'Popular Stories' -->
+        </div>
+    </div>
+</div>
+{% endblock %}

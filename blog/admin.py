@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import Post
+from .models import Post, Comment
 from django_summernote.admin import SummernoteModelAdmin
 
 

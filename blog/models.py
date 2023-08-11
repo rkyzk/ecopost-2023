@@ -1,12 +1,16 @@
 """This module holds models used in ecopost."""
 
+import random
+import string
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
-import random, string
+
 
 STATUS = ((0, "Draft"), (1, "Submitted"), (2, "Published"), (3, "Declined"))
+
+COMMENT_STATUS = ((0, "original"), (1, "edited"), (2, "deleted"))
 
 CATEGORY = (('animals', 'protecting animals'),
             ('aquatic system', 'protecting the aquatic system'),
@@ -69,3 +73,25 @@ class Post(models.Model):
             random_str = ''.join(random.choices(string.ascii_letters +
                                  string.digits, k=16))
             self.slug = slugify(self.title + '-' + random_str)
+
+
+class Comment(models.Model):
+    """Lists fields of Comment model and the functions around them."""
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='comments')
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE,
+                                  related_name='commenter')
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    comment_status = models.IntegerField(choices=COMMENT_STATUS, default=0)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        """
+        Returns the comment body and the commenter.
+        :return: comment and the commenter in string
+        :rtype: str
+        """
+        return f"{self.body} by {self.commenter.username}"

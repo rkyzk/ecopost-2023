@@ -1,27 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<main class="justify-content-center">
+<main class="justify-content-center container">
     <section class="d-md-flex title-img-box mt-2">
-        <div class="title-box">
+        <div class="col-md-6 title-box">
             <h1>{{ post.title }}</h1>
-            <span>Author: {{ post.author }}</span>
-            <div class="date-city d-flex justify-content-end">
-                {% if post.status == 2 %}
-                <span>Published on {{ post.published_on|date:'M d, Y' }}</span>
-                {% else %}
-                <!-- if not published, state the date created. -->
-                <span>Written on {{ post.created_on|date:'M d, Y' }}
-                    (Not publshed)
-                </span>
-                {% endif %}
-                <span>{{ post.city }}, {{ post.country.name }}</span>
+            <span class="mt-3">by {{ post.author }}</span>
+            <div class="date-city d-flex justify-content-end container">
+                <ul>
+                    {% if post.status == 2 %}
+                    <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
+                    {% else %}
+                    <!-- if not published, state the date created. -->
+                    <li>Written on {{ post.created_on|date:'M d, Y' }}
+                        (Not publshed)
+                    </li>
+                    {% endif %}
+                    <li>{{ post.city }}, {{ post.country.name }}</li>
+                </ul>
             </div>
         </div> <!-- title-box -->
-        <div class="img-box">
+        <div class="img-box col-md-6 container">
             {% if "placeholder" in post.featured_image.url %}
             default image
             {% else %}
-            <img src="{{ post.featured_image.url }}" class="featured-img" alt="{{ post.title }}">
+            <img src="{{ post.featured_image.url }}" class="ml-3" alt="{{ post.title }}">
             {% endif %}
             <!-- likes and bookmark buttons -->
             <div class="d-flex justify-content-start">
@@ -46,7 +48,7 @@
                 <!-- if not logged in, show a heart (without 'like' button function) -->
                 <span><i class="far fa-heart space-right"></i></span>
                 {% endif %}
-                <span class="text-secondary">{{ post.num_of_likes }}</span>
+                <span class="text-secondary mt-2">{{ post.num_of_likes }}</span>
                 <!-- bookmark -->
                 {% if user.is_authenticated %}
                 <form class="d-inline" action="#">

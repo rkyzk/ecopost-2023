@@ -8,6 +8,10 @@ from .models import Post, Comment, Photo
 from datetime import datetime, timedelta
 from .forms import CommentForm, PostForm
 
+# Set the minimum number of likes so posts with a greater number of likes
+# will be included in "Popular Stories"
+min_num_likes = 1
+
 
 class PostList(generic.ListView):
     """Gets queryset of featured posts and displays them on the home page."""
@@ -329,3 +333,18 @@ class MoreStories(generic.ListView):
             'featured_flag': False
             }
     queryset = Post.objects.filter(**filterargs).order_by("-published_on")
+
+
+class PopularStories(generic.ListView):
+    """
+    Gets posts liked more than once from DB,
+    sends the queryset and displays 'Popular Stories' page.
+    """
+    model = Post
+    template_name = "popular_stories.html"
+    paginate_by = 6
+    queryset = Post.objects.filter(
+            status=2,
+            featured_flag=False,
+            num_of_likes__gte=min_num_likes
+        ).order_by("-published_on")

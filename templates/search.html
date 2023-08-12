@@ -7,7 +7,7 @@
             {% csrf_token %}
             <!-- Search by title -->
             <div class="row">
-                <div class="d-sm-flex mt-3 col-md-4">
+                <div class="d-sm-flex mt-3 col-md-5">
                     <label for="title_input" class="col-form-label">Title</label>
                     <div class="item-right">
                         <input id="title_input" class="form-control border-right-0 border" type="search"
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <!-- Search by author -->
-                <div class="d-sm-flex mt-3 col-md-4">
+                <div class="d-sm-flex mt-3 col-md-5">
                     <label for="author_input" class="col-form-label">Author</label>
                     <div class="item-right">
                         <input id="author_input" class="form-control border-right-0 border" type="search"
@@ -29,13 +29,13 @@
             </div>
             <div class="d-sm-flex">
                 <div>
-                    <input class="form-control border-right-0 border" type="search" name="keyword_1">
+                    <input class="form-control" type="search" name="keyword_1">
                 </div>
                 <div class="item-right d-sm-mt-custom">
-                    <input class="form-control border-right-0 border" type="search" name="keyword_2">
+                    <input class="form-control keywords" type="search" name="keyword_2">
                 </div>
                 <div class="item-right">
-                    <input class="form-control border-right-0 border" type="search" name="keyword_3">
+                    <input class="form-control keywords" type="search" name="keyword_3">
                 </div>
             </div>
             <!-- Search by number of likes -->
@@ -95,12 +95,12 @@
     <!-- if no input was given, tell them to enter at least one field. -->
     {% if no_input %}
     <p>Please enter at least one field</p>
-    {% elif not results %}
+    {% elif not queryset %}
     <!-- if no matching results were found -->
     <p>No matching results found</p>
     {% endif %}
     <div class="row">
-        {% for post in results %}
+        {% for post in queryset %}
         <!-- display excerpts of matching posts -->
         <div class="col-md-4">
             <div class="image-wrapper d-flex justify-content-center">

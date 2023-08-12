@@ -74,3 +74,21 @@ image-wrapper {
     border: none;
     color: #fff;
 }
+
+
+
+
+/* ----- search.html ------- */
+.item-right {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 575px) {
+    .item-right {
+        margin-left: 0;
+    }
+
+    .keywords {
+        margin-top: 7px;
+    }
+}

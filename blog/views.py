@@ -358,9 +358,9 @@ class Search(View):
 
     def get(self, request, *args, **kwargs):
         """
-        Displays "Search Stories" page, receives users' input,
-        runs search based on the input, returns a queryset of
-        the matching posts and displays the search results.
+        Display "Search Stories" page, receive users' input,
+        run search based on the input, return a queryset of
+        the matching posts and display the search results.
         arguments: self, request, *args, **kwargs
         :returns: render()
         :rtype: method
@@ -371,17 +371,16 @@ class Search(View):
         # get country choices to provide the list for the select box
         country_choices = Post._meta.get_field('country').choices
         countries = [country.name for country in country_choices]
-        # Get posts that have been published arranged from the
+        # Get posts that have been published, arranged from the
         # newest to oldest published dates
         posts = Post.objects.filter(status=2).order_by('-published_on')
+        # no_input will be set to false if there's any input
         no_input = True
-        results = []
+        queryset = []
         search_clicked = False
-        query = ""
         # distinguish if the 'search' was run or not.
         if 'search' in self.request.GET:
             search_clicked = True
-
             # get input data in the search form
             title = request.GET.get('title_input')
             author = request.GET.get('author_input')
@@ -394,53 +393,54 @@ class Search(View):
             category = request.GET.get('category')
             city = request.GET.get('city')
             country = request.GET.get('country')
-
-            max_date = ""
-            min_date = ""
+            # set initial values for the following variables so
+            # filtering doesn't throw any errors.
+            max_date = datetime.now().strftime('%Y-%m-%d')
+            min_date = "2023-01-01"
             category_key = ""
             if min_liked == "":
                 min_liked = 0
-            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != 0:
+            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != 0 or category != "Choose...":
                 no_input = False
             if pub_date_max is not None and pub_date_max != '':
                 no_input = False
                 max_date = datetime.strptime(pub_date_max, '%Y-%m-%d').strftime('%Y-%m-%d')
-                # query = Q(published_on__date__lte=max_date)
             if pub_date_min is not None and pub_date_min != '':
                 no_input = False
                 min_date = datetime.strptime(pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
-                # query += Q(published_on__date__gte=min_date) &"
             if country == "Choose...":
-                country == ""
-
-            if category != 'Choose...':
-                no_input = False
+                country_query = ""
+            if category == 'Choose...':
+                category_key = ""
+            else:
                 # get category's key from the value
                 category_dict = dict(CATEGORY)
                 keys = list(category_dict.keys())
                 values = list(category_dict.values())
                 category_key = keys[values.index(category)]
-            country = IR
 
+        #       Q(country__name=country_query) &
+        #    Q(category=category_key) &
             multiple_q = Q(Q(title__icontains=title.strip()) &
                            Q(author__username__icontains=author.strip()) &
                            Q(num_of_likes__gte=min_liked) &
+                           Q(published_on__gte=min_date) &
+                           Q(published_on__lte=max_date) &
                            Q(city__icontains=city) &
-                           # Q(country__name=country) &
-                           # Q(category=category_key) &
                            (Q(title__icontains=kw_1.strip()) |
                             Q(content__icontains=kw_1.strip())) &
                            (Q(title__icontains=kw_2.strip()) |
                             Q(content__icontains=kw_2.strip())) &
                            (Q(title__icontains=kw_3.strip()) |
                             Q(content__icontains=kw_3.strip())))
-
             if not no_input:
-                results = posts.filter(multiple_q)
+                queryset = posts.filter(multiple_q)
+            print(multiple_q)
+
         context = {
             'categories': categories,
             'countries': countries,
-            'results': results,
+            'queryset': queryset,
             'search_clicked': search_clicked,
             'no_input': no_input
         }

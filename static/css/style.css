@@ -45,6 +45,7 @@
 h2 {
     font-family: 'Lato', sans-serif;
     color: rgb(78, 75, 70);
+    font-size: 2rem;
 }
 
 h4 {
@@ -201,8 +202,9 @@ h1 {
     color: #fff;
 }
 
-
-
+.comments {
+    min-height: 400px;
+}
 
 /* ----- search.html ------- */
 .item-right {

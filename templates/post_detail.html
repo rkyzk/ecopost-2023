@@ -51,7 +51,7 @@
                 <!-- if not logged in, show a heart (without 'like' button function) -->
                 <span><i class="far fa-heart space-right"></i></span>
                 {% endif %}
-                <span class="text-secondary mt-2">{{ post.num_of_likes }}</span>
+                <span class="text-secondary">{{ post.num_of_likes }}</span>
                 <!-- bookmark -->
                 {% if user.is_authenticated %}
                 <form class="d-inline" action="{% url 'bookmark' post.slug %}" method="POST">

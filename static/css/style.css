@@ -211,6 +211,12 @@ h1 {
     margin-left: 10px;
 }
 
+/* ---------------- my page -----------*/
+.show-posts {
+    margin-top: 50px;
+}
+
+
 @media screen and (max-width: 700px) {
     .hamburger {
         display: block;

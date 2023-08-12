@@ -1,20 +1,59 @@
 /* Common rules for multiple pages */
+html {
+    min-height: 100vh;
+    position: relative;
+}
 
-/* Nav bar ------------------------*/
+#logo {
+    width: 35px;
+    height: auto;
+}
 
-.burger {
-    rotate: 90deg;
-    color: rgb(65, 60, 53);
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px 0;
+}
+
+.nav-list {
+    display: grid;
+    grid-auto-flow: column;
+    list-style-type: none;
+    column-gap: 20px;
+    padding: 0;
+}
+
+.list-item {
+    width: min-content;
+    white-space: nowrap;
 }
 
 .nav-list a {
     color: rgb(141, 111, 56);
-    text-decoration: none;
 }
 
 .nav-list a:hover {
     color: rgb(65, 60, 53);
     text-decoration: underline;
+}
+
+.hamburger {
+    display: none;
+    border: none;
+    rotate: 90deg;
+    color: rgb(65, 60, 53);
+    background-color: #fff;
+}
+
+h2 {
+    font-family: 'Lato', sans-serif;
+    color: rgb(78, 75, 70);
+}
+
+h4 {
+    font-family: 'Lato', sans-serif;
 }
 
 a,
@@ -31,13 +70,71 @@ a:hover {
     text-decoration: underline;
 }
 
+.login-status {
+    color: rgb(65, 60, 53);
+    padding-right: 20px;
+}
+
 .post-text>p {
     line-height: 20px;
 }
 
-.image-wrapper {
+.line {
+    display: none;
+}
+
+.padding-bottom {
     width: 100%;
-    aspect-ratio: 3 / 2;
+    height: 90px;
+}
+
+.featured-img {
+    width: 100%;
+}
+
+.item-left {
+    padding-right: 20px;
+}
+
+.excerpt-author {
+    margin-top: 5px;
+}
+
+.pub-date {
+    margin-top: 0;
+}
+
+footer {
+    width: 100%;
+    height: 60px;
+    background-color: #ccc;
+    position: absolute;
+    bottom: 0;
+}
+
+.social-networks {
+    list-style: none;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.btn-submit {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+    background-color: rgb(141, 111, 56);
+    border: none;
+    color: #fff;
+}
+
+.btn-right {
+    margin-left: 5px;
 }
 
 /*   ------------ index.html ------------------------  */
@@ -47,14 +144,45 @@ h1 {
     color: rgb(141, 111, 56);
 }
 
+.earth {
+    width: 150px;
+    height: auto;
+    padding-left: 20px;
+}
+
+.intro-box {
+    color: rgb(79, 73, 73);
+    width: 730px
+}
+
+.intro-box p {
+    padding: 0 15px;
+}
+
 .posts {
     margin-top: 40px;
 }
 
-image-wrapper {
-    width: 510px;
-    height: 340px;
+.posts-mt {
+    margin-top: 15px;
 }
+
+.space-right {
+    margin-right: 3px;
+}
+
+.links-to-posts {
+    margin-top: 50px;
+}
+
+.links-to-posts p {
+    font-size: 1.4rem;
+}
+
+.link-to-favorites {
+    margin-top: 20px;
+}
+
 
 /* ---------- post_detail.html -------------------- */
 .img-box img {
@@ -82,6 +210,56 @@ image-wrapper {
 .item-right {
     margin-left: 10px;
 }
+
+@media screen and (max-width: 700px) {
+    .hamburger {
+        display: block;
+    }
+
+    .mobileHeader {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header {
+        flex-direction: column;
+        padding: 20px;
+        position: relative;
+    }
+
+    .pop-up-menu {
+        background-color: #ccc;
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        z-index: 2;
+        padding: 5px 8px;
+    }
+
+    .nav-list {
+        grid-auto-flow: row;
+        list-style-type: none;
+        row-gap: 10px;
+        column-gap: 0;
+        justify-items: start;
+    }
+
+    #nav-menu {
+        display: none;
+    }
+
+    .block-content {
+        margin-top: 20px;
+    }
+
+    /* --------- post_detail.html ----------------------*/
+    section {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
 
 @media screen and (max-width: 575px) {
     .item-right {

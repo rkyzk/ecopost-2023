@@ -337,8 +337,8 @@ class MoreStories(generic.ListView):
 
 class PopularStories(generic.ListView):
     """
-    Gets posts liked more than once from DB,
-    sends the queryset and displays 'Popular Stories' page.
+    Get posts liked more than once from DB,
+    send the queryset and display 'Popular Stories' page.
     """
     model = Post
     template_name = "popular_stories.html"

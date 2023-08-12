@@ -39,6 +39,14 @@
             <p>No posts</p>
             {% endfor %}
             <!-- links to 'More Stories' and 'Popular Stories' -->
+            <div class="links-to-posts">
+                <a href="{% url 'more_stories' %}">
+                    <p>More stories from this week &raquo;</p>
+                </a>
+                <a href="#" class="link-to-favorites">
+                    <p>Readers' favorite stories of all time &raquo;</p>
+                </a>
+            </div>
         </div>
     </div>
 </div>

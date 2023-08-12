@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from .models import Post, Comment, Photo
+from datetime import datetime, timedelta
 from .forms import CommentForm, PostForm
 
 
@@ -312,3 +313,19 @@ class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
         :rtype: boolean
         """
         return self.kwargs.get('pk') == self.request.user.pk
+
+
+class MoreStories(generic.ListView):
+    """
+    Get posts published in the past 7 days from DB,
+    send the queryset and display 'More Stories' page.
+    """
+    model = Post
+    template_name = "more_stories.html"
+    paginate_by = 6
+    filterargs = {
+            'status': 2,
+            'published_on__date__gte': datetime.utcnow() - timedelta(days=7),
+            'featured_flag': False
+            }
+    queryset = Post.objects.filter(**filterargs).order_by("-published_on")

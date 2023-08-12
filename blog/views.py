@@ -4,8 +4,11 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from .models import Post, Comment, Photo
+from django.db.models import Q
+from .models import Post, Comment, Photo, CATEGORY
 from datetime import datetime, timedelta
+from .filters import PostFilter
+import django_filters
 from .forms import CommentForm, PostForm
 
 # Set the minimum number of likes so posts with a greater number of likes
@@ -348,3 +351,97 @@ class PopularStories(generic.ListView):
             featured_flag=False,
             num_of_likes__gte=min_num_likes
         ).order_by("-published_on")
+
+
+class Search(View):
+    """Holds functions to run the search system of the posts."""
+
+    def get(self, request, *args, **kwargs):
+        """
+        Displays "Search Stories" page, receives users' input,
+        runs search based on the input, returns a queryset of
+        the matching posts and displays the search results.
+        arguments: self, request, *args, **kwargs
+        :returns: render()
+        :rtype: method
+        """
+        # get category choices to provide the list for the select box
+        category_choices = Post._meta.get_field('category').choices
+        categories = [cat[1] for cat in category_choices]
+        # get country choices to provide the list for the select box
+        country_choices = Post._meta.get_field('country').choices
+        countries = [country.name for country in country_choices]
+        # Get posts that have been published arranged from the
+        # newest to oldest published dates
+        posts = Post.objects.filter(status=2).order_by('-published_on')
+        no_input = True
+        results = []
+        search_clicked = False
+        query = ""
+        # distinguish if the 'search' was run or not.
+        if 'search' in self.request.GET:
+            search_clicked = True
+
+            # get input data in the search form
+            title = request.GET.get('title_input')
+            author = request.GET.get('author_input')
+            kw_1 = request.GET.get('keyword_1')
+            kw_2 = request.GET.get('keyword_2')
+            kw_3 = request.GET.get('keyword_3')
+            min_liked = request.GET.get('liked_count_min')
+            pub_date_min = request.GET.get('date_min')
+            pub_date_max = request.GET.get('date_max')
+            category = request.GET.get('category')
+            city = request.GET.get('city')
+            country = request.GET.get('country')
+
+            max_date = ""
+            min_date = ""
+            category_key = ""
+            if min_liked == "":
+                min_liked = 0
+            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != 0:
+                no_input = False
+            if pub_date_max is not None and pub_date_max != '':
+                no_input = False
+                max_date = datetime.strptime(pub_date_max, '%Y-%m-%d').strftime('%Y-%m-%d')
+                # query = Q(published_on__date__lte=max_date)
+            if pub_date_min is not None and pub_date_min != '':
+                no_input = False
+                min_date = datetime.strptime(pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
+                # query += Q(published_on__date__gte=min_date) &"
+            if country == "Choose...":
+                country == ""
+
+            if category != 'Choose...':
+                no_input = False
+                # get category's key from the value
+                category_dict = dict(CATEGORY)
+                keys = list(category_dict.keys())
+                values = list(category_dict.values())
+                category_key = keys[values.index(category)]
+            country = IR
+
+            multiple_q = Q(Q(title__icontains=title.strip()) &
+                           Q(author__username__icontains=author.strip()) &
+                           Q(num_of_likes__gte=min_liked) &
+                           Q(city__icontains=city) &
+                           # Q(country__name=country) &
+                           # Q(category=category_key) &
+                           (Q(title__icontains=kw_1.strip()) |
+                            Q(content__icontains=kw_1.strip())) &
+                           (Q(title__icontains=kw_2.strip()) |
+                            Q(content__icontains=kw_2.strip())) &
+                           (Q(title__icontains=kw_3.strip()) |
+                            Q(content__icontains=kw_3.strip())))
+
+            if not no_input:
+                results = posts.filter(multiple_q)
+        context = {
+            'categories': categories,
+            'countries': countries,
+            'results': results,
+            'search_clicked': search_clicked,
+            'no_input': no_input
+        }
+        return render(request, "search.html", context)

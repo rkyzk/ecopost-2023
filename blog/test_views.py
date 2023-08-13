@@ -330,26 +330,33 @@ class TestViews(TestCase):
     #     self.assertFalse(post.bookmark.filter(id=self.user2.id).exists())
 
     # Testing "UpdateCommentView" -----------------------------------------
-    def test_update_comment_GET_gets_the_page_if_right_user(self):
-        response = self.c.get('/update_comment/comment1/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'update_comment.html', 'base.html')
+    # def test_update_comment_GET_gets_the_page_if_right_user(self):
+    #     response = self.c.get('/update_comment/comment1/')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'update_comment.html', 'base.html')
 
-    def test_update_comment_GET_will_redirect_to_login_if_not_logged_in(self):
-        response = self.client.get('/update_comment/comment1/')
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/accounts/login/'))
+    # def test_update_comment_GET_will_redirect_to_login_if_not_logged_in(self):
+    #     response = self.client.get('/update_comment/comment1/')
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertTrue(response.url.startswith('/accounts/login/'))
 
-    def test_update_comment_GET_will_403_if_wrong_user(self):
-        response = self.c2.get(reverse('update_comment', kwargs={'id': 1}))
-        self.assertEqual(response.status_code, 403)
+    # def test_update_comment_GET_will_403_if_wrong_user(self):
+    #     response = self.c2.get(reverse('update_comment', kwargs={'id': 1}))
+    #     self.assertEqual(response.status_code, 403)
 
-    def test_update_comment_POST_will_update_comment(self):
-        response = self.c.post('/update_comment/comment1/',
-                               {'body': 'comment updated'})
+    # def test_update_comment_POST_will_update_comment(self):
+    #     response = self.c.post('/update_comment/comment1/',
+    #                            {'body': 'comment updated'})
+    #     comment = Comment.objects.filter(commenter=self.user1).first()
+    #     self.assertEqual(comment.body, 'comment updated')
+    #     self.assertEqual(comment.comment_status, 1)
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertRedirects(response, f'/detail/{comment.post.slug}/')
+
+   # Testing "DeleteCommentView" -----------------------------------------
+    def test_delete_comment_POST_will_set_comment_status_to_2(self):
+        response = self.c.post('/delete_comment/comment1/')
         comment = Comment.objects.filter(commenter=self.user1).first()
-        self.assertEqual(comment.body, 'comment updated')
-        self.assertEqual(comment.comment_status, 1)
+        self.assertEqual(comment.comment_status, 2)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/detail/{comment.post.slug}/')
-

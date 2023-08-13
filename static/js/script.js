@@ -13,6 +13,13 @@ function openMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Let messages appear for 5 seconds
+    setTimeout(function () {
+        let messages = document.getElementById("msg");
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+    }, 5000);
+
     // Show more posts with show more button
     let button = document.getElementsByClassName('show-posts');
     for (btn of button) {

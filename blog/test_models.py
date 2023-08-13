@@ -75,3 +75,41 @@ class TestPostModel(TestCase):
             self.post1.get_absolute_url(), '/detail/' + self.post1.slug + '/')
 
 
+class TestCommentModels(TestCase):
+
+    def setUp(self):
+        """create test users and posts"""
+        self.user1 = User.objects.create(username="test1", password="password")
+        self.user2 = User.objects.create(username="test2", password="password")
+        self.post1 = Post.objects.create(
+            title="title1",
+            author=self.user1,
+            content="test sentences"
+            )
+        self.comment1 = Comment.objects.create(
+            commenter=self.user1,
+            post=self.post1,
+            body='test comment'
+        )
+
+    def test_comment_status_default_to_0(self):
+        self.assertEqual(self.comment1.comment_status, 0)
+
+    def test_comments_ordered_from_oldest_to_newest(self):
+        comment2 = Comment.objects.create(
+            commenter=self.user1,
+            post=self.post1,
+            body='2nd test comment'
+        )
+        comments = Comment.objects.all()
+        i = 0
+        for i in range(len(comments) - 2):
+            self.assertLess(comments[i].created_on, comments[i+1].created_on)
+            i += 1
+
+    def test_str_method_will_return_body_and_commenter(self):
+        self.assertEqual(str(self.comment1), 'test comment by test1')
+
+
+if __name__ == "__main__":
+    main()

@@ -69,12 +69,20 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         """
         As the post is saved for the first time, assign a slug.
+        If the status is 'Published,' but the published date
+        hasn't been recorded, assign the current date and time.
+        Save likes count.
         """
         if not self.slug:
             # add a random string after the title
             random_str = ''.join(random.choices(string.ascii_letters +
                                  string.digits, k=16))
             self.slug = slugify(self.title + '-' + random_str)
+        # if the post has been published but published_on is empty
+        # assign the current datetime.
+        if self.status == 2 and not self.published_on:
+            self.published_on = datetime.utcnow()
+        # save number of likes
         if self.id is not None:
             self.num_of_likes = self.likes.count()
         super().save(*args, **kwargs)

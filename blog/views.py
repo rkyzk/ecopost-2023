@@ -354,7 +354,7 @@ class PopularStories(generic.ListView):
 
 
 class Search(View):
-    """Holds functions to run the search system of the posts."""
+    """Hold functions to search posts by multiple factors."""
 
     def get(self, request, *args, **kwargs):
         """
@@ -365,10 +365,10 @@ class Search(View):
         :returns: render()
         :rtype: method
         """
-        # get category choices to provide the list for the select box
+        # get category choices for the select box
         category_choices = Post._meta.get_field('category').choices
         categories = [cat[1] for cat in category_choices]
-        # get country choices to provide the list for the select box
+        # get country choices for the select box
         country_choices = Post._meta.get_field('country').choices
         countries = [country.name for country in country_choices]
         # Get posts that have been published, arranged from the
@@ -378,7 +378,7 @@ class Search(View):
         no_input = True
         queryset = []
         search_clicked = False
-        # distinguish if the 'search' was run or not.
+        # set search_clicked to True if the 'search' was clicked.
         if 'search' in self.request.GET:
             search_clicked = True
             # get input data in the search form
@@ -393,39 +393,17 @@ class Search(View):
             category = request.GET.get('category')
             city = request.GET.get('city')
             country = request.GET.get('country')
-            # set initial values for the following variables so
-            # filtering doesn't throw any errors.
-            max_date = datetime.now().strftime('%Y-%m-%d')
-            min_date = "2023-01-01"
-            category_key = ""
+            # set initial values for the following variable
+            # so filtering doesn't cause any errors.
             if min_liked == "":
-                min_liked = 0
-            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != 0 or category != "Choose...":
-                no_input = False
-            if pub_date_max is not None and pub_date_max != '':
-                no_input = False
-                max_date = datetime.strptime(pub_date_max, '%Y-%m-%d').strftime('%Y-%m-%d')
-            if pub_date_min is not None and pub_date_min != '':
-                no_input = False
-                min_date = datetime.strptime(pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
-            if country == "Choose...":
-                country_query = ""
-            if category == 'Choose...':
-                category_key = ""
-            else:
-                # get category's key from the value
-                category_dict = dict(CATEGORY)
-                keys = list(category_dict.keys())
-                values = list(category_dict.values())
-                category_key = keys[values.index(category)]
+                min_liked = "0"
 
-        #       Q(country__name=country_query) &
-        #    Q(category=category_key) &
+            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != "0" or category != "Choose...":
+                no_input = False
+
             multiple_q = Q(Q(title__icontains=title.strip()) &
                            Q(author__username__icontains=author.strip()) &
-                           Q(num_of_likes__gte=min_liked) &
-                           Q(published_on__gte=min_date) &
-                           Q(published_on__lte=max_date) &
+                           Q(num_of_likes__gte=min_liked) &      
                            Q(city__icontains=city) &
                            (Q(title__icontains=kw_1.strip()) |
                             Q(content__icontains=kw_1.strip())) &
@@ -433,10 +411,31 @@ class Search(View):
                             Q(content__icontains=kw_2.strip())) &
                            (Q(title__icontains=kw_3.strip()) |
                             Q(content__icontains=kw_3.strip())))
+
+            # As for the following fields, add to multiple_q only if there's
+            # input (otherwise filtering will result in errors.)
+            if pub_date_max is not None and pub_date_max != '':
+                no_input = False
+                max_date = datetime.strptime(
+                    pub_date_max, '%Y-%m-%d').strftime('%Y-%m-%d')
+                multiple_q &= Q(published_on__lte=max_date)
+            if pub_date_min is not None and pub_date_min != '':
+                no_input = False
+                min_date = datetime.strptime(
+                    pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
+                multiple_q &= Q(published_on__gte=min_date)
+            if country != "Choose...":
+                multiple_q &= Q(country__name=country)
+            if category != 'Choose...':
+                # get category's key from the value
+                category_dict = dict(CATEGORY)
+                keys = list(category_dict.keys())
+                values = list(category_dict.values())
+                category_key = keys[values.index(category)]
+                multiple_q &= Q(category=category_key)
             if not no_input:
                 queryset = posts.filter(multiple_q)
-            print(multiple_q)
-
+        print(no_input)
         context = {
             'categories': categories,
             'countries': countries,

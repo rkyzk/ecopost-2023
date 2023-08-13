@@ -2,6 +2,14 @@
 let open;
 const menu = document.querySelector("#nav-menu");
 
+const closeMenu = () => {
+    setTimeout(function () {
+        menu.style.display = "none";
+        open = false;
+        document.removeEventListener('mouseup', closeMenu)
+    }, 100);
+}
+
 function openMenu() {
     if (open) {
         menu.style.display = "none";
@@ -9,6 +17,7 @@ function openMenu() {
     } else if (!open) {
         menu.style.display = "block";
         open = true;
+        document.addEventListener('mouseup', closeMenu)
     }
 }
 

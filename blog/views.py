@@ -464,7 +464,7 @@ class Search(View):
                 multiple_q &= Q(category=category_key)
             if not no_input:
                 queryset = posts.filter(multiple_q)
-        print(no_input)
+
         context = {
             'categories': categories,
             'countries': countries,

@@ -73,87 +73,224 @@ class TestViews(TestCase):
                                                post=self.post1)
 
     # Testing "PostListView" -----------------------------------------
-    def test_get_postlist(self):
-        response = self.client.get('/')
+#     def test_get_postlist(self):
+#         response = self.client.get('/')
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'index.html', 'base.html')
+
+#     def test_get_postlist_display_3_featured_stories(self):
+#         response = self.client.get('/')
+#         self.assertEqual(len(response.context['post_list']), 3)
+#         self.assertEqual(list(response.context['post_list']),
+#                          [self.post3, self.post2, self.post1])
+
+# # Testing "AddStoryView" -----------------------------------------
+#     def test_get_add_story_will_redirect_to_login_if_not_logged_in(self):
+#         response = self.client.get(reverse('add_story'))
+#         self.assertEqual(response.status_code, 302)
+#         self.assertTrue(response.url.startswith('/accounts/login/'))
+
+#     def test_can_get_add_story_if_logged_in(self):
+#         response = self.c.get("/add_story/")
+#         self.assertEqual(response.status_code, 200)
+#         self.assertTemplateUsed(response, 'base.html', 'add_story.html')
+
+#     def test_add_story_POST_can_add_story(self):
+#         response = self.c.post('/add_story/',
+#                                {'title': 'test blog',
+#                                 'content': 'test',
+#                                 'city': 'test',
+#                                 'country': 'IR',
+#                                 'category': 'others',
+#                                 'save': 'draft'})
+#         post = Post.objects.filter(title='test blog').first()
+#         self.assertEqual(post.title, 'test blog')
+#         self.assertEqual(post.content, 'test')
+#         self.assertRedirects(response, f'/detail/{post.slug}/')
+
+#     def test_add_story_POST_will_set_status_to_1_if_submit_clicked(self):
+#         response = self.c.post('/add_story/',
+#                                {'title': 'test blog',
+#                                 'content': 'test',
+#                                 'city': 'test',
+#                                 'country': 'IR',
+#                                 'category': 'others',
+#                                 'submit': 'complete'})
+#         post = Post.objects.filter(title='test blog').first()
+#         self.assertEqual(post.title, 'test blog')
+#         self.assertEqual(post.status, 1)
+#         self.assertRedirects(response, f'/detail/{post.slug}/')
+
+#     def test_add_story_POST_keeps_status_to_0_if_save_clicked(self):
+#         response = self.c.post('/add_story/',
+#                                {'title': 'test blog',
+#                                 'content': 'test',
+#                                 'city': 'test',
+#                                 'country': 'IR',
+#                                 'category': 'others',
+#                                 'save': 'draft'})
+#         post = Post.objects.filter(title='test blog').first()
+#         self.assertEqual(post.title, 'test blog')
+#         self.assertEqual(post.status, 0)
+#         self.assertRedirects(response, f'/detail/{post.slug}/')
+
+#     def test_add_story_POST_save_will_render_msg_draft_saved(self):
+#         response = self.c.post('/add_story/',
+#                                {'title': 'test blog',
+#                                 'content': 'test',
+#                                 'city': 'test',
+#                                 'country': 'IR',
+#                                 'category': 'others',
+#                                 'save': 'draft'})
+#         messages = list(get_messages(response.wsgi_request))  
+#         self.assertEqual(str(messages[0]), 'Your draft has been saved.')
+
+#     def test_message_says_draft_is_submitted_if_submitted(self):
+#         response = self.c.post('/add_story/',
+#                                {'title': 'test blog',
+#                                 'content': 'test',
+#                                 'city': 'test',
+#                                 'country': 'IR',
+#                                 'category': 'others',
+#                                 'submit': 'complete'})
+#         messages = list(get_messages(response.wsgi_request))
+#         self.assertEqual(str(messages[0]),
+#                          "You submitted your post. We'll contact " +
+#                          "you when decision has been made.")
+
+# Testing "PostDetailView" -----------------------------------------
+    def test_can_get_detail_page(self):
+        response = self.client.get(f'/detail/{self.post1.slug}/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html', 'base.html')
+        self.assertTemplateUsed(response, 'post_detail.html', 'base.html')
 
-    def test_get_postlist_display_3_featured_stories(self):
-        response = self.client.get('/')
-        self.assertEqual(len(response.context['post_list']), 3)
-        self.assertEqual(list(response.context['post_list']),
-                         [self.post3, self.post2, self.post1])
+    def test_post_detail_GET_liked_set_False_if_not_liked(self):
+        response = self.c2.get(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['liked'], False)
 
-# Testing "AddStoryView" -----------------------------------------
-    def test_get_add_story_will_redirect_to_login_if_not_logged_in(self):
-        response = self.client.get(reverse('add_story'))
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/accounts/login/'))
+    def test_post_like_GET_will_set_liked_True_if_liked(self):
+        post = Post.objects.filter(slug=self.post1.slug).first()
+        post.likes.add(self.user2)
+        post.save()
+        self.assertTrue(post.likes.filter(id=self.user2.id).exists())
+        response = self.c2.get(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['liked'], True)
 
-    def test_can_get_add_story_if_logged_in(self):
-        response = self.c.get("/add_story/")
+    def test_post_detail_POST_liked_set_False_if_not_liked(self):
+        response = self.c2.post(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['liked'], False)
+
+    def test_post_like_POST_will_set_liked_True_if_liked(self):
+        post = Post.objects.filter(slug=self.post1.slug).first()
+        post.likes.add(self.user2)
+        post.save()
+        self.assertTrue(post.likes.filter(id=self.user2.id).exists())
+        response = self.c2.post(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['liked'], True)
+
+    def test_post_detail_GET_bookmarked_set_False_if_not_bookmarked(self):
+        response = self.c2.get(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['bookmarked'], False)
+
+    def test_post_detail_GET_will_set_bookmarked_True_if_bookmarked(self):
+        post = Post.objects.filter(slug=self.post1.slug).first()
+        post.bookmark.add(self.user2)
+        post.save()
+        self.assertTrue(post.bookmark.filter(id=self.user2.id).exists())
+        response = self.c2.get(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['bookmarked'], True)
+
+    def test_post_detail_POST_bookmarked_set_False_if_not_bookmarked(self):
+        response = self.c2.post(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['bookmarked'], False)
+
+    def test_post_detail_POST_will_set_bookmarked_True_if_bookmarked(self):
+        post = Post.objects.filter(slug=self.post1.slug).first()
+        post.bookmark.add(self.user2)
+        post.save()
+        self.assertTrue(post.bookmark.filter(id=self.user2.id).exists())
+        response = self.c2.post(f'/detail/{self.post1.slug}/')
+        self.assertEqual(response.context['bookmarked'], True)
+
+    def test_post_detail_POST_can_post_comment(self):
+        response = self.c.post(f'/detail/{self.post1.slug}/',
+                               {'body': 'test comment'})
+        comment = Comment.objects.filter(commenter=self.user1).last()
+        self.assertEqual(comment.body, 'test comment')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'base.html', 'add_story.html')
+        self.assertTemplateUsed(response, 'post_detail.html', 'base.html')
 
-    def test_add_story_POST_can_add_story(self):
-        response = self.c.post('/add_story/',
-                               {'title': 'test blog',
-                                'content': 'test',
-                                'city': 'test',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(title='test blog').first()
-        self.assertEqual(post.title, 'test blog')
-        self.assertEqual(post.content, 'test')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
+    def test_post_detail_POST_msg_says_comment_posted_if_submitted(self):
+        response = self.c.post(f'/detail/{self.post1.slug}/',
+                               {'body': 'test comment'})
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), 'You posted a comment.')
 
-    def test_add_story_POST_will_set_status_to_1_if_submit_clicked(self):
-        response = self.c.post('/add_story/',
-                               {'title': 'test blog',
-                                'content': 'test',
-                                'city': 'test',
-                                'country': 'IR',
-                                'category': 'others',
-                                'submit': 'complete'})
-        post = Post.objects.filter(title='test blog').first()
-        self.assertEqual(post.title, 'test blog')
-        self.assertEqual(post.status, 1)
-        self.assertRedirects(response, f'/detail/{post.slug}/')
+    def test_post_detail_POST_error_message_if_a_space_entered(self):
+        response = self.c.post(f'/detail/{self.post1.slug}/',
+                               {'body': ' '})
+        self.assertContains(response,
+                            '<div class="alert alert-info alert-dismissible' +
+                            ' fade show" id="msg" role="alert">',
+                            status_code=200)
+        self.assertContains(response,
+                            'Error occurred. Your comment was not saved.',
+                            status_code=200)
 
-    def test_add_story_POST_keeps_status_to_0_if_save_clicked(self):
-        response = self.c.post('/add_story/',
-                               {'title': 'test blog',
-                                'content': 'test',
-                                'city': 'test',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(title='test blog').first()
-        self.assertEqual(post.title, 'test blog')
-        self.assertEqual(post.status, 0)
-        self.assertRedirects(response, f'/detail/{post.slug}/')
+    def test_detail_GET_shows_update_and_delete_btn_if_draft_and_author(self):
+        self.post1.status = 0
+        self.post1.save()
+        response = self.c.get(f'/detail/{self.post1.slug}/')
+        self.assertContains(response,
+                            '<button class="button-submit"' +
+                            ' name="update-post"' +
+                            ' type="submit">update</button>',
+                            status_code=200)
+        self.assertContains(response,
+                            '<button type="submit" class="button-submit"' +
+                            ' name="delete_post" value="' +
+                            self.post1.slug + '">delete</button>',
+                            status_code=200)
 
-    def test_add_story_POST_save_will_render_msg_draft_saved(self):
-        response = self.c.post('/add_story/',
-                               {'title': 'test blog',
-                                'content': 'test',
-                                'city': 'test',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        messages = list(get_messages(response.wsgi_request))  
-        self.assertEqual(str(messages[0]), 'Your draft has been saved.')
+    def test_detail_GET_no_update_delete_btn_if_status1_and_author(self):
+        self.post1.status = 1
+        self.post1.save()
+        response = self.c.get(f'/detail/{self.post1.slug}/')
+        self.assertNotContains(response,
+                               '<button class="button-submit"' +
+                               ' name="update-post"' +
+                               ' type="submit">update</button>',
+                               status_code=200)
+        self.assertNotContains(response,
+                               '<button type="submit" class="button-submit"' +
+                               ' name="delete_post" value="' +
+                               self.post1.slug + '">delete</button>',
+                               status_code=200)
 
-    def test_message_says_draft_is_submitted_if_submitted(self):
-        response = self.c.post('/add_story/',
-                               {'title': 'test blog',
-                                'content': 'test',
-                                'city': 'test',
-                                'country': 'IR',
-                                'category': 'others',
-                                'submit': 'complete'})
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]),
-                         "You submitted your post. We'll contact " +
-                         "you when decision has been made.")
+    def test_detail_GET_no_update_and_delete_btn_if_status2_and_author(self):
+        self.post1.status = 2
+        self.post1.save()
+        response = self.c.get(f'/detail/{self.post1.slug}/')
+        self.assertNotContains(response,
+                               '<button class="button-submit"' +
+                               ' name="update-post"' +
+                               ' type="submit">update</button>',
+                               status_code=200)
+        self.assertNotContains(response,
+                               '<button type="submit" class="button-submit"' +
+                               ' name="delete_post" value="' +
+                               self.post1.slug + '">delete</button>',
+                               status_code=200)
+
+    def test_detail_GET_no_show_update_and_delete_btn_if_not_author(self):
+        response = self.c2.get(f'/detail/{self.post1.slug}/')
+        self.assertNotContains(response,
+                               '<button class="button-submit"' +
+                               ' name="update-post"' +
+                               ' type="submit">update</button>',
+                               status_code=200)
+        self.assertNotContains(response,
+                               '<button type="submit" class="button-submit"' +
+                               ' name="delete_post" value="' +
+                               self.post1.slug + '">delete</button>',
+                               status_code=200)

@@ -72,7 +72,7 @@ class TestPostModel(TestCase):
 
     def test_get_absolute_url(self):
         self.assertEqual(
-            self.post1.get_absolute_url(), '/detail/' + self.post1.slug + '/')
+            self.post1.get_absolute_url(), '/detail/{self.post1.slug}/')
 
 
 class TestCommentModels(TestCase):

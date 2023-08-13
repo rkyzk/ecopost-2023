@@ -83,3 +83,77 @@ class TestViews(TestCase):
         self.assertEqual(len(response.context['post_list']), 3)
         self.assertEqual(list(response.context['post_list']),
                          [self.post3, self.post2, self.post1])
+
+# Testing "AddStoryView" -----------------------------------------
+    def test_get_add_story_will_redirect_to_login_if_not_logged_in(self):
+        response = self.client.get(reverse('add_story'))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/accounts/login/'))
+
+    def test_can_get_add_story_if_logged_in(self):
+        response = self.c.get("/add_story/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base.html', 'add_story.html')
+
+    def test_add_story_POST_can_add_story(self):
+        response = self.c.post('/add_story/',
+                               {'title': 'test blog',
+                                'content': 'test',
+                                'city': 'test',
+                                'country': 'IR',
+                                'category': 'others',
+                                'save': 'draft'})
+        post = Post.objects.filter(title='test blog').first()
+        self.assertEqual(post.title, 'test blog')
+        self.assertEqual(post.content, 'test')
+        self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    def test_add_story_POST_will_set_status_to_1_if_submit_clicked(self):
+        response = self.c.post('/add_story/',
+                               {'title': 'test blog',
+                                'content': 'test',
+                                'city': 'test',
+                                'country': 'IR',
+                                'category': 'others',
+                                'submit': 'complete'})
+        post = Post.objects.filter(title='test blog').first()
+        self.assertEqual(post.title, 'test blog')
+        self.assertEqual(post.status, 1)
+        self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    def test_add_story_POST_keeps_status_to_0_if_save_clicked(self):
+        response = self.c.post('/add_story/',
+                               {'title': 'test blog',
+                                'content': 'test',
+                                'city': 'test',
+                                'country': 'IR',
+                                'category': 'others',
+                                'save': 'draft'})
+        post = Post.objects.filter(title='test blog').first()
+        self.assertEqual(post.title, 'test blog')
+        self.assertEqual(post.status, 0)
+        self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    def test_add_story_POST_save_will_render_msg_draft_saved(self):
+        response = self.c.post('/add_story/',
+                               {'title': 'test blog',
+                                'content': 'test',
+                                'city': 'test',
+                                'country': 'IR',
+                                'category': 'others',
+                                'save': 'draft'})
+        messages = list(get_messages(response.wsgi_request))  
+        self.assertEqual(str(messages[0]), 'Your draft has been saved.')
+
+    def test_message_says_draft_is_submitted_if_submitted(self):
+        response = self.c.post('/add_story/',
+                               {'title': 'test blog',
+                                'content': 'test',
+                                'city': 'test',
+                                'country': 'IR',
+                                'category': 'others',
+                                'submit': 'complete'})
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]),
+                         "You submitted your post. We'll contact " +
+                         "you when decision has been made.")

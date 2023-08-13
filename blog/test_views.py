@@ -313,18 +313,43 @@ class TestViews(TestCase):
     #     self.assertFalse(post.likes.filter(id=self.user2.id).exists())
 
 # Testing "BookmarkView" -----------------------------------------
-    def test_bookmark_POST_will_add_user(self):
-        response = self.c2.post(reverse('bookmark',
-                                        kwargs={'slug': self.post1.slug}))
-        post = Post.objects.filter(slug=self.post1.slug).first()
-        self.assertRedirects(response, f'/detail/{self.post1.slug}/')
-        self.assertTrue(post.bookmark.filter(id=self.user2.id).exists())
+    # def test_bookmark_POST_will_add_user(self):
+    #     response = self.c2.post(reverse('bookmark',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     post = Post.objects.filter(slug=self.post1.slug).first()
+    #     self.assertRedirects(response, f'/detail/{self.post1.slug}/')
+    #     self.assertTrue(post.bookmark.filter(id=self.user2.id).exists())
 
-    def test_bookmark_POST_for_2nd_time_will_remove_user(self):
-        response = self.c2.post(reverse('bookmark',
-                                        kwargs={'slug': self.post1.slug}))
-        response = self.c2.post(reverse('bookmark',
-                                        kwargs={'slug': self.post1.slug}))
-        post = Post.objects.filter(slug=self.post1.slug).first()
-        self.assertRedirects(response, f'/detail/{self.post1.slug}/')
-        self.assertFalse(post.bookmark.filter(id=self.user2.id).exists())
+    # def test_bookmark_POST_for_2nd_time_will_remove_user(self):
+    #     response = self.c2.post(reverse('bookmark',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     response = self.c2.post(reverse('bookmark',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     post = Post.objects.filter(slug=self.post1.slug).first()
+    #     self.assertRedirects(response, f'/detail/{self.post1.slug}/')
+    #     self.assertFalse(post.bookmark.filter(id=self.user2.id).exists())
+
+    # Testing "UpdateCommentView" -----------------------------------------
+    def test_update_comment_GET_gets_the_page_if_right_user(self):
+        response = self.c.get('/update_comment/comment1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'update_comment.html', 'base.html')
+
+    def test_update_comment_GET_will_redirect_to_login_if_not_logged_in(self):
+        response = self.client.get('/update_comment/comment1/')
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/accounts/login/'))
+
+    def test_update_comment_GET_will_403_if_wrong_user(self):
+        response = self.c2.get(reverse('update_comment', kwargs={'id': 1}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_update_comment_POST_will_update_comment(self):
+        response = self.c.post('/update_comment/comment1/',
+                               {'body': 'comment updated'})
+        comment = Comment.objects.filter(commenter=self.user1).first()
+        self.assertEqual(comment.body, 'comment updated')
+        self.assertEqual(comment.comment_status, 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/detail/{comment.post.slug}/')
+

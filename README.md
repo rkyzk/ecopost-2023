@@ -13,3 +13,7 @@ cloudinary  library
 django_countries for dropdown menu of countries
 django-summernote
 django-crispy-forms
+
+## Manual Testing
+
+update comment cancel --> will not be updated

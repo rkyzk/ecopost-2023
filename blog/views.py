@@ -16,12 +16,25 @@ from .forms import CommentForm, PostForm
 min_num_likes = 1
 
 
+def logo_image(request):
+    logo = Photo.get_object_or_404(name="logo")
+    print(logo)
+    return render(
+            request,
+            "base.html",
+            {
+                "logo": logo,
+            },
+        )
+
+
 class PostList(generic.ListView):
     """Gets queryset of featured posts and displays them on the home page."""
     model = Post
     queryset = Post.objects.filter(featured_flag=True).order_by(
         "-created_on")[:3]
     template_name = "index.html"
+
 
 
 class AddStory(LoginRequiredMixin, generic.CreateView):

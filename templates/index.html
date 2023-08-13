@@ -4,7 +4,8 @@
 <!-- heading -->
 <div class="d-flex justify-content-center">
     <h1 class="align-self-center">ecopost</h1>
-    image
+    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891794/blue-earth_dvkptz.png" class="earth"
+        alt="blue earth">
 </div>
 <!-- Introduction -->
 <div class="d-flex justify-content-center">
@@ -33,7 +34,8 @@
             <div class="col-md-4">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
-                    <span>default image</span>
+                    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        alt="forest image">
                     {% else %}
                     <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
                     {% endif %}

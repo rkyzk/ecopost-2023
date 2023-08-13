@@ -213,7 +213,6 @@ h1 {
 /* ---------- post_detail.html -------------------- */
 .img-box img {
     width: 90%;
-    height: auto;
     margin-left: 5%;
 }
 
@@ -225,8 +224,16 @@ h1 {
     min-height: 440px;
 }
 
+.comments-left {
+    padding-right: 50px;
+}
+
 .likes-count {
     margin-top: 5px;
+}
+
+.likes {
+    padding-left: 20px;
 }
 
 /* ----- search.html ------- */
@@ -247,6 +254,12 @@ h1 {
 
 .cancel:hover {
     text-decoration: none;
+}
+
+@media (max-width: 991px) {
+    .comments-left {
+        padding-right: 12px;
+    }
 }
 
 @media (max-width: 767px) {

@@ -12,9 +12,9 @@
                     <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
                     {% else %}
                     <!-- if not published, state the date created. -->
-                    <li>Written on {{ post.created_on|date:'M d, Y' }}
-                        (Not publshed)
-                    </li>
+                    <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
+                    <li>(Not published)</li>
+
                     {% endif %}
                     <li>{{ post.city }}, {{ post.country.name }}</li>
                 </ul>
@@ -30,7 +30,7 @@
                 {% endif %}
             </div>
             <!-- likes and bookmark buttons -->
-            <div class="d-flex justify-content-start text-secondary">
+            <div class="likes text-secondary">
                 <!-- if the post has been published and the user is logged in show 'like' buttons -->
                 {% if post.status == 2 %}
                 {% if user.is_authenticated %}

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from .models import Post, Comment, Photo, CATEGORY
+from .models import Post, Comment, CATEGORY
 from datetime import datetime, timedelta
 from .filters import PostFilter
 import django_filters
@@ -22,7 +22,6 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(featured_flag=True).order_by(
         "-created_on")[:3]
     template_name = "index.html"
-
 
 
 class AddStory(LoginRequiredMixin, generic.CreateView):

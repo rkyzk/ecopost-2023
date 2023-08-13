@@ -42,9 +42,17 @@
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="excerpt-author">By {{ post.author }}</span>
+                    <span class="item-right text-secondary mr-1"><i class="far fa-heart"></i></span>
+                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author">by {{ post.author }}</span>
+                    <div class="date-city d-flex justify-content-end text-secondary">
+                        <ul>
+                            <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
+                            <li>{{ post.city }}, {{ post.country.name }}</li>
+                        </ul>
+                    </div>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
-                    <a href="{% url 'detail_page' post.slug %}">Read the full article</a>
+                    <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
                 </div>
                 <hr class="line">
             </div>

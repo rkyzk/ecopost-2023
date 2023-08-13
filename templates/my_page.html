@@ -15,16 +15,14 @@
         </div>
         <div class="mx-2 mt-2 post-text">
             <span><strong>{{ post.title }}</strong></span>
-            <span class="excerpt-author">By {{ post.author }}</span>
-            <div class="date-city d-flex justify-content-end">
+            <div class="date-city d-flex justify-content-end text-secondary">
                 <ul>
-                    <!-- if the post has been published, display the published date. -->
                     {% if post.status == 2 %}
-                    <li>Published on {{ post.pub_date }}</li>
+                    <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
                     {% else %}
-                    <!-- state if the post is a draft or has been submitted -->
-                    <li>{{ post.status_value }}</li>
-                    <li>Created on {{ post.created_on|date:'M d, Y' }}</li>
+                    <!-- if not published, state the date created. -->
+                    <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
+                    <li>(Not publshed)</li>
                     {% endif %}
                 </ul>
             </div>
@@ -70,16 +68,18 @@
             {% endif %}
         </div>
         <div class="mx-2 mt-2 post-text">
-            <span><strong>{{ post.title }}</strong></span>
-            <span class="excerpt-author">By {{ post.author }}</span>
-            <div class="date-city d-flex justify-content-end">
+            <span><strong>{{ post.title }}</strong></span><br>
+            <span class="excerpt-author">by {{ post.author }}</span>
+            <div class="date-city d-flex justify-content-end text-secondary">
                 <ul>
                     {% if post.status == 2 %}
-                    <li>Published on {{ post.pub_date }}</li>
+                    <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
                     {% else %}
-                    <li>{{ post.status_value }}</li>
-                    <li>Created on {{ post.created_on }}</li>
+                    <!-- if not published, state the date created. -->
+                    <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
+                    <li>(Not publshed)</li>
                     {% endif %}
+                    <li>{{ post.city }}, {{ post.country.name }}</li>
                 </ul>
             </div>
             <p class="mt-1 excerpt">{{ post.excerpt }}</p>
@@ -124,15 +124,17 @@
         </div>
         <div class="mx-2 mt-2 post-text">
             <span><strong>{{ post.title }}</strong></span>
-            <span class="excerpt-author">By {{ post.author }}</span>
-            <div class="date-city d-flex justify-content-end">
+            <span class="excerpt-author">by {{ post.author }}</span>
+            <div class="date-city d-flex justify-content-end text-secondary">
                 <ul>
                     {% if post.status == 2 %}
-                    <li>Published on {{ post.pub_date }}</li>
+                    <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
                     {% else %}
-                    <li>{{ post.status_value }}</li>
-                    <li>Created on {{ post.created_on }}</li>
+                    <!-- if not published, state the date created. -->
+                    <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
+                    <li>(Not publshed)</li>
                     {% endif %}
+                    <li>{{ post.city }}, {{ post.country.name }}</li>
                 </ul>
             </div>
             <p class="mt-1 excerpt">{{ post.excerpt }}</p>

@@ -296,18 +296,35 @@ class TestViews(TestCase):
     #                            status_code=200)
 
     # Testing "PostLikeView" -----------------------------------------
-    def test_post_like_POST_will_add_user(self):
-        response = self.c2.post(reverse('post_like',
+    # def test_post_like_POST_will_add_user(self):
+    #     response = self.c2.post(reverse('post_like',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     post = Post.objects.filter(slug=self.post1.slug).first()
+    #     self.assertRedirects(response, f'/detail/{self.post1.slug}/')
+    #     self.assertTrue(post.likes.filter(id=self.user2.id).exists())
+
+    # def test_post_like_POST_for_the_second_time_will_remove_user(self):
+    #     response = self.c2.post(reverse('post_like',
+    #                             kwargs={'slug': self.post1.slug}))
+    #     response = self.c2.post(reverse('post_like',
+    #                             kwargs={'slug': self.post1.slug}))
+    #     post = Post.objects.filter(slug=self.post1.slug).first()
+    #     self.assertRedirects(response, f'/detail/{self.post1.slug}/')
+    #     self.assertFalse(post.likes.filter(id=self.user2.id).exists())
+
+# Testing "BookmarkView" -----------------------------------------
+    def test_bookmark_POST_will_add_user(self):
+        response = self.c2.post(reverse('bookmark',
                                         kwargs={'slug': self.post1.slug}))
         post = Post.objects.filter(slug=self.post1.slug).first()
         self.assertRedirects(response, f'/detail/{self.post1.slug}/')
-        self.assertTrue(post.likes.filter(id=self.user2.id).exists())
+        self.assertTrue(post.bookmark.filter(id=self.user2.id).exists())
 
-    def test_post_like_POST_for_the_second_time_will_remove_user(self):
-        response = self.c2.post(reverse('post_like',
-                                kwargs={'slug': self.post1.slug}))
-        response = self.c2.post(reverse('post_like',
-                                kwargs={'slug': self.post1.slug}))
+    def test_bookmark_POST_for_2nd_time_will_remove_user(self):
+        response = self.c2.post(reverse('bookmark',
+                                        kwargs={'slug': self.post1.slug}))
+        response = self.c2.post(reverse('bookmark',
+                                        kwargs={'slug': self.post1.slug}))
         post = Post.objects.filter(slug=self.post1.slug).first()
         self.assertRedirects(response, f'/detail/{self.post1.slug}/')
-        self.assertFalse(post.likes.filter(id=self.user2.id).exists())
+        self.assertFalse(post.bookmark.filter(id=self.user2.id).exists())

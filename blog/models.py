@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
 from django.shortcuts import reverse
+from datetime import datetime
 
 
 STATUS = ((0, "Draft"), (1, "Submitted"), (2, "Published"), (3, "Declined"))

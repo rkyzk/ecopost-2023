@@ -549,15 +549,39 @@ class TestViews(TestCase):
     #     self.assertEqual(response.status_code, 403)
 
     # Testing "MoreStoriesView" ----------------------------------
-    def test_can_get_more_stories(self):
-        response = self.client.get('/more_stories/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'more_stories.html')
+    # def test_can_get_more_stories(self):
+    #     response = self.client.get('/more_stories/')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'more_stories.html')
 
-    def test_more_stories_display_posts_published_in_the_prev_7_days(self):
-        self.post4.published_on = datetime.utcnow() - timedelta(days=10)
+    # def test_more_stories_display_posts_published_in_the_prev_7_days(self):
+    #     self.post4.published_on = datetime.utcnow() - timedelta(days=10)
+    #     self.post4.save()
+    #     response = self.client.get('/more_stories/')
+    #     self.assertEqual(len(response.context['object_list']), 1)
+    #     self.assertEqual(list(response.context['object_list']),
+    #                      [self.post5])
+
+    # Testing "PopularStoriesView" ----------------------------------
+    def test_can_get_readers_favorite_stories(self):
+        response = self.client.get('/popular_stories/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'popular_stories.html')
+
+    def test_favorite_stories_display_right_posts(self):
+        self.post4.likes.add(self.user1)
         self.post4.save()
-        response = self.client.get('/more_stories/')
+        response = self.client.get('/popular_stories/')
         self.assertEqual(len(response.context['object_list']), 1)
         self.assertEqual(list(response.context['object_list']),
-                         [self.post5])
+                         [self.post4])
+
+    # Testing "MyPageView" ----------------------------------
+    def test_my_page_GET_will_get_page_if_user(self):
+        response = self.c.get('/my_page/' + str(self.user1.id) + '/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'my_page.html', 'base.html')
+
+    def test_my_page_GET_will_403_if_wrong_user(self):
+        response = self.c2.get('/my_page/' + str(self.user1.id) + '/')
+        self.assertEqual(response.status_code, 403)

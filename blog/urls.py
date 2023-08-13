@@ -11,7 +11,7 @@ urlpatterns = [
   path('popular_stories/', views.PopularStories.as_view(),
        name='popular_stories'),
   path('search/', views.Search.as_view(), name='search'),
-  path('my_page/<int:pk>', views.MyPage.as_view(), name='my_page'),
+  path('my_page/<int:pk>/', views.MyPage.as_view(), name='my_page'),
   path('update/<slug:slug>/', views.UpdatePost.as_view(),
        name='update_post'),
   path('delete/<slug:slug>/', views.DeletePost.as_view(),

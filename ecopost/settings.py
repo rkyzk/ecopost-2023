@@ -31,13 +31,15 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+# This allows summer note to be loaded on the deployed project.
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     '8000-rkyzk-ecopost2023-1b6dzt1ltp1.ws-us103.gitpod.io',
     'ecopost2023-9f46edbaba4f.herokuapp.com'
 ]
-
 
 # Application definition
 

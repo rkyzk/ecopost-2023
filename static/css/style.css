@@ -203,7 +203,11 @@ h1 {
 }
 
 .comments {
-    min-height: 400px;
+    min-height: 440px;
+}
+
+.likes-count {
+    margin-top: 5px;
 }
 
 /* ----- search.html ------- */
@@ -215,6 +219,53 @@ h1 {
 .show-posts {
     margin-top: 50px;
 }
+
+@media (max-width: 767px) {
+    .line {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .line-for-lg {
+        display: none;
+    }
+
+    /* -------- index --------------- */
+    .links-to-posts {
+        margin-top: 0;
+    }
+
+    .links-to-posts p {
+        font-size: 1.1rem;
+    }
+
+    .posts {
+        margin-top: 20px;
+    }
+
+    .posts-mt {
+        margin-top: 10px;
+    }
+
+    /* ------- post_detail.html --------------*/
+    .item-left {
+        padding-right: 0;
+    }
+
+    .title-box {
+        width: 100%;
+    }
+
+    .img-box {
+        width: 100%;
+    }
+
+    /* --------- my page ----------------------*/
+    .show-posts {
+        margin-top: 0;
+    }
+}
+
 
 
 @media screen and (max-width: 700px) {

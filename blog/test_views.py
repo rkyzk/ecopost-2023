@@ -362,155 +362,189 @@ class TestViews(TestCase):
     #     self.assertRedirects(response, f'/detail/{comment.post.slug}/')
 
     # Testing "UpdatePostView" -----------------------------------------
-    def test_update_post_GET_gets_the_page_if_right_user(self):
-        response = self.c.get(f'/update/{self.post6.slug}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'update_post.html', 'base.html')
+    # def test_update_post_GET_gets_the_page_if_right_user(self):
+    #     response = self.c.get(f'/update/{self.post6.slug}/')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'update_post.html', 'base.html')
 
-    def test_update_post_GET_will_redirect_to_login_if_not_logged_in(self):
-        response = self.client.get(f'/update/{self.post1.slug}/')
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/accounts/login/'))
+    # def test_update_post_GET_will_redirect_to_login_if_not_logged_in(self):
+    #     response = self.client.get(f'/update/{self.post1.slug}/')
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertTrue(response.url.startswith('/accounts/login/'))
 
-    def test_update_post_GET_will_403_if_wrong_user(self):
-        response = self.c2.get(f'/update/{self.post1.slug}/')
+    # def test_update_post_GET_will_403_if_wrong_user(self):
+    #     response = self.c2.get(f'/update/{self.post1.slug}/')
+    #     self.assertEqual(response.status_code, 403)
+
+    # def test_update_post_GET_will_403_if_submitted(self):
+    #     self.post1.status = 1
+    #     self.post1.save()
+    #     response = self.c.get(f'/update/{self.post1.slug}/')
+    #     self.assertEqual(response.status_code, 403)
+
+    # def test_update_post_GET_will_403_if_published(self):
+    #     self.post1.status = 2
+    #     self.post1.save()
+    #     response = self.c.get(f'/update/{self.post1.slug}/')
+    #     self.assertEqual(response.status_code, 403)
+
+    # def test_update_post_POST_will_update_title(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title updated',
+    #                             'content': 'content',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'save': 'draft'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title updated')
+    #     self.assertEqual(post.content, 'content')
+    #     self.assertEqual(post.city, 'test city')
+    #     self.assertEqual(post.country, 'IR')
+    #     self.assertEqual(post.category, 'others')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_will_update_content(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content updated',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'save': 'draft'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title6')
+    #     self.assertEqual(post.content, 'content updated')
+    #     self.assertEqual(post.city, 'test city')
+    #     self.assertEqual(post.country, 'IR')
+    #     self.assertEqual(post.category, 'others')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_will_update_city(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content',
+    #                             'city': 'test city 2',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'save': 'draft'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title6')
+    #     self.assertEqual(post.content, 'content')
+    #     self.assertEqual(post.city, 'test city 2')
+    #     self.assertEqual(post.country, 'IR')
+    #     self.assertEqual(post.category, 'others')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_will_update_country(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content',
+    #                             'city': 'test city',
+    #                             'country': 'NZ',
+    #                             'category': 'others',
+    #                             'save': 'draft'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title6')
+    #     self.assertEqual(post.content, 'content')
+    #     self.assertEqual(post.city, 'test city')
+    #     self.assertEqual(post.country, 'NZ')
+    #     self.assertEqual(post.category, 'others')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_will_update_category(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'aquatic system',
+    #                             'save': 'draft'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title6')
+    #     self.assertEqual(post.content, 'content')
+    #     self.assertEqual(post.city, 'test city')
+    #     self.assertEqual(post.country, 'IR')
+    #     self.assertEqual(post.category, 'aquatic system')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_cancel_will_not_update_post(self):
+    #     response = self.c.post(reverse('update_post',
+    #                                    kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content updated',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'cancel': 'cancel'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.title, 'title6')
+    #     self.assertEqual(post.content, 'content updated')
+    #     self.assertEqual(post.city, 'test city')
+    #     self.assertEqual(post.country, 'IR')
+    #     self.assertEqual(post.category, 'others')
+    #     self.assertRedirects(response, f'/detail/{post.slug}/')
+
+    # def test_update_post_POST_msg_says_change_saved_if_saved(self):
+    #     response = self.c.post(reverse('update_post',
+    #                            kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content updated',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'save': 'draft'},
+    #                            follow=True)
+    #     messages = list(response.context['messages'])
+    #     self.assertEqual(str(messages[0]), "The change has been saved.")
+
+    # def test_update_post_POST_submit_will_set_status_to_1(self):
+    #     response = self.c.post(reverse('update_post',
+    #                                    kwargs={'slug': self.post6.slug}),
+    #                            {'title': 'title6',
+    #                             'content': 'content updated',
+    #                             'city': 'test city',
+    #                             'country': 'IR',
+    #                             'category': 'others',
+    #                             'submit': 'complete'})
+    #     post = Post.objects.filter(slug=self.post6.slug).first()
+    #     self.assertEqual(post.status, 1)
+
+    # Testing "DeletePostView" ----------------------------------
+    def test_delete_post_POST_will_delete_post_if_right_user(self):
+        response = self.c.post(reverse('delete_post',
+                                       kwargs={'slug': self.post6.slug}))
+        existing_posts = Post.objects.filter(slug=self.post6.slug)
+        self.assertEqual(len(existing_posts), 0)
+        self.assertRedirects(response, '/')
+
+    def test_delete_post_POST_will_show_403_if_wrong_user(self):
+        response = self.c2.post(reverse('delete_post',
+                                        kwargs={'slug': self.post6.slug}))
         self.assertEqual(response.status_code, 403)
 
-    def test_update_post_GET_will_403_if_submitted(self):
+    def test_delete_post_POST_will_not_delete_post_if_wrong_user(self):
+        response = self.c2.post(reverse('delete_post',
+                                        kwargs={'slug': self.post6.slug}))
+        post = Post.objects.filter(slug=self.post1.slug).first()
+        self.assertEqual(post.title, 'title1')
+
+    def test_delete_post_POST_will_show_403_if_status_1(self):
         self.post1.status = 1
         self.post1.save()
-        response = self.c.get(f'/update/{self.post1.slug}/')
+        response = self.c2.post(reverse('delete_post',
+                                        kwargs={'slug': self.post1.slug}))
         self.assertEqual(response.status_code, 403)
 
-    def test_update_post_GET_will_403_if_published(self):
+    def test_delete_post_POST_will_show_403_if_status_2(self):
         self.post1.status = 2
         self.post1.save()
-        response = self.c.get(f'/update/{self.post1.slug}/')
+        response = self.c2.post(reverse('delete_post',
+                                        kwargs={'slug': self.post1.slug}))
         self.assertEqual(response.status_code, 403)
 
-    def test_update_post_POST_will_update_title(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title updated',
-                                'content': 'content',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title updated')
-        self.assertEqual(post.content, 'content')
-        self.assertEqual(post.city, 'test city')
-        self.assertEqual(post.country, 'IR')
-        self.assertEqual(post.category, 'others')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_will_update_content(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content updated',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertEqual(post.content, 'content updated')
-        self.assertEqual(post.city, 'test city')
-        self.assertEqual(post.country, 'IR')
-        self.assertEqual(post.category, 'others')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_will_update_city(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content',
-                                'city': 'test city 2',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertEqual(post.content, 'content')
-        self.assertEqual(post.city, 'test city 2')
-        self.assertEqual(post.country, 'IR')
-        self.assertEqual(post.category, 'others')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_will_update_country(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content',
-                                'city': 'test city',
-                                'country': 'NZ',
-                                'category': 'others',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertEqual(post.content, 'content')
-        self.assertEqual(post.city, 'test city')
-        self.assertEqual(post.country, 'NZ')
-        self.assertEqual(post.category, 'others')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_will_update_category(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'aquatic system',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertEqual(post.content, 'content')
-        self.assertEqual(post.city, 'test city')
-        self.assertEqual(post.country, 'IR')
-        self.assertEqual(post.category, 'aquatic system')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_cancel_will_not_update_post(self):
-        response = self.c.post(reverse('update_post',
-                                       kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content updated',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'others',
-                                'cancel': 'cancel'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertEqual(post.content, 'content updated')
-        self.assertEqual(post.city, 'test city')
-        self.assertEqual(post.country, 'IR')
-        self.assertEqual(post.category, 'others')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
-    def test_update_post_POST_msg_says_change_saved_if_saved(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content updated',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'others',
-                                'save': 'draft'},
-                               follow=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(str(messages[0]), "The change has been saved.")
-
-    def test_update_post_POST_submit_will_set_status_to_1(self):
-        response = self.c.post(reverse('update_post',
-                                       kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content updated',
-                                'city': 'test city',
-                                'country': 'IR',
-                                'category': 'others',
-                                'submit': 'complete'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.status, 1)

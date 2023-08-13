@@ -115,6 +115,7 @@
                 {% endif %}
                 <!-- if the comment has been written by the user, show update and delete buttons -->
                 {% if comment.commenter == user %}
+                {% if comment.comment_status != 2 %}
                 <div class="d-flex justify-content-end">
                     <div class="col-1">
                         <form method="GET" action="{% url 'update_comment' comment.id %}">
@@ -125,7 +126,7 @@
                         </form>
                     </div>
                     <div class="col-1">
-                        <form method="POST" id="delete-comment" action="#">
+                        <form method="POST" id="delete-comment" action="{% url 'delete_comment' comment.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn-sm" name="delete-comment">
                                 <i class="fa-regular fa-trash-can"></i>
@@ -133,10 +134,10 @@
                         </form>
                     </div>
                 </div>
-                {% endif %}
+                {% else %}
                 <!-- if the comment has been deleted, say 'comment deleted.' -->
-                {% if comment.comment_status == 2 %}
-                <span class="text-muted mb-2"><em>comment deleted</em></span>
+                <span class="text-muted my-3"><em>comment deleted</em></span>
+                {% endif %}
                 {% endif %}
                 <hr>
             </div>

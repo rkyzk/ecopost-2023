@@ -16,18 +16,6 @@ from .forms import CommentForm, PostForm
 min_num_likes = 1
 
 
-def logo_image(request):
-    logo = Photo.get_object_or_404(name="logo")
-    print(logo)
-    return render(
-            request,
-            "base.html",
-            {
-                "logo": logo,
-            },
-        )
-
-
 class PostList(generic.ListView):
     """Gets queryset of featured posts and displays them on the home page."""
     model = Post
@@ -281,6 +269,35 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
             comment_form = CommentForm()
             messages.add_message(request, messages.INFO, "Error occurred." +
                                  " Your comment was not saved.")
+        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
+
+    def test_func(self):
+        """
+        Tests if the user has written the comment.
+        :returns: True/False
+        :rtype: boolean
+        """
+        id = self.kwargs.get('id')
+        comment = get_object_or_404(Comment, id=id)
+        return comment.commenter == self.request.user
+
+
+class DeleteComment(LoginRequiredMixin, UserPassesTestMixin, View):
+
+    def post(self, request, id, *args, **kwargs):
+        """
+        Changes the status of comments to 2 ('Deleted').
+        arguments: id: comment id
+        :returns: HttpResponseRedirect()
+        :rtype: method
+        """
+        comment = get_object_or_404(Comment, id=id)
+        # comment_status 2 indicates 'Deleted'
+        comment.comment_status = 2
+        comment.save()
+        slug = comment.post.slug
+        message = 'Your comment has been deleted.'
+        messages.add_message(request, messages.SUCCESS, message)
         return HttpResponseRedirect(reverse('detail_page', args=[slug]))
 
     def test_func(self):

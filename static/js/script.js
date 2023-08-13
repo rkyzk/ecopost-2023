@@ -10,11 +10,11 @@ const closeMenu = () => {
     }, 100);
 }
 
-function openMenu() {
+const openMenu = () => {
     if (open) {
         menu.style.display = "none";
         open = false;
-    } else if (!open) {
+    } else {
         menu.style.display = "block";
         open = true;
         document.addEventListener('mouseup', closeMenu)

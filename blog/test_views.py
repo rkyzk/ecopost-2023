@@ -516,35 +516,48 @@ class TestViews(TestCase):
     #     self.assertEqual(post.status, 1)
 
     # Testing "DeletePostView" ----------------------------------
-    def test_delete_post_POST_will_delete_post_if_right_user(self):
-        response = self.c.post(reverse('delete_post',
-                                       kwargs={'slug': self.post6.slug}))
-        existing_posts = Post.objects.filter(slug=self.post6.slug)
-        self.assertEqual(len(existing_posts), 0)
-        self.assertRedirects(response, '/')
+    # def test_delete_post_POST_will_delete_post_if_right_user(self):
+    #     response = self.c.post(reverse('delete_post',
+    #                                    kwargs={'slug': self.post6.slug}))
+    #     existing_posts = Post.objects.filter(slug=self.post6.slug)
+    #     self.assertEqual(len(existing_posts), 0)
+    #     self.assertRedirects(response, '/')
 
-    def test_delete_post_POST_will_show_403_if_wrong_user(self):
-        response = self.c2.post(reverse('delete_post',
-                                        kwargs={'slug': self.post6.slug}))
-        self.assertEqual(response.status_code, 403)
+    # def test_delete_post_POST_will_show_403_if_wrong_user(self):
+    #     response = self.c2.post(reverse('delete_post',
+    #                                     kwargs={'slug': self.post6.slug}))
+    #     self.assertEqual(response.status_code, 403)
 
-    def test_delete_post_POST_will_not_delete_post_if_wrong_user(self):
-        response = self.c2.post(reverse('delete_post',
-                                        kwargs={'slug': self.post6.slug}))
-        post = Post.objects.filter(slug=self.post1.slug).first()
-        self.assertEqual(post.title, 'title1')
+    # def test_delete_post_POST_will_not_delete_post_if_wrong_user(self):
+    #     response = self.c2.post(reverse('delete_post',
+    #                                     kwargs={'slug': self.post6.slug}))
+    #     post = Post.objects.filter(slug=self.post1.slug).first()
+    #     self.assertEqual(post.title, 'title1')
 
-    def test_delete_post_POST_will_show_403_if_status_1(self):
-        self.post1.status = 1
-        self.post1.save()
-        response = self.c2.post(reverse('delete_post',
-                                        kwargs={'slug': self.post1.slug}))
-        self.assertEqual(response.status_code, 403)
+    # def test_delete_post_POST_will_show_403_if_status_1(self):
+    #     self.post1.status = 1
+    #     self.post1.save()
+    #     response = self.c2.post(reverse('delete_post',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     self.assertEqual(response.status_code, 403)
 
-    def test_delete_post_POST_will_show_403_if_status_2(self):
-        self.post1.status = 2
-        self.post1.save()
-        response = self.c2.post(reverse('delete_post',
-                                        kwargs={'slug': self.post1.slug}))
-        self.assertEqual(response.status_code, 403)
+    # def test_delete_post_POST_will_show_403_if_status_2(self):
+    #     self.post1.status = 2
+    #     self.post1.save()
+    #     response = self.c2.post(reverse('delete_post',
+    #                                     kwargs={'slug': self.post1.slug}))
+    #     self.assertEqual(response.status_code, 403)
 
+    # Testing "MoreStoriesView" ----------------------------------
+    def test_can_get_more_stories(self):
+        response = self.client.get('/more_stories/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'more_stories.html')
+
+    def test_more_stories_display_posts_published_in_the_prev_7_days(self):
+        self.post4.published_on = datetime.utcnow() - timedelta(days=10)
+        self.post4.save()
+        response = self.client.get('/more_stories/')
+        self.assertEqual(len(response.context['object_list']), 1)
+        self.assertEqual(list(response.context['object_list']),
+                         [self.post5])

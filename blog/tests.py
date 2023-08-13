@@ -23,3 +23,15 @@ class TestPostModel(TestCase):
             author=self.user2,
             content="test 2 sentences"
             )
+
+    def test_featured_flag_default_to_False(self):
+        self.assertEqual(self.post1.featured_flag, False)
+
+    def test_featured_image_default_to_placeholder(self):
+        self.assertEqual(self.post1.featured_image, 'placeholder')
+
+    def test_category_default_to_Others(self):
+        self.assertEqual(self.post1.category, 'others')
+
+    def test_status_default_to_0(self):
+        self.assertEqual(self.post1.status, 0)

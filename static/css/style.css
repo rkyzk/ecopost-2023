@@ -163,6 +163,10 @@ footer {
     list-style: none;
 }
 
+.content {
+    width: 80%;
+}
+
 /*   ------------ index.html ------------------------  */
 h1 {
     font-family: 'Montserrat Alternates', sans-serif;
@@ -268,6 +272,10 @@ h1 {
 @media (max-width: 991px) {
     .comments-left {
         padding-right: 12px;
+    }
+
+    .content {
+        width: 90%;
     }
 }
 
@@ -412,8 +420,7 @@ h1 {
 
     .intro-box,
     .content,
-    .search-contnet,
-    .authentication {
+    .search-contnet {
         width: 100%;
     }
 

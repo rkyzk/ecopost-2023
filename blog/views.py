@@ -473,3 +473,36 @@ class Search(View):
             'no_input': no_input
         }
         return render(request, "search.html", context)
+
+
+class Search2(View):
+    """Hold functions to search posts by multiple factors."""
+
+    def get(self, request, *args, **kwargs):
+        """
+        Display "Search Stories" page, receive users' input,
+        run search based on the input, return a queryset of
+        the matching posts and display the search results.
+        arguments: self, request, *args, **kwargs
+        :returns: render()
+        :rtype: method
+        """
+        # get category choices for the select box
+        category_choices = Post._meta.get_field('category').choices
+        categories = [cat[1] for cat in category_choices]
+        # get country choices for the select box
+        country_choices = Post._meta.get_field('country').choices
+        countries = [country.name for country in country_choices]
+        # Get posts that have been published, arranged from the
+        # newest to oldest published dates
+        posts = Post.objects.filter(status=2).order_by('-published_on')
+        postFilter = PostFilter(request.GET, queryset=posts)
+        posts = postFilter.queryset
+
+        context = {
+            'categories': categories,
+            'countries': countries,
+            'posts': posts,
+            'postFilter': postFilter,
+        }
+        return render(request, "search2.html", context)

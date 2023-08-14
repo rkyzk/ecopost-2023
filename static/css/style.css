@@ -197,6 +197,15 @@ h1 {
     margin-right: 1px;
 }
 
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+}
+
+.featured-img {
+    width: 100%;
+}
+
 .links-to-posts {
     margin-top: 50px;
 }

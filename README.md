@@ -99,4 +99,47 @@ No. | Goals | How they are achieved |
 |19| Allow only the authors to update/delete the posts & comments | LoginRequiredMixin and UserPassestestMixin allow only the users who are logged in as the authors of the posts and comments to update or delete their writings. |
 |20|Allow users to access only their own “My page” | LoginRequiredMixin and UserPassestestMixin will allow users to access only their own “My Page.” |
 
+### Testing Features
+As preparatory steps for the following tests:
+1. create a user with username "testuser" and a password "gR48NmYr1". (Leave the email blank.)
+2. Log in as "testuser"
+3. make 10 posts with the following field values:
+title: blog 1, blog 2, blog 3, blog 4, blog 5, blog 6, blog 7, blog 8, blog 9, blog 10
+content: (for all of them): test content
+city: Dublin
+country: Ireland
+4. go to admin panel.
+5. publish blog 1-10 one by one in the order.
+6. set featured_flag True for blog 1-3.
+7. go to "Detail Page" of blog 4-10 and click on 'like' button
+
+#### Navigation links
+
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1|Logo link|Go to “Search Stories”|Click on the logo|Redirected to the home page|Redirected to the home page|pass|[image](./media/manual-tests/Navlinks/1.png|2023/8/14|
+|2|”Home”|Go to “Search Stories” page|Click on “Home”|Redirected to ”Home"|Redirected to ”Home”|pass|[image](./media/manual-tests/Navlinks/2.png|2023/8/14|
+|3|”Search stories”|Go to “Home”|Click on “Search Stories”|Redirected to ”Search Stories”|Redirected to ”Search Stories”|pass|[image](./media/manual-tests/Navlinks/3.png|2023/8/14|
+|4|”Become a Member”|Log out if you haven't.  Go to “Home” page|Click on “Become a Member”|Redirected to ”Become a Member” | Redirected to “Become a Member”|pass|[image](./media/manual-tests/Navlinks/4.png|2023/8/14|
+|5|”Sign in”|Go to “Home” page|Click on “Log in”|Redirected to ”Log in”|Redirected to “Sign in in”|pass|[image](./media/manual-tests/Navlinks/5.png|2023/8/14|
+|6|”Write Stories”|Log in and go to “Home” page|Click on “Write Stories”|Redirected to ” Write Stories”|Redirected to ” Write Stories”|pass|[image](./media/manual-tests/Navlinks/6.png|2023/8/14|
+|7|”My Page”|Go to “Home” page|Click on “My Page”|Redirected to ”My Page”|Redirected to “My Page”|pass|[image](./media/manual-tests/Navlinks/7.png|2023/8/14|
+|8|”Sign out”|Go to “Home” page|Click on “Sign out”|Redirected to ”Log out”|Redirected to “Sign out”|pass|[image](./media/manual-tests/Navlinks/8.png|2023/8/14|
+
+#### Sign out page
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1|”Sign out”|Go to “Home” page|Click on “Sign out”|
+Redirected to ”Log out”|Redirected to “Sign out”|pass|[image](./media/manual-tests/Signout/1.png|2023/8/14|
+
+#### Burger Menu for screen sizes below 700px
+
+Conduct test no. 9 & 10 without any actions in between*
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1|Burger menu| set the window size to 690px | click the burger menu | the Menu box opens |the Menu box opens| pass|[image](./media/manual-tests/BurgerMenu/1.png|2023/8/14|
+|2|Burger menu| --| click the burger menu for the second time | the Menu box closes |the Menu box closes| pass|[image](./media/manual-tests/BurgerMenu/2.png|2023/8/14|
+|3|Burger menu| --| click the burger menu to open the menu. Click outside the menu box. | The Menu box closes |The Menu box closes| pass|[image](./media/manual-tests/BurgerMenu/3.png|2023/8/14|
+
+
 update comment cancel --> will not be updated

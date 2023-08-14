@@ -419,8 +419,7 @@ h1 {
 @media screen and (max-width: 420px) {
 
     .intro-box,
-    .content,
-    .search-contnet {
+    .content {
         width: 100%;
     }
 

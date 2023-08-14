@@ -83,6 +83,11 @@ class Post(models.Model):
         # assign the current datetime.
         if self.status == 2 and not self.published_on:
             self.published_on = datetime.utcnow()
+        # remove p tags in case the content includes them
+        if self.content.startswith("<p>"):
+            self.content = self.content[3:]
+        if self.content.endswith("</p>"):
+            self.content = self.content[:len(self.content)-4]
         # save number of likes
         if self.id is not None:
             self.num_of_likes = self.likes.count()

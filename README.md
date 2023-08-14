@@ -112,6 +112,7 @@ country: Ireland
 5. publish blog 1-10 one by one in the order.
 6. set featured_flag True for blog 1-3.
 7. go to "Detail Page" of blog 4-10 and click on 'like' button
+8. Log out
 
 #### Navigation links
 
@@ -120,7 +121,7 @@ Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | A
 |1|Logo link|Go to “Search Stories”|Click on the logo|Redirected to the home page|Redirected to the home page|pass|[image](./media/manual-tests/Navlinks/1.png)|2023/8/14|
 |2|”Home”|Go to “Search Stories” page|Click on “Home”|Redirected to ”Home"|Redirected to ”Home”|pass|[image](./media/manual-tests/Navlinks/2.png|2023/8/14|
 |3|”Search stories”|Go to “Home”|Click on “Search Stories”|Redirected to ”Search Stories”|Redirected to ”Search Stories”|pass|[image](./media/manual-tests/Navlinks/3.png)|2023/8/14|
-|4|”Become a Member”|Log out if you haven't.  Go to “Home” page|Click on “Become a Member”|Redirected to ”Become a Member” | Redirected to “Become a Member”|pass|[image](./media/manual-tests/Navlinks/4.png)|2023/8/14|
+|4|”Become a Member”|Go to “Home” page|Click on “Become a Member”|Redirected to ”Become a Member” | Redirected to “Become a Member”|pass|[image](./media/manual-tests/Navlinks/4.png)|2023/8/14|
 |5|”Sign in”|Go to “Home” page|Click on “Log in”|Redirected to ”Log in”|Redirected to “Sign in in”|pass|[image](./media/manual-tests/Navlinks/5.png|2023/8/14|
 |6|”Write Stories”|Log in and go to “Home” page|Click on “Write Stories”|Redirected to ” Write Stories”|Redirected to ” Write Stories”|pass|[image](./media/manual-tests/Navlinks/6.png)|2023/8/14|
 |7|”My Page”|Go to “Home” page|Click on “My Page”|Redirected to ”My Page”|Redirected to “My Page”|pass|[image](./media/manual-tests/Navlinks/7.png|2023/8/14|
@@ -140,6 +141,30 @@ Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | A
 |1|Burger menu| set the window size to 690px | click the burger menu | the Menu box opens |the Menu box opens| pass|[image](./media/manual-tests/BurgerMenu/1.png)|2023/8/14|
 |2|Burger menu| --| click the burger menu for the second time | the Menu box closes |the Menu box closes| pass|[image](./media/manual-tests/BurgerMenu/2.png)|2023/8/14|
 |3|Burger menu| --| click the burger menu to open the menu. Click outside the menu box. | The Menu box closes |The Menu box closes| pass|[image](./media/manual-tests/BurgerMenu/3.png)|2023/8/14|
+
+#### Footer
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1|link to facebook|Go to “Home” page|Click on the facebook icon|Redirected to facebook site|Redirected to facebook site| pass|[image](./media/manual-tests/Footer/1.png)|2023/8/14|
+|2|link to twitter|Go to “Home” page|Click on the twitter icon|Redirected to twitter site|Redirected to twitter site| pass|[image](./media/manual-tests/Footer/2.png)|2023/8/14|
+|3|link to instagram|Go to “Home” page|Click on the instagram icon|Redirected to instagram site|Redirected to instagram site| pass|[image](./media/manual-tests/Footer/3.png)|2023/8/14|
+
+#### The flash messages
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1| setTimeout function in line 2-6 of script.js | log out | log in as testuser | Redirected to the home page.  The message "Successfully signed in as testuser" will show up and disappear after 5 seconds. |Redirected to the home page.  The message "Successfully signed in as testuser" shows up and disappears after 5 seconds.| pass|[image](./media/manual-tests/FlashMessages/1.png)2023/8/14|
+
+*Here I test only that the message is displayed for 5 seconds.  The contents of the messages were tested in the automated tests.*
+
+#### Home
+Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image |Date |
+|:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
+|1|link ”become a member” in the introduction |--|Click the link|Redirected to "Become a member."| Redirected to "Become a member."|pass|[image](./media/manual-tests/Home/1.png)|2023/8/14|
+|2|link ”Read the full story” at the bottom of "blog 3" |--|Click the link|Detail page of "blog 3" will be displayed.| Detail page of "blog 3" is displayed.|pass|[image](./media/manual-tests/Home/2.png)|2023/8/14|
+|3|link ”Read the full story” at the bottom of "blog 2" |--|Click the link|Detail page of "blog 2" will be displayed.| Detail page of "blog2" is displayed.|pass|[image](./media/manual-tests/Home/3.png)|2023/8/14|
+|4|link ”Read the full story” at the bottom of "blog1" |--|Click the link|Detail page of "blog 1" will be displayed.| Detail page of "blog 1" is displayed.|pass|[image](./media/manual-tests/Home/4.png)|2023/8/14|
+|5|link ”More stories from this week” |--|Click the link|Redirected to “More stories from this week”| Redirected to “More stories from this week”|pass|[image](./media/manual-tests/Home/5.png)|2023/8/14|
+|6|link ”Readers’ favorite stories of all time” |--|Click the link|Redirected to ”Readers’ favorite stories of all time” |Redirected to ”Readers’ favorite stories of all time”|pass|[image](./media/manual-tests/Home/6.png)|2023/8/14|
 
 
 update comment cancel --> will not be updated

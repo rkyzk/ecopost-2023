@@ -33,12 +33,13 @@
             {% for post in post_list %}
             <div class="col-md-4">
                 <div class="image-wrapper d-flex justify-content-center">
-                    {% if "placeholder" in post.featured_image.url %}
+                    image
+                    <!-- {% if "placeholder" in post.featured_image.url %}
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="featured-image" alt="forest image">
                     {% else %}
                     <img class="card-img-top featured-image" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                    {% endif %}
+                    {% endif %} -->
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>

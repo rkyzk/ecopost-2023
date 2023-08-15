@@ -87,51 +87,53 @@
         </form>
     </div>
 </div>
-<div id="results">
-    <!-- if 'Search' has been clicked, display search results.  -->
-    {% if search_clicked %}
-    <hr />
-    <h3 mt-3>Search Results</h3>
-    <!-- if no input was given, tell them to enter at least one field. -->
-    {% if no_input %}
-    <p>Please enter at least one field</p>
-    {% elif not queryset %}
-    <!-- if no matching results were found -->
-    <p>No matching results found</p>
-    {% endif %}
-    <div class="row">
-        {% for post in queryset %}
-        <!-- display excerpts of matching posts -->
-        <div class="col-md-4">
-            <div class="image-wrapper d-flex justify-content-center">
-                {% if "placeholder" in post.featured_image.url %}
-                <img class="card-img-top"
-                    src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                    alt="forest">
-                {% else %}
-                <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                {% endif %}
-            </div>
-            <div class="mx-2 mt-2 post-text">
-                <span><strong>{{ post.title }}</strong></span>
-                <span class="item-right"><i class="far fa-heart"></i></span>
-                {{ post.num_of_likes }}</span><br>
-                <span class="excerpt-author">by {{ post.author }}</span>
-                <div class="d-flex justify-content-end pub-date">
-                    <span>{{ post.pub_date }}</span>
-                </div>
-                <p class="mt-1 excerpt">{{ post.excerpt }}</p>
-                <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
-            </div>
-            <hr class="line">
-        </div>
-        {% if forloop.counter|divisibleby:3 %}
-    </div>
-    <hr />
-    <div class="row">
+<div class="d-flex justify-content-center">
+    <div class="content">
+        <!-- if 'Search' has been clicked, display search results.  -->
+        {% if search_clicked %}
+        <hr />
+        <h3 mt-3>Search Results</h3>
+        <!-- if no input was given, tell them to enter at least one field. -->
+        {% if no_input %}
+        <p>Please enter at least one field</p>
+        {% elif not queryset %}
+        <!-- if no matching results were found -->
+        <p>No matching results found</p>
         {% endif %}
-        {% endfor %}
+        <div class="row">
+            {% for post in queryset %}
+            <!-- display excerpts of matching posts -->
+            <div class="col-md-4">
+                <div class="image-wrapper d-flex justify-content-center">
+                    {% if "placeholder" in post.featured_image.url %}
+                    <img class="card-img-top"
+                        src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        alt="forest">
+                    {% else %}
+                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    {% endif %}
+                </div>
+                <div class="mx-2 mt-2 post-text">
+                    <span><strong>{{ post.title }}</strong></span>
+                    <span class="item-right"><i class="far fa-heart"></i></span>
+                    {{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author">by {{ post.author }}</span>
+                    <div class="d-flex justify-content-end pub-date">
+                        <span>{{ post.pub_date }}</span>
+                    </div>
+                    <p class="mt-1 excerpt">{{ post.excerpt }}</p>
+                    <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
+                </div>
+                <hr class="line">
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <hr />
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 {% endblock %}

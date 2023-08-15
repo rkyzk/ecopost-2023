@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 {% block content %}
 <div class="d-flex justify-content-center">
     <div class="content">
         <h2>Search Stories</h2>
         <form method="get">
             {% csrf_token %}
-            {{postFilter.form}}
+            {% include 'load_field.html' with my_field=postForm.form.title %}
+            {% include 'load_field.html' with my_field=postForm.form.author %}
+            {% include 'load_field.html' with my_field=postForm.form.search_keyword %}
+            {% include 'load_field.html' with my_field=postForm.form.num_of_likes %}
+            {% include 'load_field.html' with my_field=postForm.form.category %}
+            {% include 'load_field.html' with my_field=postForm.form.city %}
+            {% include 'load_field.html' with my_field=postForm.form.country %}
+            {% include 'load_field_date.html' with my_field=postForm.form.published_after %}
+            {% include 'load_field_date.html' with my_field=postForm.form.published_before %}
             <button class="button-submit" type="submit">Search</button>
         </form>
         <div class="row posts">

@@ -496,13 +496,13 @@ class Search2(View):
         # Get posts that have been published, arranged from the
         # newest to oldest published dates
         posts = Post.objects.filter(status=2).order_by('-published_on')
-        postFilter = PostFilter(request.GET, queryset=posts)
-        posts = postFilter.queryset
+        postFilterForm = PostFilter(request.GET, queryset=posts)
+        posts = postFilterForm.qs
 
         context = {
             'categories': categories,
             'countries': countries,
             'posts': posts,
-            'postFilter': postFilter,
+            'postForm': postFilterForm,
         }
         return render(request, "search2.html", context)

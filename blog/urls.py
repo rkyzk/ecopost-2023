@@ -10,7 +10,7 @@ urlpatterns = [
   path('more_stories/', views.MoreStories.as_view(), name='more_stories'),
   path('popular_stories/', views.PopularStories.as_view(),
        name='popular_stories'),
-  path('search/', views.Search.as_view(), name='search'),
+  path('search/', views.Search2.as_view(), name='search'),
   path('my_page/<int:pk>/', views.MyPage.as_view(), name='my_page'),
   path('update/<slug:slug>/', views.UpdatePost.as_view(),
        name='update_post'),

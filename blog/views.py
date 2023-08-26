@@ -21,7 +21,7 @@ class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(featured_flag=True).order_by(
         "-created_on")[:3]
-    template_name = "index.html"
+    template_name = "blog/index.html"
 
 
 class AddStory(LoginRequiredMixin, generic.CreateView):
@@ -30,7 +30,7 @@ class AddStory(LoginRequiredMixin, generic.CreateView):
     to make a new post object.
     """
     model = Post
-    template_name = "add_story.html"
+    template_name = "blog/add_story.html"
     form_class = PostForm
 
     def form_valid(self, form):
@@ -76,7 +76,7 @@ class PostDetail(View):
             bookmarked = True
         return render(
             request,
-            "post_detail.html",
+            "blog/post_detail.html",
             {
                 "post": post,
                 "comments": comments,
@@ -119,7 +119,7 @@ class PostDetail(View):
                                  " Your comment was not saved.")
         return render(
             request,
-            "post_detail.html",
+            "blog/post_detail.html",
             {
                 "post": post,
                 "comments": comments,
@@ -171,7 +171,7 @@ class Bookmark(View):
 class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     """Update post."""
     model = Post
-    template_name = "update_post.html"
+    template_name = "blog/update_post.html"
     form_class = PostForm
 
     def form_valid(self, form):
@@ -240,7 +240,7 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
         comment_form = CommentForm(instance=comment)
         return render(
             request,
-            "update_comment.html",
+            "blog/update_comment.html",
             {
                 "comment_form": comment_form,
                 "slug": comment.post.slug
@@ -334,7 +334,7 @@ class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
 
         return render(
             request,
-            "my_page.html",
+            "blog/my_page.html",
             {
                 "my_posts": my_posts,
                 "commented_posts": commented_posts,
@@ -357,7 +357,7 @@ class MoreStories(generic.ListView):
     send the queryset and display 'More Stories' page.
     """
     model = Post
-    template_name = "more_stories.html"
+    template_name = "blog/more_stories.html"
     paginate_by = 6
     filterargs = {
             'status': 2,
@@ -373,7 +373,7 @@ class PopularStories(generic.ListView):
     send the queryset and display 'Popular Stories' page.
     """
     model = Post
-    template_name = "popular_stories.html"
+    template_name = "blog/popular_stories.html"
     paginate_by = 6
     queryset = Post.objects.filter(
             status=2,

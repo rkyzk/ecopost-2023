@@ -2,32 +2,36 @@
 {% block content %}
 <!-- Posts written by the user -->
 <div class="d-flex justify-content-center">
-    <div class="content">
-        <h2 class="mt-5">Written by Me</h2>
+    <div class="content my-page">
+        <h1 class="mt-5">My Page</h1>
+        <h2 class="mt-5 mb-3">Written by Me</h2>
         <div class="row">
             {% for post in my_posts %}
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
-                    <img class="card-img-top"
-                        src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                        alt="forest">
+                    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        class="card-img-top" alt="forest image">
                     {% else %}
                     <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
                     {% endif %}
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <div class="date-city d-flex justify-content-end text-secondary">
-                        <ul>
-                            {% if post.status == 2 %}
-                            <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
+                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
+                    <div class="date-city text-secondary d-flex justify-content-end">
+                        <div>
+                            {% if post.status == 1 %}
+                            <span>Published on:</span>
+                            <p class="my-0">{{ post.pub_date }}</p>
+                            <!-- state if the post hasn't been published display the date written -->
                             {% else %}
-                            <!-- if not published, state the date created. -->
-                            <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
-                            <li>(Not publshed)</li>
+                            <span>Saved as draft</span>
+                            <p class="my-0">{{ post.created_on|date:'M d, Y' }}</p>
                             {% endif %}
-                        </ul>
+                        </div>
                     </div>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
@@ -38,12 +42,16 @@
             {% if my_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button id="show-my-posts" class="btn btn-link show-posts mb-4">Show more</button>
+        <button id="show-my-posts" class="btn btn-link show-posts mb-4">Show more
+            <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+        </button>
         <div id="my-posts" class="hide">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>
-            <button class="btn btn-link hide-posts mt-5">Show less</button>
+            <button class="btn btn-link hide-posts mt-5">Show less
+                <span><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+            </button>
             {% elif forloop.counter > 3 %}
             {% if forloop.counter|divisibleby:3 %}
         </div>
@@ -58,33 +66,25 @@
         </div>
         <!-- Commented Posts -->
         <hr>
-        <h2 class="mt-5 mb-4">Commented by Me</h2>
+        <h2 class="mt-5 mb-3">Commented by Me</h2>
         <div class="row">
             {% for post in commented_posts %}
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
-                    <img class="card-img-top"
-                        src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                        alt="forest">
+                    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        class="card-img-top" alt="forest image">
                     {% else %}
                     <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
                     {% endif %}
                 </div>
                 <div class="mx-2 mt-2 post-text">
-                    <span><strong>{{ post.title }}</strong></span><br>
-                    <span class="excerpt-author">by {{ post.author }}</span>
-                    <div class="date-city d-flex justify-content-end text-secondary">
-                        <ul>
-                            {% if post.status == 2 %}
-                            <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
-                            {% else %}
-                            <!-- if not published, state the date created. -->
-                            <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
-                            <li>(Not publshed)</li>
-                            {% endif %}
-                            <li>{{ post.city }}, {{ post.country.name }}</li>
-                        </ul>
+                    <span><strong>{{ post.title }}</strong></span>
+                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
+                    <div class="date-city d-flex justify-content-end">
+                        <p class="my-0 text-secondary">{{ post.pub_date }}</p>
                     </div>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
@@ -94,12 +94,16 @@
             {% if commented_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button class="btn btn-link show-posts mb-4">Show more</button>
+        <button class="btn btn-link show-posts mb-4">Show more
+            <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+        </button>
         <div class="hide">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>
-            <button class="btn btn-link hide-posts mt-5">Show less</button>
+            <button class="btn btn-link hide-posts mt-5">Show less
+                <span><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+            </button>
             {% elif forloop.counter > 3 %}
             {% if forloop.counter|divisibleby:3 %}
         </div>
@@ -114,33 +118,25 @@
         </div>
         <!-- Bookmarked Posts -->
         <hr>
-        <h2 class="mt-5 mb-4">Bookmarked by Me</h2>
+        <h2 class="mt-5 mb-3">Bookmarked by Me</h2>
         <div class="row">
             {% for post in bookmarked_posts %}
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
-                    <img class="card-img-top"
-                        src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                        alt="forest">
+                    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        class="card-img-top" alt="forest image">
                     {% else %}
                     <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
                     {% endif %}
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="excerpt-author">by {{ post.author }}</span>
-                    <div class="date-city d-flex justify-content-end text-secondary">
-                        <ul>
-                            {% if post.status == 2 %}
-                            <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
-                            {% else %}
-                            <!-- if not published, state the date created. -->
-                            <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
-                            <li>(Not publshed)</li>
-                            {% endif %}
-                            <li>{{ post.city }}, {{ post.country.name }}</li>
-                        </ul>
+                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
+                    <div class="date-city d-flex justify-content-end">
+                        <p class="my-0 text-secondary">{{ post.pub_date }}</p>
                     </div>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
@@ -150,12 +146,16 @@
             {% if bookmarked_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button class="btn btn-link show-posts mb-4">Show more</button>
+        <button class="btn btn-link show-posts mb-4">Show more
+            <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+        </button>
         <div class="hide">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>
-            <button class="btn btn-link hide-posts mt-5">Show less</button>
+            <button class="btn btn-link hide-posts mt-5">Show less
+                <span><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+            </button>
             {% elif forloop.counter > 3 %}
             {% if forloop.counter|divisibleby:3 %}
         </div>

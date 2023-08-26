@@ -30,7 +30,7 @@ class TestPostModel(TestCase):
     def test_featured_image_default_to_placeholder(self):
         self.assertEqual(self.post1.featured_image, 'placeholder')
 
-    def test_category_default_to_Others(self):
+    def test_category_default_to_others(self):
         self.assertEqual(self.post1.category, 'others')
 
     def test_status_default_to_0(self):
@@ -49,8 +49,21 @@ class TestPostModel(TestCase):
     def test_str_method_will_return_title(self):
         self.assertEqual(str(self.post1), 'title1')
 
+    def test_num_of_likes_count_num_of_likes(self):
+        self.post1.likes.add(self.user2)
+        self.post1.save()
+        self.assertEqual(self.post1.num_of_likes,
+                         self.post1.likes.count())
+
+    def test_status_value_returns_saved_as_draft_if_status_0(self):
+        self.assertEqual(self.post1.status_value(), 'Saved as draft')
+
+    def test_status_value_returns_published_if_status_1(self):
+        self.post1.status = 1
+        self.assertEqual(self.post1.status_value(), 'Published')
+
     def test_pub_date_returns_string_message_if_not_published(self):
-        self.assertEqual(self.post2.pub_date(), 'Not published')
+        self.assertEqual(self.post1.pub_date(), 'Not published')
 
     def test_pub_date_returns_specified_format_if_published(self):
         date = datetime.utcnow()
@@ -71,8 +84,8 @@ class TestPostModel(TestCase):
         self.assertEqual(post3.excerpt(), str(content)[0:199] + "...")
 
     def test_get_absolute_url(self):
-        self.assertEqual(
-            self.post1.get_absolute_url(), '/detail/{self.post1.slug}/')
+        self.assertEqual(self.post1.get_absolute_url(),
+                         '/detail/' + self.post1.slug + '/')
 
 
 class TestCommentModels(TestCase):

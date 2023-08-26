@@ -99,11 +99,8 @@ class Post(models.Model):
         if self.status == 0:
             return "Saved as draft"
         # if submited or published, return the status as it is.
-        elif self.status in [1, 2]:
-            return dict(STATUS)[self.status]
-        # if declined, return 'not published'
         else:
-            return "Not published"
+            return "Published"
 
     def pub_date(self):
         """

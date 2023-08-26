@@ -80,25 +80,12 @@ class TestPostForm(TestCase):
         self.assertEqual(form.errors['city'][0],
                          'This field is required.')
 
-    def test_post_country_is_required(self):
-        form = PostForm({
-            'title': 'title_3',
-            'author': self.user_1,
-            'content': 'content',
-            'city': 'test',
-            'category': 'others'
-        })
-        self.assertFalse(form.is_valid())
-        self.assertIn('country', form.errors.keys())
-        self.assertEqual(form.errors['country'][0],
-                         'This field is required.')
-
     def test_fields_are_explicit_in_form_metaclass(self):
         form = PostForm()
         self.assertEqual(
             form.Meta.fields,
             ['title', 'content', 'featured_image',
-             'city', 'country', 'category']
+             'city', 'category']
         )
 
 

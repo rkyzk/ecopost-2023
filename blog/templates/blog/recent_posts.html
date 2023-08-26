@@ -2,25 +2,23 @@
 {% block content %}
 <div class="d-flex justify-content-center">
     <div class="content">
-        <h2>More Stories</h2>
+        <h1 class="mt-5">More Stories from this Week</h1>
         <div class="row posts">
             {% for post in object_list %}
             <!-- display 3 posts in a row -->
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
-                    <img class="card-img-top"
-                        src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                        alt="forest">
+                    <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
+                        class="card-img-top" alt="forest image">
                     {% else %}
-                    <!-- <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}"> -->
-                    image
+                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
                     {% endif %}
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="item-right text-secondary space-right"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span>
+                    <span class="text-secondary item-right"><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary ml-2">{{ post.num_of_likes }}</span><br>
                     <span class="excerpt-author">by {{ post.author }}</span>
                     <div class="d-flex justify-content-end pub-date">
                         <span>{{ post.pub_date }}</span>

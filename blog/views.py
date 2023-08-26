@@ -1,67 +1,74 @@
+"""This module holds view functions for ecopost."""
+
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
-from django.http import HttpResponseRedirect
-from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 from django.db.models import Q
-from .models import Post, Comment, CATEGORY
 from datetime import datetime, timedelta
+from django.core.exceptions import PermissionDenied
 from .filters import PostFilter
-import django_filters
-from .forms import CommentForm, PostForm
+from .forms import PostForm, CommentForm
+from .models import Post, Comment, CATEGORY
 
-# Set the minimum number of likes so posts with a greater number of likes
-# will be included in "Popular Stories"
+# Set the num. of likes above which posts will be included in "Popular Stories"
 min_num_likes = 1
 
 
+def handler500(request):
+    """Render 500.html in case of 500 error"""
+    return render(
+        request,
+        '500.html',
+        {}
+    )
+
+
 class PostList(generic.ListView):
-    """Gets queryset of featured posts and displays them on the home page."""
+    """Get queryset of featured posts and display the home page."""
     model = Post
     queryset = Post.objects.filter(featured_flag=True).order_by(
-        "-created_on")[:3]
+            "-created_on")[:3]
     template_name = "blog/index.html"
 
 
-class AddStory(LoginRequiredMixin, generic.CreateView):
+class AddPost(LoginRequiredMixin, generic.CreateView):
     """
-    Display a post form on 'add_story' page for users
+    Display a post form on 'Write Stories' page for users
     to make a new post object.
     """
     model = Post
-    template_name = "blog/add_story.html"
+    template_name = "blog/add_post.html"
     form_class = PostForm
 
     def form_valid(self, form):
         """
-        Validates the form.
+        Validate the form.
         arguments: self, form: Post form
-        :return: super()
         :rtype: method
         """
+        # set the logged in user as the author
         form.instance.author = self.request.user
         message = 'Your draft has been saved.'
-        # If submitted, set the status to 1 ('Submitted.')
-        if 'submit' in self.request.POST.keys():
+        # If published, set the status to 1 ('Published.')
+        if 'publish' in self.request.POST.keys():
             form.instance.status = 1
-            message = "You submitted your post. " + \
-                      "We'll contact you when decision has been made."
+            message = "Your post has been published."
         form.save()
         messages.add_message(self.request, messages.SUCCESS, message)
-        return super(AddStory, self).form_valid(form)
+        return super(AddPost, self).form_valid(form)
 
 
 class PostDetail(View):
     """
-    Displays the full content of a post and the comments on 'post detail' page.
-    Displays a comment form for users to leave comments.
+    Display the full content of a post and the comments on 'post detail' page.
+    Display a comment form for users to leave comments.
     """
     def get(self, request, slug, *args, **kwargs):
         """
-        renders 'post detail' page.
+        render 'post detail' page.
         argument: self, request, slug
-        :return: render()
         :rtype: method
         """
         post = get_object_or_404(Post, slug=slug)
@@ -82,17 +89,16 @@ class PostDetail(View):
                 "comments": comments,
                 "liked": liked,
                 "bookmarked": bookmarked,
-                "comment_form": CommentForm()
+                "comment_form": CommentForm(),
             },
         )
 
     def post(self, request, slug, *args, **kwargs):
         """
-        Receives posted comment form and validates it.
-        If validated, saves it and displays the comment.
-        If not, displays an error message and an empty comment form.
+        Receive posted comment form and validate it.
+        If validated, save it and display the comment.
+        If not, display an error message and an empty comment form.
         arguments: self, request, slug, *args, **kwargs
-        :return: render()
         :rtype: method
         """
         post = Post.objects.filter(slug=slug)[0]
@@ -103,12 +109,12 @@ class PostDetail(View):
         bookmarked = False
         if post.bookmark.filter(id=self.request.user.id).exists():
             bookmarked = True
-        # gets input data from the user and stores it in 'comment_form'
+        # get input data from the user and store it in 'comment_form'
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment_form.instance.commenter = request.user
             comment = comment_form.save(commit=False)
-            # record which post this comment belongs to.
+            # specify which post this comment belongs to.
             comment.post = post
             comment.save()
             messages.add_message(request, messages.SUCCESS,
@@ -154,7 +160,7 @@ class Bookmark(View):
 
     def post(self, request, slug, *args, **kwargs):
         """
-        If user exists in 'bookmark,' removes him/her.
+        If user exists in 'bookmark,' remove him/her.
         If not, add the user to 'bookmark.'
         arguments: self, request, slug, *args, **kwargs
         :return: HttpResponseRedirect()
@@ -176,7 +182,7 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
 
     def form_valid(self, form):
         """
-        validate the form and save it.
+        validate the form. If validated, save it.
         arguments: self, form
         :return: super()
         :rtype: method
@@ -205,7 +211,7 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
 
 
 class DeletePost(LoginRequiredMixin, View):
-    """Deletes posts."""
+    """Delete posts."""
 
     def post(self, request, slug, *args, **kwargs):
         """
@@ -215,6 +221,7 @@ class DeletePost(LoginRequiredMixin, View):
         :rtype: method
         """
         post = get_object_or_404(Post, slug=slug)
+        # if the user is the author and the post is in draft status, delete it.
         if post.author == self.request.user and post.status == 0:
             post.delete()
             message = 'Your draft has been deleted.'
@@ -225,15 +232,13 @@ class DeletePost(LoginRequiredMixin, View):
 
 
 class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
-    """Updates comments."""
+    """Update comments."""
 
     def get(self, request, id, *args, **kwargs):
         """
-        Get comment from the DB,
-        store it in comment form and display the update form
-        for users to update the body.
+        Get comment from the DB, store the data in comment form
+        and display the update form for users to update it.
         arguments: self, request, id: comment id, *args, **kwargs
-        :returns: render()
         :rtype: method
         """
         comment = get_object_or_404(Comment, id=id)
@@ -249,9 +254,9 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def post(self, request, id, *args, **kwargs):
         """
-        Receive comment form, validate it.
-        If it's valid, update the comment.
-        If not, store an error message. Redirect to "Detail Page."
+        Receive comment form and validate it.
+        If it's valid, update the comment, otherwise store
+        an error message. Redirect to "Detail Page."
         arguments: id: comment id
         :returns: HttpResponseRedirect()
         :rtype: method
@@ -272,8 +277,7 @@ class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         """
-        Tests if the user has written the comment.
-        :returns: True/False
+        Test if the user has written the comment.
         :rtype: boolean
         """
         id = self.kwargs.get('id')
@@ -285,13 +289,12 @@ class DeleteComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def post(self, request, id, *args, **kwargs):
         """
-        Changes the status of comments to 2 ('Deleted').
+        Change the status of comments to 2 ('Deleted').
         arguments: id: comment id
-        :returns: HttpResponseRedirect()
         :rtype: method
         """
         comment = get_object_or_404(Comment, id=id)
-        # comment_status 2 indicates 'Deleted'
+        # set comment_status to 2, 'Deleted'
         comment.comment_status = 2
         comment.save()
         slug = comment.post.slug
@@ -301,8 +304,7 @@ class DeleteComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         """
-        Tests if the user has written the comment.
-        :returns: True/False
+        Test if the user has written the comment.
         :rtype: boolean
         """
         id = self.kwargs.get('id')
@@ -319,7 +321,6 @@ class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
         3) posts bookmarked by the user,
         send the three lists to 'My page'
         arguments: self, request, pk: pk of the user, *args, **kwargs
-        :returns: render()
         :rtype: method
         """
         my_posts = Post.objects.filter(author=pk)
@@ -331,7 +332,6 @@ class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
         commented_posts = list(dict.fromkeys(commented_posts))
         # Make a list of posts bookmarked by the user
         bookmarked_posts = Post.objects.filter(bookmark__in=[request.user.id])
-
         return render(
             request,
             "blog/my_page.html",
@@ -344,42 +344,10 @@ class MyPage(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         """
-        Tests if the user is the owner of 'My Page'
-        :returns: True/False
+        Test the id if it's the user's.
         :rtype: boolean
         """
         return self.kwargs.get('pk') == self.request.user.pk
-
-
-class MoreStories(generic.ListView):
-    """
-    Get posts published in the past 7 days from DB,
-    send the queryset and display 'More Stories' page.
-    """
-    model = Post
-    template_name = "blog/more_stories.html"
-    paginate_by = 6
-    filterargs = {
-            'status': 2,
-            'published_on__date__gte': datetime.utcnow() - timedelta(days=7),
-            'featured_flag': False
-            }
-    queryset = Post.objects.filter(**filterargs).order_by("-published_on")
-
-
-class PopularStories(generic.ListView):
-    """
-    Get posts liked more than once from DB,
-    send the queryset and display 'Popular Stories' page.
-    """
-    model = Post
-    template_name = "blog/popular_stories.html"
-    paginate_by = 6
-    queryset = Post.objects.filter(
-            status=2,
-            featured_flag=False,
-            num_of_likes__gte=min_num_likes
-        ).order_by("-published_on")
 
 
 class SearchPosts(View):
@@ -405,8 +373,7 @@ class SearchPosts(View):
         postFilterForm = PostFilter()
         if 'search' in request.GET.keys():
             search = True
-            input = request.GET['title'].strip() + \
-                    request.GET['author__username'].strip() + \
+            input = request.GET['title'].strip() + request.GET['author__username'].strip() + \
                     request.GET['keyword'].strip() + \
                     request.GET['city'].strip() + \
                     request.GET['published_after'].strip() + \

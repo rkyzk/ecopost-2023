@@ -6,7 +6,7 @@ from django.urls import path
 
 urlpatterns = [
   path('', views.PostList.as_view(), name='home'),
-  path('add_story/', views.AddStory.as_view(), name='add_story'),
+  path('add_story/', views.AddPost.as_view(), name='add_story'),
   path('recent_stories/', views.RecentPosts.as_view(), name='recent_stories'),
   path('popular_stories/', views.PopularPosts.as_view(),
        name='popular_stories'),

@@ -9,7 +9,10 @@ from datetime import datetime
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
-    """Customizes the appearance of Post model on the admin panel."""
+    """
+    Customize the list, search and filter items of Post model
+    on the admin panel.
+    """
     list_display = ('title', 'slug', 'status', 'created_on')
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
@@ -19,8 +22,8 @@ class PostAdmin(SummernoteModelAdmin):
 
     def publish_posts(self, request, queryset):
         """
-        Sets the status to 'Published'
-        and stores the published date and time.
+        Set the status to 'Published'
+        and store the published date and time.
         arguments: self, request, queryset: posts to be published
         """
         queryset.update(status=1)

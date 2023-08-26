@@ -1,11 +1,10 @@
 {% extends "blog/base.html" %}
-{% load static %}
 {% block content %}
 <!-- heading -->
-<div class="d-flex justify-content-center">
-    <h1 class="align-self-center">ecopost</h1>
+<div class="d-flex justify-content-center mt-4">
+    <h1 class="align-self-center">eco post</h1>
     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891794/blue-earth_dvkptz.png" class="earth"
-        alt="blue earth">
+        alt="blue and green earth">
 </div>
 <!-- Introduction -->
 <div class="d-flex justify-content-center">
@@ -19,8 +18,8 @@
             You can connect with those who are taking actions, join activities
             in your region, or start up your own movements.
         </p>
-        <p>To submit your stories and/or leave comments on the posts,
-            <a href="{% url 'account_signup' %}">become a member</a>.
+        <p>In order to submit your own stories for publication and/or leave comments
+            on the posts, <a href="{% url 'account_signup' %}">become a member</a>.
         </p>
         <hr>
     </div>
@@ -28,29 +27,25 @@
 <!-- Featured stories -->
 <div class="d-flex justify-content-center mt-5">
     <div class="content">
-        <h2>Featured Stories</h2>
+        <h2 class="featured-heading">Featured Stories</h2>
         <div class="row posts">
             {% for post in post_list %}
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
-                    image
-                    <!-- {% if "placeholder" in post.featured_image.url %}
+                    {% if "placeholder" in post.featured_image.url %}
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                        class="featured-image" alt="forest image">
+                        alt="forest image">
                     {% else %}
-                    <img class="card-img-top featured-image" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                    {% endif %} -->
+                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    {% endif %}
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="item-right text-secondary mr-1"><i class="far fa-heart"></i></span>
+                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart heart"></i></span>
                     <span class="text-secondary">{{ post.num_of_likes }}</span><br>
                     <span class="excerpt-author">by {{ post.author }}</span>
-                    <div class="date-city d-flex justify-content-end text-secondary">
-                        <ul>
-                            <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
-                            <li>{{ post.city }}, {{ post.country.name }}</li>
-                        </ul>
+                    <div class="d-flex justify-content-end pub-date">
+                        <span>{{ post.pub_date }}</span>
                     </div>
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
@@ -60,7 +55,7 @@
             {% empty %}
             <p>No posts</p>
             {% endfor %}
-            <!-- links to 'More Stories' and 'Popular Stories' -->
+            <!-- links to 'Recent Stories' and 'Popular Stories' -->
             <div class="links-to-posts">
                 <a href="{% url 'more_stories' %}">
                     <p>More stories from this week &raquo;</p>

@@ -1,7 +1,6 @@
 import django_filters
 from .models import Post, CATEGORY
 from django.forms.widgets import Input
-from django.db.models.functions import Trim
 from django.db.models import Q
 from datetime import datetime
 

@@ -420,9 +420,9 @@ class TestViews(TestCase):
                                 'save': 'draft'})
         post = Post.objects.filter(slug=self.post6.slug).first()
         self.post6.save()
+        print(self.post6.category)
         post = Post.objects.filter(slug=self.post6.slug).first()
         self.assertEqual(post.title, 'title6')
-        print(post.category)
         self.assertRedirects(response, f'/detail/{post.slug}/')
 
     def test_update_post_POST_cancel_will_not_update_post(self):
@@ -452,6 +452,18 @@ class TestViews(TestCase):
         messages = list(response.context['messages'])
         self.assertEqual(str(messages[0]), "The change has been saved.")
 
+    def test_update_post_POST_msg_says_published_if_published(self):
+        response = self.c.post(reverse('update_post',
+                               kwargs={'slug': self.post6.slug}),
+                               {'title': 'title6',
+                                'content': 'content updated',
+                                'city': 'test city',
+                                'category': 'others',
+                                'publish': 'complete'},
+                               follow=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), "Your post has been published.")
+
     def test_update_post_POST_publish_will_set_status_to_1(self):
         response = self.c.post(reverse('update_post',
                                        kwargs={'slug': self.post6.slug}),
@@ -459,7 +471,7 @@ class TestViews(TestCase):
                                 'content': 'content updated',
                                 'city': 'test city',
                                 'category': 'others',
-                                'submit': 'complete'})
+                                'publish': 'complete'})
         post = Post.objects.filter(slug=self.post6.slug).first()
         self.assertEqual(post.status, 1)
 

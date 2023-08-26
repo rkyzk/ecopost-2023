@@ -190,11 +190,11 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
         form.instance.author = self.request.user
         message = 'The change has been saved.'
         # If the post is submitted, set status to 1 ('Submitted')
-        if 'submit' in self.request.POST.keys():
+        if 'publish' in self.request.POST.keys():
             form.instance.status = 1
-            message = "You submitted your post. " + \
-                      "We'll contact you when decision has been made."
+            message = "Your post has been published."
         form.save()
+        print(form.instance.category)
         messages.add_message(self.request, messages.SUCCESS, message)
         return super(UpdatePost, self).form_valid(form)
 

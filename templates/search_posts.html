@@ -1,26 +1,84 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
 {% load widget_tweaks %}
 {% block content %}
 <div class="d-flex justify-content-center">
-    <div class="content">
-        <h2>Search Stories</h2>
-        <form method="get">
-            {% csrf_token %}
-            {% include 'load_field.html' with my_field=postForm.form.title %}
-            {% include 'load_field.html' with my_field=postForm.form.author %}
-            {% include 'load_field.html' with my_field=postForm.form.search_keyword %}
-            {% include 'load_field.html' with my_field=postForm.form.num_of_likes %}
-            {% include 'load_field.html' with my_field=postForm.form.category %}
-            {% include 'load_field.html' with my_field=postForm.form.city %}
-            {% include 'load_field.html' with my_field=postForm.form.country %}
-            {% include 'load_field_date.html' with my_field=postForm.form.published_after %}
-            {% include 'load_field_date.html' with my_field=postForm.form.published_before %}
-            <button class="button-submit" type="submit">Search</button>
+    <div class="content mt-4">
+        <h1>Search Stories</h1>
+        <!-- Search form -->
+        <form method="get" class="search-form">
+            <div class="row mt-2">
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.title.label_tag}}
+                        {% render_field postForm.form.title class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.author__username.label_tag}}
+                        {% render_field postForm.form.author__username class="form-control" %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.keyword.label_tag}}
+                        {% render_field postForm.form.keyword class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-3 col-9">
+                    <div class="form-lable-group">
+                        {{postForm.form.num_of_likes.label_tag}}
+                        {% render_field postForm.form.num_of_likes class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-3 col-3 align-self-end">
+                    <span>times</span>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        <span>Published date range</span>
+                        {{postForm.form.published_after.label_tag}}
+                        {% render_field postForm.form.published_after class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.published_before.label_tag}}
+                        {% render_field postForm.form.published_before class="form-control" %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.city.label_tag}}
+                        {% render_field postForm.form.city class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-lable-group">
+                        {{postForm.form.category.label_tag}}
+                        {% render_field postForm.form.category class="form-control" %}
+                    </div>
+                </div>
+            </div>
+            <button class="beige-btn mt-3" type="submit" name="search">search</button>
+            <button class="beige-btn mt-3 btn-right" type="submit">clear form</button>
         </form>
+        <!-- Search results -->
+        {% if search %}
+        {% if no_input %}
+        <p class="warning mt-3">Please enter at least one field.</p>
+        {% else %}
         <div class="row posts">
+            <h2>Search Results</h2>
             {% for post in posts %}
             <!-- display 3 posts in a row -->
-            <div class="col-md-4">
+            <div class="col-md-4 individual-post mt-3">
                 <div class="image-wrapper d-flex justify-content-center">
                     {% if "placeholder" in post.featured_image.url %}
                     <img class="card-img-top"
@@ -32,9 +90,9 @@
                 </div>
                 <div class="mx-2 mt-2 post-text">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="item-right text-secondary space-right"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span>
-                    <span class="excerpt-author">By {{ post.author }}</span>
+                    <span class="item-right text-secondary mr-1"><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
+                    <span class="excerpt-author">by {{ post.author }}</span>
                     <div class="d-flex justify-content-end pub-date">
                         <span>{{ post.pub_date }}</span>
                     </div>
@@ -53,22 +111,7 @@
             <p>No posts</p>
             {% endfor %}
         </div>
-        <!-- if there are more than 6 posts in object_list,
-    display 'NEXT' and/or 'PREV' buttons -->
-        {% if is_paginated %}
-        <nav aria-label="Page navigation">
-            <div class="pagination justify-content-center mt-4">
-                {% if page_obj.has_previous %}
-                <span><a href="?page={{page_obj.previous_page_number}}" class="item-left">&laquo; PREV</a></span>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                </span>
-                {% if page_obj.has_next %}
-                <span><a href="?page={{page_obj.next_page_number}}" class="item-right">NEXT &raquo;</a></span>
-                {% endif %}
-            </div>
-        </nav>
+        {% endif %}
         {% endif %}
     </div>
 </div>

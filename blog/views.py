@@ -382,96 +382,7 @@ class PopularStories(generic.ListView):
         ).order_by("-published_on")
 
 
-class Search(View):
-    """Hold functions to search posts by multiple factors."""
-
-    def get(self, request, *args, **kwargs):
-        """
-        Display "Search Stories" page, receive users' input,
-        run search based on the input, return a queryset of
-        the matching posts and display the search results.
-        arguments: self, request, *args, **kwargs
-        :returns: render()
-        :rtype: method
-        """
-        # get category choices for the select box
-        category_choices = Post._meta.get_field('category').choices
-        categories = [cat[1] for cat in category_choices]
-        # get country choices for the select box
-        country_choices = Post._meta.get_field('country').choices
-        countries = [country.name for country in country_choices]
-        # Get posts that have been published, arranged from the
-        # newest to oldest published dates
-        posts = Post.objects.filter(status=2).order_by('-published_on')
-        # no_input will be set to false if there's any input
-        no_input = True
-        queryset = []
-        search_clicked = False
-        # set search_clicked to True if the 'search' was clicked.
-        if 'search' in self.request.GET:
-            search_clicked = True
-            # get input data in the search form
-            title = request.GET.get('title_input')
-            author = request.GET.get('author_input')
-            kw_1 = request.GET.get('keyword_1')
-            kw_2 = request.GET.get('keyword_2')
-            kw_3 = request.GET.get('keyword_3')
-            min_liked = request.GET.get('liked_count_min')
-            pub_date_min = request.GET.get('date_min')
-            pub_date_max = request.GET.get('date_max')
-            category = request.GET.get('category')
-            city = request.GET.get('city')
-            # set initial values for the following variable
-            # so filtering doesn't cause any errors.
-            if min_liked == "":
-                min_liked = "0"
-
-            if title.strip() != "" or author.strip() != "" or kw_1.strip() != "" or kw_2.strip() != "" or kw_3.strip() != "" or country != "Choose..." or city.strip() != "" or min_liked != "0" or category != "Choose...":
-                no_input = False
-
-            multiple_q = Q(Q(title__icontains=title.strip()) &
-                           Q(author__username__icontains=author.strip()) &
-                           Q(num_of_likes__gte=min_liked) &      
-                           Q(city__icontains=city) &
-                           (Q(title__icontains=kw_1.strip()) |
-                            Q(content__icontains=kw_1.strip())) &
-                           (Q(title__icontains=kw_2.strip()) |
-                            Q(content__icontains=kw_2.strip())) &
-                           (Q(title__icontains=kw_3.strip()) |
-                            Q(content__icontains=kw_3.strip())))
-
-            # As for the following fields, add to multiple_q only if there's
-            # input (otherwise filtering will result in errors.)
-            if pub_date_max is not None and pub_date_max != '':
-                no_input = False
-                max_date = datetime.strptime(
-                    pub_date_max, '%Y-%m-%d').strftime('%Y-%m-%d')
-                multiple_q &= Q(published_on__lte=max_date)
-            if pub_date_min is not None and pub_date_min != '':
-                no_input = False
-                min_date = datetime.strptime(
-                    pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
-                multiple_q &= Q(published_on__gte=min_date)
-            if category != 'Choose...':
-                # get category's key from the value
-                category_dict = dict(CATEGORY)
-                keys = list(category_dict.keys())
-                values = list(category_dict.values())
-                category_key = keys[values.index(category)]
-                multiple_q &= Q(category=category_key)
-            if not no_input:
-                queryset = posts.filter(multiple_q)
-
-        context = {
-            'categories': categories,
-            'queryset': queryset,
-            'search_clicked': search_clicked,
-            'no_input': no_input
-        }
-        return render(request, "search.html", context)
-
-
-class Search2(View):
+class SearchPosts(View):
     """Hold functions to search posts by multiple factors."""
 
     def get(self, request, *args, **kwargs):
@@ -488,13 +399,65 @@ class Search2(View):
         categories = [cat[1] for cat in category_choices]
         # Get posts that have been published, arranged from the
         # newest to oldest published dates
-        posts = Post.objects.filter(status=2).order_by('-published_on')
-        postFilterForm = PostFilter(request.GET, queryset=posts)
-        posts = postFilterForm.qs
+        posts = []
+        search = False
+        no_input = False
+        postFilterForm = PostFilter()
+        if 'search' in request.GET.keys():
+            search = True
+            input = request.GET['title'].strip() + \
+                    request.GET['author__username'].strip() + \
+                    request.GET['keyword'].strip() + \
+                    request.GET['city'].strip() + \
+                    request.GET['published_after'].strip() + \
+                    request.GET['published_before'].strip()
 
+            if (input == "" and
+                (request.GET['category'] == "Choose..." or request.GET['category'] == "") and
+                (request.GET['num_of_likes'] == "0" or request.GET['num_of_likes'] == "")):
+                    no_input = True
+            else:
+                posts = Post.objects.filter(status=2).order_by('-published_on')
+                postFilterForm = PostFilter(request.GET, queryset=posts)
+                posts = postFilterForm.qs
         context = {
             'categories': categories,
             'posts': posts,
             'postForm': postFilterForm,
+            'search': search,
+            'no_input': no_input,
         }
-        return render(request, "search2.html", context)
+        return render(request, "blog/search_posts.html", context)
+
+
+class RecentPosts(generic.ListView):
+    """
+    Get posts published in the past 7 days from DB,
+    send the queryset and display 'Recent Posts' page.
+    """
+    model = Post
+    template_name = "blog/recent_posts.html"
+    paginate_by = 6
+    # filter 'Published' posts published in the previous 7 days.
+    filterargs = {
+            'status': 2,
+            'published_on__date__gte': datetime.utcnow() - timedelta(days=7),
+            'featured_flag': False
+            }
+    queryset = Post.objects.filter(**filterargs).order_by("-published_on")
+
+
+class PopularPosts(generic.ListView):
+    """
+    Gets posts liked more than once from DB,
+    sends the queryset and displays 'Popular Stories' page.
+    """
+    model = Post
+    template_name = "blog/popular_posts.html"
+    paginate_by = 6
+    # get posts whose num_of_likes is above min_num_likes defined at line 16 of this module.
+    queryset = Post.objects.filter(
+            status=2,
+            featured_flag=False,
+            num_of_likes__gte=min_num_likes
+        ).order_by("-published_on")       

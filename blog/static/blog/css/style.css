@@ -255,17 +255,6 @@ h1 {
     min-height: 880px;
 }
 
-/* --------- account login -----------------------*/
-
-.btn-sign-in {
-    display: block;
-}
-
-.authentication {
-    margin: 0 auto;
-    width: 500px;
-}
-
 /* ---------- search.html -------------------------*/
 
 .item-right {

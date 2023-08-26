@@ -12,15 +12,14 @@
                     for publication. Once submitted, you won't be able to edit or delete it.
                 </p>
                 <div class="update-post-btn-box">
-                    <button type="submit" class="btn-submit update-post-btn" name="save" value="draft">Save
+                    <button type="submit" class="beige-btn update-post-btn" name="save" value="draft">Save
                         changes</button>
-                    <button type="submit" class="btn-submit update-post-btn submit-post" name="submit"
-                        value="complete">Submit</button>
-                    <a href="{% url 'detail_page' post.slug %}" class="btn-submit cancel">Cancel Update</a>
+                    <button type="submit" class="beige-btn update-post-btn submit-post" name="publish"
+                        value="complete">Publish</button>
+                    <a href="{% url 'detail_page' post.slug %}" class="beige-btn cancel">Cancel Update</a>
                 </div>
             </div>
         </form>
     </div>
-    <div class="padding-bottom"></div>
 </div>
 {% endblock content %}

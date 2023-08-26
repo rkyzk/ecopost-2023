@@ -80,7 +80,7 @@
             <!-- display 3 posts in a row -->
             <div class="col-md-4 individual-post mt-3">
                 <div class="image-wrapper d-flex justify-content-center">
-                    {% if "placeholder" in post.featured_image.url %}
+                    {% if 'default' in post.featured_image.url %}
                     <img class="card-img-top"
                         src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         alt="forest">

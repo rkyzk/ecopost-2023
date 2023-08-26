@@ -34,7 +34,7 @@ class Post(models.Model):
     published_on = models.DateTimeField(null=True, blank=True)
     content = models.TextField()
     featured_image = CloudinaryField('image',
-                                     default='placeholder',
+                                     default='default',
                                      blank=True,
                                      transformation={
                                         'crop': 'fill_pad',

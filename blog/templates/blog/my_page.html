@@ -9,7 +9,7 @@
             {% for post in my_posts %}
             <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
-                    {% if "placeholder" in post.featured_image.url %}
+                    {% if 'default' in post.featured_image.url %}
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}
@@ -71,7 +71,7 @@
             {% for post in commented_posts %}
             <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
-                    {% if "placeholder" in post.featured_image.url %}
+                    {% if 'default' in post.featured_image.url %}
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}
@@ -123,7 +123,7 @@
             {% for post in bookmarked_posts %}
             <div class="col-md-4 individual-post">
                 <div class="image-wrapper d-flex justify-content-center">
-                    {% if "placeholder" in post.featured_image.url %}
+                    {% if 'default' in post.featured_image.url %}
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}

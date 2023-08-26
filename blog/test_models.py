@@ -27,8 +27,8 @@ class TestPostModel(TestCase):
     def test_featured_flag_default_to_False(self):
         self.assertEqual(self.post1.featured_flag, False)
 
-    def test_featured_image_default_to_placeholder(self):
-        self.assertEqual(self.post1.featured_image, 'placeholder')
+    def test_featured_image_default_to_default_image(self):
+        self.assertEqual(self.post1.featured_image, 'deafult image')
 
     def test_category_default_to_others(self):
         self.assertEqual(self.post1.category, 'others')

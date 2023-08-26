@@ -407,7 +407,7 @@ class RecentPosts(generic.ListView):
     paginate_by = 6
     # filter 'Published' posts published in the previous 7 days.
     filterargs = {
-            'status': 2,
+            'status': 1,
             'published_on__date__gte': datetime.utcnow() - timedelta(days=7),
             'featured_flag': False
             }

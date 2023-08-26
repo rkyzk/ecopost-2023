@@ -1,6 +1,5 @@
 import django_filters
 from .models import Post, CATEGORY
-from django_countries.fields import CountryField
 from django.db.models import Q
 
 
@@ -16,14 +15,13 @@ class PostFilter(django_filters.FilterSet):
                                                label='liked more than')
     category = django_filters.ChoiceFilter(choices=CATEGORY)
     city = django_filters.CharFilter(lookup_expr='icontains')
-    country = django_filters.ChoiceFilter(choices=CountryField().get_choices())
     search_keyword = django_filters.CharFilter(method='filter_keyward',
                                                label='keyword')
 
     class Meta:
         model = Post
         fields = ['title', 'author__username', 'content', 'published_on',
-                  'num_of_likes', 'category', 'city', 'country']
+                  'num_of_likes', 'category', 'city']
 
     def filter_keyword(self, queryset, name, value):
         return queryset.filter(Q(title__icontains=value) |

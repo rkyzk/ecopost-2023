@@ -37,7 +37,7 @@ DEBUG = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
-    '8000-rkyzk-ecopost2023-1b6dzt1ltp1.ws-us103.gitpod.io',
+    '8000-rkyzk-ecopost2023-pdnz0a51q8j.ws-us104.gitpod.io',
     'ecopost2023-9f46edbaba4f.herokuapp.com'
 ]
 
@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
-    'django_countries',
     'django_summernote',
     'crispy_forms',
     'crispy_bootstrap4',

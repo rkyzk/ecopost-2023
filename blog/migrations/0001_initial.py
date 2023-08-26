@@ -4,7 +4,6 @@ import cloudinary.models
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import django_countries.fields
 
 
 class Migration(migrations.Migration):
@@ -31,7 +30,6 @@ class Migration(migrations.Migration):
                 ('status', models.IntegerField(choices=[(0, 'Draft'), (1, 'Submitted'), (2, 'Published'), (3, 'Declined')], default=0)),
                 ('num_of_likes', models.IntegerField(default=0)),
                 ('city', models.CharField(max_length=25)),
-                ('country', django_countries.fields.CountryField(max_length=25)),
                 ('category', models.CharField(choices=[('animals', 'protecting animals'), ('aquatic system', 'protecting the aquatic system'), ('saving soil & trees', 'protecting soil & trees'), ('saving resources', 'saving resources'), ('eco-conscious diet', 'eco-conscious diet'), ('others', 'others')], default='others', max_length=30)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to=settings.AUTH_USER_MODEL)),
                 ('bookmark', models.ManyToManyField(blank=True, related_name='bookmarked', to=settings.AUTH_USER_MODEL)),

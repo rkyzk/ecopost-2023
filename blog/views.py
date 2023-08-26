@@ -421,7 +421,6 @@ class Search(View):
             pub_date_max = request.GET.get('date_max')
             category = request.GET.get('category')
             city = request.GET.get('city')
-            country = request.GET.get('country')
             # set initial values for the following variable
             # so filtering doesn't cause any errors.
             if min_liked == "":
@@ -453,8 +452,6 @@ class Search(View):
                 min_date = datetime.strptime(
                     pub_date_min, '%Y-%m-%d').strftime('%Y-%m-%d')
                 multiple_q &= Q(published_on__gte=min_date)
-            if country != "Choose...":
-                multiple_q &= Q(country__name=country)
             if category != 'Choose...':
                 # get category's key from the value
                 category_dict = dict(CATEGORY)
@@ -467,7 +464,6 @@ class Search(View):
 
         context = {
             'categories': categories,
-            'countries': countries,
             'queryset': queryset,
             'search_clicked': search_clicked,
             'no_input': no_input
@@ -490,9 +486,6 @@ class Search2(View):
         # get category choices for the select box
         category_choices = Post._meta.get_field('category').choices
         categories = [cat[1] for cat in category_choices]
-        # get country choices for the select box
-        country_choices = Post._meta.get_field('country').choices
-        countries = [country.name for country in country_choices]
         # Get posts that have been published, arranged from the
         # newest to oldest published dates
         posts = Post.objects.filter(status=2).order_by('-published_on')
@@ -501,7 +494,6 @@ class Search2(View):
 
         context = {
             'categories': categories,
-            'countries': countries,
             'posts': posts,
             'postForm': postFilterForm,
         }

@@ -2,7 +2,6 @@
 
 from .models import Comment, Post, CATEGORY
 from django import forms
-from django_countries.fields import CountryField
 
 
 class PostForm(forms.ModelForm):
@@ -12,11 +11,10 @@ class PostForm(forms.ModelForm):
         """Features of PostForm."""
         model = Post
         fields = ['title', 'content', 'featured_image',
-                  'city', 'country', 'category']
+                  'city', 'category']
         title = forms.CharField(required=True)
         content = forms.CharField(required=True)
         city = forms.CharField(required=True)
-        country = CountryField(blank_label="(select country)")
 
         def __init__(self, *args, **kwargs):
             """Set required flag of featured image to False."""

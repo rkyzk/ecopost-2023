@@ -5,28 +5,27 @@ import string
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from django_countries.fields import CountryField
-from cloudinary.models import CloudinaryField
 from django.shortcuts import reverse
 from datetime import datetime
+from cloudinary.models import CloudinaryField
 
 
-STATUS = ((0, "Draft"), (1, "Submitted"), (2, "Published"), (3, "Declined"))
+STATUS = ((0, "Draft"), (1, "Published"))
 
 COMMENT_STATUS = ((0, "original"), (1, "edited"), (2, "deleted"))
 
-CATEGORY = (('animals', 'protecting animals'),
-            ('aquatic system', 'protecting the aquatic system'),
-            ('saving soil & trees', 'protecting soil & trees'),
-            ('saving resources', 'saving resources'),
-            ('eco-conscious diet', 'eco-conscious diet'),
-            ('others', 'others'))
+CATEGORY = (('animals', 'Protecting animals'),
+            ('aquatic systems', 'Protecting aquatic systems'),
+            ('soil & trees', 'Protecting the soil & trees'),
+            ('save resources', 'Saving resources'),
+            ('eco-conscious diet', 'Eco-conscious diet'),
+            ('others', 'Others'))
 
 
 class Post(models.Model):
-    """Lists fields of Post model and functions around them."""
+    """Hold fields of Post model and functions around them."""
     title = models.CharField(max_length=80)
-    slug = models.SlugField(max_length=80, unique=True, editable=False)
+    slug = models.SlugField(max_length=80, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="posts")
     featured_flag = models.BooleanField(default=False)
@@ -50,7 +49,6 @@ class Post(models.Model):
                                    blank=True)
     num_of_likes = models.IntegerField(default=0)
     city = models.CharField(max_length=25)
-    country = CountryField(max_length=25)
     category = models.CharField(max_length=30, choices=CATEGORY,
                                 default='others')
     bookmark = models.ManyToManyField(User, related_name='bookmarked',
@@ -59,71 +57,85 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_on', '-published_on']
 
-    def __str__(self):
-        """
-        Returns the title.
-        :return: title
-        :rtype: str
-        """
-        return self.title
-
     def save(self, *args, **kwargs):
         """
-        As the post is saved for the first time, assign a slug.
+        Assign a slug if the post has no slug.
         If the status is 'Published,' but the published date
-        hasn't been recorded, assign the current date and time.
-        Save likes count.
+        is None, assign the current date and time.
         """
         if not self.slug:
             # add a random string after the title
             random_str = ''.join(random.choices(string.ascii_letters +
                                  string.digits, k=16))
             self.slug = slugify(self.title + '-' + random_str)
-        # if the post has been published but published_on is empty
-        # assign the current datetime.
-        if self.status == 2 and not self.published_on:
+        # if the status is 2 ("Published") but published_on is None,
+        # assign the current date & time.
+        if self.status == 1 and not self.published_on:
             self.published_on = datetime.utcnow()
-        # remove p tags in case the content includes them
+        # remove p tags in case the content contains them
         if self.content.startswith("<p>"):
             self.content = self.content[3:]
         if self.content.endswith("</p>"):
             self.content = self.content[:len(self.content)-4]
-        # save number of likes
+        # store num of likes if the post id exists.
         if self.id is not None:
             self.num_of_likes = self.likes.count()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        """
+        Return the title.
+        :return: title
+        :rtype: str
+        """
+        return self.title
+
+    def status_value(self):
+        """
+        Return presentable values for status.
+        :return: status descrption
+        :rtype: str
+        """
+        if self.status == 0:
+            return "Saved as draft"
+        # if submited or published, return the status as it is.
+        elif self.status in [1, 2]:
+            return dict(STATUS)[self.status]
+        # if declined, return 'not published'
+        else:
+            return "Not published"
+
+    def pub_date(self):
+        """
+        Return the published date.
+        If the post hasn't been published, return 'Not published.'
+        :returns: published_on or 'Not published'
+        :rtype: str
+        """
+        if self.status == 1:
+            return self.published_on.strftime("%b %d, %Y")
+        else:
+            return 'Not published'
+
     def excerpt(self):
         """
-        Returns the first 200 letters of the post.
+        Return the first 200 letters of the post.
         :returns: excerpt
         :rtype: str
         """
         excerpt = str(self.content)[0:199] + "..."
         return excerpt
 
-    def pub_date(self):
-        """
-        Returns the published date.
-        If the post hasn't been published, return 'Not published.'
-        :returns: published_on or 'Not published'
-        :rtype: str
-        """
-        if self.status == 2:
-            return self.published_on.strftime("%B %d, %Y")
-        else:
-            return 'Not published'
-
     def get_absolute_url(self):
         """
-        Returns the URL of 'Detail Page.'
+        Return the URL of 'Detail Page.'
         :return: reverse
         """
         return reverse('detail_page', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):
-    """Lists fields of Comment model and the functions around them."""
+    """Hold fields of Comment model and the functions around them."""
     post = models.ForeignKey(Post, on_delete=models.CASCADE,
                              related_name='comments')
     commenter = models.ForeignKey(User, on_delete=models.CASCADE,
@@ -137,8 +149,8 @@ class Comment(models.Model):
 
     def __str__(self):
         """
-        Returns the comment body and the commenter.
-        :return: comment and the commenter in string
+        Return the comment body and the commenter.
+        :return: comment and the commenter
         :rtype: str
         """
         return f"{self.body} by {self.commenter.username}"

@@ -232,7 +232,8 @@ h1 {
     padding-left: 50px;
 }
 
-.comments-right label {
+.comments-right label,
+.update-comment label {
     display: none;
 }
 
@@ -251,12 +252,6 @@ h1 {
 
 .heart {
     color: #d87979;
-}
-
-/* --------- Write Stories, Update Posts and Update Comments ------ */
-
-.form-section {
-    min-height: 880px;
 }
 
 /* ---------- search.html -------------------------*/

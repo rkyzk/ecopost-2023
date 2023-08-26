@@ -232,6 +232,10 @@ h1 {
     padding-left: 50px;
 }
 
+.comments-right label {
+    display: none;
+}
+
 .image-wrapper {
     width: 100%;
     aspect-ratio: 3 / 2;

@@ -27,8 +27,8 @@ class TestPostModel(TestCase):
     def test_featured_flag_default_to_False(self):
         self.assertEqual(self.post1.featured_flag, False)
 
-    def test_featured_image_default_to_default_image(self):
-        self.assertEqual(self.post1.featured_image, 'deafult image')
+    def test_featured_image_default_to_default(self):
+        self.assertEqual(self.post1.featured_image, 'default')
 
     def test_category_default_to_others(self):
         self.assertEqual(self.post1.category, 'others')
@@ -67,9 +67,9 @@ class TestPostModel(TestCase):
 
     def test_pub_date_returns_specified_format_if_published(self):
         date = datetime.utcnow()
-        self.post1.status = 2
+        self.post1.status = 1
         self.post1.published_on = date
-        self.assertEqual(self.post1.pub_date(), date.strftime("%B %d, %Y"))
+        self.assertEqual(self.post1.pub_date(), date.strftime("%b %d, %Y"))
 
     def test_excerpt_returns_specified_str(self):
         content = "I'm writing a long content to test " + \

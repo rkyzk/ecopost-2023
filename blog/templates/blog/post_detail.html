@@ -1,171 +1,171 @@
 {% extends "blog/base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-<main class="justify-content-center">
-    <section class="row d-md-flex title-img-box mt-2">
-        <div class="col-md-6 title-box">
-            <h1>{{ post.title }}</h1>
-            <span class="mt-3">by {{ post.author }}</span>
-            <div class="date-city d-flex justify-content-end">
-                <ul>
-                    {% if post.status == 2 %}
-                    <li>Published on {{ post.published_on|date:'M d, Y' }}</li>
-                    {% else %}
-                    <!-- if not published, state the date created. -->
-                    <li>Written on {{ post.created_on|date:'M d, Y' }}</li>
-                    <li>(Not published)</li>
-
-                    {% endif %}
-                    <li>{{ post.city }}, {{ post.country.name }}</li>
-                </ul>
-            </div>
-        </div> <!-- title-box -->
-        <div class="img-box col-md-6">
-            <div class="image-wrapper">
+<main class="d-flex justify-content-center mt-5">
+    <div class="content">
+        <section class="d-md-flex title-img-box">
+            <div class="title-box">
+                <h1>{{ post.title }}</h1>
+                <div>
+                    <span class="text-secondary"><em>Author: {{ post.author }}</em></span>
+                    <div class="date-city d-flex justify-content-end text-secondary">
+                        <ul>
+                            <!-- if the post has been submitted, show the published date -->
+                            {% if post.status == 1 %}
+                            <li><em>Published on {{ post.pub_date }}</em></li>
+                            {% else %}
+                            <!-- if not published, state the date created. -->
+                            <li><em>{{ post.status_value }}</em></li>
+                            <li><em>{{ post.created_on|date:'M d, Y' }}</em></li>
+                            {% endif %}
+                            <li><em>{{ post.city }}</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- title-box -->
+            <div class="img-box">
                 {% if "placeholder" in post.featured_image.url %}
                 <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
-                    alt="forest image">
+                    class="card-img-top" alt="forest image">
                 {% else %}
-                <img src="{{ post.featured_image.url }}" class="ml-3" alt="{{ post.title }}">
+                <img src="{{ post.featured_image.url }}" class="featured-img" alt="{{ post.title }}">
                 {% endif %}
-            </div>
-            <!-- likes and bookmark buttons -->
-            <div class="likes text-secondary">
-                <!-- if the post has been published and the user is logged in show 'like' buttons -->
-                {% if post.status == 2 %}
-                {% if user.is_authenticated %}
-                <form class="d-inline" action="{% url 'post_like' post.slug %}" method="POST">
-                    {% csrf_token %}
-                    <!-- if liked, show a solid heart -->
-                    {% if liked %}
-                    <button type="submit" name="unlike" value="{{post.slug}}" class="btn-sm">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <!-- if not liked, show a heart outline -->
+                <!-- likes and bookmark buttons -->
+                <div class="d-flex justify-content-start">
+                    <!-- if the post has been published and the user is logged in show 'like' buttons -->
+                    {% if post.status == 1 %}
+                    {% if user.is_authenticated %}
+                    <form class="d-inline" action="{% url 'post_like' post.slug %}" method="POST">
+                        {% csrf_token %}
+                        <!-- if liked, show a solid heart -->
+                        {% if liked %}
+                        <button type="submit" name="unlike" value="{{post.slug}}" class="btn">
+                            <i class="fa-solid fa-heart heart"></i>
+                        </button>
+                        <!-- if not liked, show a heart outline -->
+                        {% else %}
+                        <button type="submit" name="like" value="{{post.slug}}" class="btn">
+                            <i class="fa-regular fa-heart heart"></i>
+                        </button>
+                        {% endif %}
+                        <span class="text-secondary">{{ post.num_of_likes }}</span>
+                    </form>
                     {% else %}
-                    <button type="submit" name="like" value="{{post.slug}}" class="btn-sm">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
+                    <!-- if not logged in, show a heart (without 'like' button function) -->
+                    <span><i class="far fa-heart heart"></i></span>
+                    <span class="text-secondary likes-count">{{ post.num_of_likes }}</span>
                     {% endif %}
-                </form>
-                {% else %}
-                <!-- if not logged in, show a heart (without 'like' button function) -->
-                <span><i class="far fa-heart space-right"></i></span>
-                {% endif %}
-                <span class="text-secondary likes-count">{{ post.num_of_likes }}</span>
-                <!-- bookmark -->
-                {% if user.is_authenticated %}
-                <form class="d-inline" action="{% url 'bookmark' post.slug %}" method="POST">
-                    {% csrf_token %}
-                    <!-- if already bookmarked, show a filled-out book icon -->
-                    {% if bookmarked %}
-                    <button type="submit" name="unbookmark" value="{{post.slug}}" class="btn-sm">
-                        <i class="fa fa-bookmark" aria-hidden="true"></i>
-                    </button>
-                    <span>Bookmarked</span>
-                    {% else %}
-                    <!-- if not bookmarked, show the outline of a book icon -->
-                    <button type="submit" name="bookmark" value="{{post.slug}}" class="btn-sm">
-                        <i class="fa fa-bookmark-o" aria-hidden="true"></i>
-                    </button>
-                    <span>Click to bookmark</span>
+                    <!-- bookmark -->
+                    {% if user.is_authenticated %}
+                    <form class=" d-inline" action="{% url 'bookmark' post.slug %}" method="POST">
+                        {% csrf_token %}
+                        <!-- if already bookmarked, show a filled-out book icon -->
+                        {% if bookmarked %}
+                        <button type="submit" name="unbookmark" value="{{post.slug}}" class="btn">
+                            <i class="fa fa-bookmark" aria-hidden="true"></i>
+                        </button>
+                        <span class="text-secondary">Bookmarked</span>
+                        {% else %}
+                        <!-- if not bookmarked, show the outline of a book icon -->
+                        <button type="submit" name="bookmark" value="{{post.slug}}" class="btn">
+                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                        </button>
+                        <span class="text-secondary bookmark-text">Click to bookmark</span>
+                        {% endif %}
+                    </form>
                     {% endif %}
-                </form>
-                {% endif %}
-                {% endif %}
-            </div>
-            <!--end of likes and bookmark -->
-        </div> <!-- img-box -->
-    </section>
-    <section class="post-content mt-3">
-        <div>{{ post.content | safe }}</div>
-        <!-- Update and Delete buttons, if the user is the author, and the post hasn't been submitted -->
-        {% if post.status == 0 %}
-        {% if post.author == user %}
-        <div class="mt-3 d-flex justify-content-start">
-            <form method="GET" action="{% url 'update_post' post.slug %}">
-                {% csrf_token %}
-                <button class="button-submit" name="update-post" type="submit">update</button>
-            </form>
-            <form method="POST" id="delete-post" action="{% url 'delete_post' post.slug %}">
-                {% csrf_token %}
-                <button type="submit" class="button-submit" name="delete_post" value="{{post.slug}}">delete</button>
-            </form>
-        </div>
-        {% endif %}
-        {% endif %}
-    </section>
-    <!-- Comments section if the post has been published -->
-    {% if post.status == 2 %}
-    <section class="row d-lg-flex mt-5 comments">
-        <div class="comments-left col-lg-7">
-            <h2>Comments</h2>
-            {% for comment in comments %}
-            <!-- if the comment has been edited, say 'edited.' -->
-            <div id="comment-box">
-                {% if comment.comment_status != 2 %}
-                <div class="d-flex justify-content-between mb-2">
-                    <span>{{ comment.commenter }}:</span>
-                    <span>{{ comment.created_on|date:'M d, Y' }}</span>
+                    {% endif %}
                 </div>
-                {% if comment.comment_status == 1 %}
-                <span class="text-muted"><em>edited</em></span>
-                {% endif %}
-                {{ comment.body | linebreaks }}
-                {% endif %}
-                <!-- if the comment has been written by the user, show update and delete buttons -->
-                {% if comment.commenter == user %}
-                {% if comment.comment_status != 2 %}
-                <div class="d-flex justify-content-end">
-                    <div class="col-1">
-                        <form method="GET" action="{% url 'update_comment' comment.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-sm" name="update-comment">
+                <!--end of likes and bookmark -->
+            </div> <!-- img-box -->
+        </section>
+        <section class="post-content mt-3">
+            <div>{{ post.content | safe }}</div>
+            <!-- Update and Delete buttons, if the user is the author, and the post hasn't been submitted -->
+            {% if post.status == 0 %}
+            {% if post.author == user %}
+            <div class="mt-3 d-flex justify-content-start">
+                <form method="GET" action="{% url 'update_post' post.slug %}">
+                    {% csrf_token %}
+                    <button class="beige-btn" name="update-post" type="submit">Update</button>
+                </form>
+                <form method="POST" id="delete-post" action="{% url 'delete_post' post.slug %}">
+                    {% csrf_token %}
+                    <button type="submit" class="beige-btn btn-right" name="delete_post"
+                        value="{{post.slug}}">Delete</button>
+                </form>
+            </div>
+            {% endif %}
+            {% endif %}
+        </section>
+        <!-- Comments section if the post has been published -->
+        {% if post.status == 1 %}
+        <section class="d-lg-flex justify-content-between mt-5 comments">
+            <div class="comments-left">
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                <!-- if the comment has been edited, say 'edited.' -->
+                <div>
+                    {% if comment.comment_status != 2 %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ comment.commenter }}:</span>
+                        <span>{{ comment.created_on|date:'M d, Y' }}</span>
+                    </div>
+                    {% if comment.comment_status == 1 %}
+                    <span class="text-muted"><em>edited</em></span>
+                    {% endif %}
+                    <div class="comment-form">{{ comment.body | linebreaks }}</div>
+                    <!-- if the comment has been written by the user, show update and delete buttons -->
+                    {% if comment.commenter == user %}
+                    <div class="d-flex justify-content-end update-comment show">
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-sm" name="update-comment" onclick="showForm()">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
-                        </form>
+                        </div>
+                        <div class="col-1">
+                            <form method="POST" id="delete-comment" action="{% url 'delete_comment' comment.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm" name="delete-comment">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <form method="POST" id="delete-comment" action="{% url 'delete_comment' comment.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-sm" name="delete-comment">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </form>
-                    </div>
+                    {% endif %}
+                    <!-- if the comment has been deleted, say 'comment deleted.' -->
+                    {% else %}
+                    <p class="text-muted mb-2"><em>Comment deleted</em></p>
+                    {% endif %}
+                    <hr>
                 </div>
-                {% else %}
-                <!-- if the comment has been deleted, say 'comment deleted.' -->
-                <span class="text-muted my-3"><em>comment deleted</em></span>
-                {% endif %}
-                {% endif %}
-                <hr>
+                <!-- if no comments, say 'no comments' -->
+                {% empty %}
+                <p>No comments</p>
+                {% endfor %}
             </div>
-            <!-- if no comments, say 'no comments' -->
-            {% empty %}
-            <p>No comments</p>
-            {% endfor %}
-        </div>
-        <div class="mt-custom comments-right col-lg-5">
-            <!-- if user is logged in, invite them to leave comments -->
-            {% if user.is_authenticated %}
-            <h2>Leave a comment:</h2>
-            <p class="mt-3">Posting as: {{ user.username }}</p>
-            <form method="post" class="mt-3">
-                {{ comment_form | crispy }}
-                {% csrf_token %}
-                <button type="submit" class="button-submit mt-3" name="submit-comment">post</button>
-            </form>
-            {% else %}
-            <!-- if user is not logged in, provide the links to sign up or sign in -->
-            <h2>Want to leave comments?</h2>
-            <p>
-                <a href="{% url 'account_signup' %}">Become a member</a>or
-                <a href="{% url 'account_login' %}">Log in</a>.
-            </p>
+            <div class="mt-custom comments-right">
+                <!-- if user is logged in, invite them to leave comments -->
+                {% if user.is_authenticated %}
+                <h2>Leave a comment:</h2>
+                <p class="mt-3">Posting as: {{ user.username }}</p>
+                <form method="post" class="mt-3">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="beige-btn mt-3" name="submit-comment">Submit</button>
+                </form>
+                {% else %}
+                <!-- if user is not logged in, provide the links to sign up or sign in -->
+                <h2>Want to leave comments?</h2>
+                <p>
+                    <a href="{% url 'account_signup' %}">Become a member</a>
+                    <span>or</span>
+                    <a href="{% url 'account_login' %}">sign in</a>.
+                </p>
+                {% endif %}
+            </div>
             {% endif %}
-        </div>
-    </section>
-    {% endif %}
+        </section>
+    </div>
 </main>
 {% endblock content %}

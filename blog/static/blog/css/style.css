@@ -1,4 +1,8 @@
 /* Common rules for multiple pages */
+.block-content {
+    min-height: 85vh;
+}
+
 #logo {
     width: 35px;
     height: auto;
@@ -10,6 +14,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 60px 0;
+}
+
+#nav-menu {
+    margin-top: 10px;
 }
 
 .nav-list {
@@ -36,7 +44,7 @@
 
 .hamburger {
     display: none;
-    border-color: transparent;
+    border: none;
     rotate: 90deg;
     color: rgb(65, 60, 53);
     background-color: #fff;
@@ -45,7 +53,7 @@
 h2 {
     font-family: 'Lato', sans-serif;
     color: rgb(78, 75, 70);
-    font-size: 1.7rem;
+    font-size: 1.6rem;
 }
 
 h4 {
@@ -53,17 +61,24 @@ h4 {
 }
 
 a,
-.font-blue {
+.font-blue,
+.btn-link {
     color: rgb(46, 122, 145);
-}
-
-a {
     text-decoration: none;
 }
 
-a:hover {
+.btn-link {
+    font-size: 1.2rem;
+}
+
+a:hover,
+.btn-link:hover {
     color: rgb(13, 48, 59);
     text-decoration: underline;
+}
+
+.btn-link:active {
+    outline: none;
 }
 
 .login-status {
@@ -71,9 +86,10 @@ a:hover {
     padding-right: 20px;
 }
 
-.block-content {
-    margin-top: 20px;
-    min-height: 80vh;
+/* post excerpt */
+
+.space-left {
+    margin-left: 5px;
 }
 
 .post-text>p {
@@ -103,20 +119,12 @@ a:hover {
 footer {
     width: 100%;
     height: 60px;
-    background-color: #e8e8e8;
-    margin-top: 10px;
+    background-color: #eee;
+    margin-top: 40px;
 }
 
-.footer-icons {
-    padding-top: 10px;
-}
-
-.social-nw {
+.social-networks {
     list-style: none;
-}
-
-.footer-icon-items {
-    margin-left: 10px;
 }
 
 .hide {
@@ -127,40 +135,27 @@ footer {
     display: block;
 }
 
-.btn-right {
-    margin-left: 7px;
-}
-
-.btn-sm {
-    border-color: transparent;
-    font-size: 1rem;
-    background-color: #fff;
-    color: rgb(141, 111, 56);
-}
-
-.button-submit {
-    background-color: rgb(141, 111, 56);
-    color: #fff;
-    font-size: 1rem;
-    align-self: center;
+.beige-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
     border-radius: 100px;
-    border-color: transparent;
-    padding: 4px 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    min-width: 75px;
-}
-
-.button-submit:hover {
-    background-color: rgb(80, 60, 23);
+    background-color: rgb(153, 139, 59);
+    min-width: 100px;
+    border: none;
+    outline: none;
     color: #fff;
-    opacity: 0.8;
-    border-color: transparent;
-    cursor: pointer;
 }
 
-.date-city>ul {
-    list-style: none;
+.beige-btn:hover {
+    background-color: rgb(69, 61, 15);
+    opacity: 0.8;
+    outline: none;
+    border: none;
+    color: #fff;
+}
+
+.btn-right {
+    margin-left: 5px;
 }
 
 .content {
@@ -198,16 +193,7 @@ h1 {
 }
 
 .space-right {
-    margin-right: 1px;
-}
-
-.image-wrapper {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-}
-
-.featured-img {
-    width: 100%;
+    margin-right: 3px;
 }
 
 .links-to-posts {
@@ -222,36 +208,93 @@ h1 {
     margin-top: 20px;
 }
 
+/* -------------- post_detail.html -------------------*/
 
-/* ---------- post_detail.html -------------------- */
-.img-box img {
-    width: 90%;
-    margin-left: 5%;
-}
-
-.title-img-box .title-box .date-city>ul {
+.date-city>ul {
     list-style: none;
 }
 
-.comments {
-    min-height: 440px;
+.title-box {
+    width: 60%;
+    padding-right: 30px;
+}
+
+.img-box {
+    width: 40%;
 }
 
 .comments-left {
-    padding-right: 50px;
+    width: 50%;
+}
+
+.comments-right {
+    width: 50%;
+    padding-left: 50px;
+}
+
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 2;
 }
 
 .likes-count {
-    margin-top: 5px;
+    margin-left: 4px;
 }
 
-.likes {
-    padding-left: 20px;
+.bookmark-text {
+    margin-top: 15px;
 }
 
-/* ----- search.html ------- */
+.heart {
+    color: #d87979;
+}
+
+/* --------- Write Stories, Update Posts and Update Comments ------ */
+
+.form-section {
+    min-height: 880px;
+}
+
+/* --------- account login -----------------------*/
+
+.btn-sign-in {
+    display: block;
+}
+
+.authentication {
+    margin: 0 auto;
+    width: 500px;
+}
+
+/* ---------- search.html -------------------------*/
+
 .item-right {
     margin-left: 10px;
+}
+
+.warning {
+    color: red;
+}
+
+/* ----------- update_post.html -------------------*/
+
+.update-post-btn {
+    margin-right: 5px;
+}
+
+.cancel {
+    padding: 0.7rem 1rem;
+}
+
+.cancel:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* ---------------- update comment ---------------------*/
+.cancel-comment {
+    position: relative;
+    top: 3px;
 }
 
 /* ---------------- my page -----------*/
@@ -259,27 +302,52 @@ h1 {
     margin-top: 50px;
 }
 
-/* --------- update post ------------*/
-
-.cancel {
-    padding: 8px 13px;
+.date-coty {
+    width: 100%;
 }
 
-.cancel:hover {
-    text-decoration: none;
+@media screen and (max-width: 1200px) {
+
+    .content {
+        width: 95%;
+    }
 }
 
-@media (max-width: 991px) {
-    .comments-left {
-        padding-right: 12px;
+@media screen and (max-width: 991px) {
+    .mt-custom {
+        margin-top: 40px;
     }
 
     .content {
+        width: 100%;
+    }
+
+    .comments-left {
+        width: 100%;
+    }
+
+    .comments-right {
+        width: 100%;
+        padding: 0;
+    }
+
+    .intro-box {
         width: 90%;
     }
 }
 
 @media (max-width: 767px) {
+
+    .individual-post,
+    .img-box {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .featured-heading {
+        margin-left: 50px;
+    }
+
     .line {
         display: block;
         margin-bottom: 40px;
@@ -290,6 +358,10 @@ h1 {
     }
 
     /* -------- index --------------- */
+    .intro-box {
+        width: 100%;
+    }
+
     .links-to-posts {
         margin-top: 0;
     }
@@ -313,14 +385,7 @@ h1 {
 
     .title-box {
         width: 100%;
-    }
-
-    .img-box {
-        width: 100%;
-    }
-
-    section {
-        width: 100%;
+        padding-right: 0;
     }
 
     /* --------- my page ----------------------*/
@@ -334,7 +399,7 @@ h1 {
         display: block;
     }
 
-    .mobileHeader {
+    .mobil-header {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -348,8 +413,8 @@ h1 {
 
     .pop-up-menu {
         background-color: #f8f8f8;
+        opacity: 0.9;
         position: absolute;
-        opacity: 0.8;
         top: 50px;
         right: 50px;
         z-index: 2;
@@ -373,20 +438,42 @@ h1 {
     }
 }
 
-
-@media screen and (max-width: 575px) {
-    .item-right {
-        margin-left: 0;
+@media screen and (min-width: 701px) {
+    #nav-menu {
+        display: block !important;
     }
 
-    .keywords {
-        margin-top: 7px;
+    .content {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .featured-heading {
+        margin-left: 20px;
+    }
+
+    .item-right {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .d-sm-mt-custom {
+        margin-top: 10px;
+    }
+
+    .authentication {
+        width: 90%;
+    }
+
+    .content {
+        width: 80%;
     }
 }
 
 @media screen and (max-width: 500px) {
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     /* ------ index.html ----------------------*/
@@ -404,22 +491,23 @@ h1 {
         margin: 0 auto;
     }
 
-    .update-post-btn,
-    .cancel {
-        width: 145px;
+    .update-post-btn {
         margin-bottom: 10px;
         margin-right: 0;
     }
 
     .cancel {
-        margin: 5 auto;
+        margin: 5px auto;
     }
 }
 
 @media screen and (max-width: 420px) {
 
-    .intro-box,
-    .content {
+    .search-contnet,
+    .authentication,
+    .individual-post,
+    .content,
+    .img-box {
         width: 100%;
     }
 

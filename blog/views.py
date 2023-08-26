@@ -460,4 +460,4 @@ class PopularPosts(generic.ListView):
             status=2,
             featured_flag=False,
             num_of_likes__gte=min_num_likes
-        ).order_by("-published_on")       
+        ).order_by("-published_on")

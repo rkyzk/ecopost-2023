@@ -38,7 +38,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     '8000-rkyzk-ecopost2023-pdnz0a51q8j.ws-us104.gitpod.io',
-    'ecopost2023-9f46edbaba4f.herokuapp.com'
+    'eco-post-a732dab85eab.herokuapp.com'
 ]
 
 # Application definition
@@ -153,7 +153,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-		
+
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

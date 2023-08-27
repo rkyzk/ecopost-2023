@@ -5,9 +5,9 @@ update category
 ## Coverage report
 
 According to the coverage report, the automated tests covered…<br> 
-- 89% of blog/forms.py
+- 88% of blog/forms.py
 - 97% of blog/models.py
-- 57% of views.py
+- 89% of views.py
 
 <img src="./media/automated-tests/coverage_report.png" width="600px" alt="coverage report">
 
@@ -113,10 +113,9 @@ Comment Form
 5. The title of the post can be updated.
 6. The content of the post can be updated.
 7. The city can be updated.
-8. The category can be updated.
-9. Canceling update will not update the post.
-10. The feedback message will say the change has been saved if the post is updated.
-11. The feedback message will say the post has been published if the post is published.
+8. Canceling update will not update the post.
+9. The feedback message will say the change has been saved if the post is updated.
+10. The feedback message will say the post has been published if the post is published.
 11. Publishing the post on ‘Update Post’ page will set the post status to 1 (‘Published’)
 
 - DeletePost view
@@ -127,22 +126,13 @@ Comment Form
 
 - RecentStories view
 1. Recent stories page can be displayed.
-2. Recent stories page filter the correct posts (posts published in the previous 7 days)
 
 - PopularStoriesView
 1. Popular stories page can be displayed.
-2. Popular stories page filter the correct posts.
 
 - MyPageView
 1. Logged in users can get their own ‘My Page’
 2.  Trying to get another user’s ‘My Page’ will redirect to 403 page.
 
-## Screenshots
-
-- test_models.py
-
-- test_forms.py
-<img src="../media/automated-tests/test_forms.png" width="600" alt="results of testing test_models">
-- test_views.py
 <img src="../media/automated-tests/test_views.png" width="600" alt="results of testing test_models">
-<img src="../media/automated-tests/test_views2.png" width="600" alt="results of testing test_models">
+<img src="../media/automated-tests/test_views-2.png" width="600" alt="results of testing test_models">

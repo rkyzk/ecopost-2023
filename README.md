@@ -1,6 +1,6 @@
 # eco post
 
-## CONTENTS
+## Contents
 
 * [Project Goals](#project-goals)
 * [User Stories](#user-stories)

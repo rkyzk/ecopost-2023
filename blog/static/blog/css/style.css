@@ -81,13 +81,7 @@ a:hover,
     outline: none;
 }
 
-.login-status {
-    color: rgb(65, 60, 53);
-    padding-right: 20px;
-}
-
 /* post excerpt */
-
 .space-left {
     margin-left: 5px;
 }
@@ -204,10 +198,6 @@ h1 {
     font-size: 1.4rem;
 }
 
-.link-to-favorites {
-    margin-top: 20px;
-}
-
 /* -------------- post_detail.html -------------------*/
 
 .date-city>ul {
@@ -295,7 +285,6 @@ h1 {
 }
 
 @media screen and (max-width: 1200px) {
-
     .content {
         width: 95%;
     }
@@ -387,7 +376,7 @@ h1 {
         display: block;
     }
 
-    .mobil-header {
+    .mobile-header {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -492,7 +481,6 @@ h1 {
 @media screen and (max-width: 420px) {
 
     .search-contnet,
-    .authentication,
     .individual-post,
     .content,
     .img-box {

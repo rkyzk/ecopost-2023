@@ -384,7 +384,7 @@ class SearchPosts(View):
                 (request.GET['num_of_likes'] == "0" or request.GET['num_of_likes'] == "")):
                     no_input = True
             else:
-                posts = Post.objects.filter(status=2).order_by('-published_on')
+                posts = Post.objects.filter(status=1).order_by('-published_on')
                 postFilterForm = PostFilter(request.GET, queryset=posts)
                 posts = postFilterForm.qs
         context = {
@@ -424,7 +424,7 @@ class PopularPosts(generic.ListView):
     paginate_by = 6
     # get posts whose num_of_likes is above min_num_likes defined at line 16 of this module.
     queryset = Post.objects.filter(
-            status=2,
+            status=1,
             featured_flag=False,
             num_of_likes__gte=min_num_likes
         ).order_by("-published_on")

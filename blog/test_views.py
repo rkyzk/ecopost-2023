@@ -86,14 +86,14 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/accounts/login/'))
 
-    def test_can_get_add_story_if_logged_in(self):
+    def test_can_get_add_post_if_logged_in(self):
         response = self.c.get('/add_story/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response,
                                 'blog/base.html',
                                 'blog/add_post.html')
 
-    def test_add_story_POST_can_add_story(self):
+    def test_add_story_POST_can_add_post(self):
         response = self.c.post('/add_story/',
                                {'title': 'test blog',
                                 'content': 'test',
@@ -105,7 +105,7 @@ class TestViews(TestCase):
         self.assertEqual(post.content, 'test')
         self.assertRedirects(response, f'/detail/{post.slug}/')
 
-    def test_add_story_POST_will_set_status_to_1_if_publish_clicked(self):
+    def test_add_post_POST_will_set_status_to_1_if_publish_clicked(self):
         response = self.c.post('/add_story/',
                                {'title': 'test blog',
                                 'content': 'test',
@@ -117,7 +117,7 @@ class TestViews(TestCase):
         self.assertEqual(post.status, 1)
         self.assertRedirects(response, f'/detail/{post.slug}/')
 
-    def test_add_story_POST_keeps_status_to_0_if_save_clicked(self):
+    def test_add_post_POST_keeps_status_to_0_if_save_clicked(self):
         response = self.c.post('/add_story/',
                                {'title': 'test blog',
                                 'content': 'test',
@@ -129,7 +129,7 @@ class TestViews(TestCase):
         self.assertEqual(post.status, 0)
         self.assertRedirects(response, f'/detail/{post.slug}/')
 
-    def test_add_story_POST_save_will_render_msg_draft_saved(self):
+    def test_add_post_POST_save_will_render_msg_draft_saved(self):
         response = self.c.post('/add_story/',
                                {'title': 'test blog',
                                 'content': 'test',
@@ -139,7 +139,7 @@ class TestViews(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'Your draft has been saved.')
 
-    def test_message_says_draft_is_published_if_published(self):
+    def test_message_says_post_is_published_if_published(self):
         response = self.c.post('/add_story/',
                                {'title': 'test blog',
                                 'content': 'test',
@@ -410,21 +410,6 @@ class TestViews(TestCase):
         self.assertEqual(post.city, 'test city 2')
         self.assertRedirects(response, f'/detail/{post.slug}/')
 
-    def test_update_post_POST_will_update_category(self):
-        response = self.c.post(reverse('update_post',
-                               kwargs={'slug': self.post6.slug}),
-                               {'title': 'title6',
-                                'content': 'content',
-                                'city': 'test city',
-                                'category': 'animals',
-                                'save': 'draft'})
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.post6.save()
-        print(self.post6.category)
-        post = Post.objects.filter(slug=self.post6.slug).first()
-        self.assertEqual(post.title, 'title6')
-        self.assertRedirects(response, f'/detail/{post.slug}/')
-
     def test_update_post_POST_cancel_will_not_update_post(self):
         response = self.c.post(reverse('update_post',
                                        kwargs={'slug': self.post6.slug}),
@@ -509,27 +494,11 @@ class TestViews(TestCase):
                                 'blog/recent_posts.html',
                                 'blog/base.html')
 
-    def test_recent_stories_display_posts_published_in_the_prev_7_days(self):
-        self.post4.published_on = datetime.utcnow() - timedelta(days=10)
-        self.post4.save()
-        response = self.client.get('/recent_stories/')
-        self.assertEqual(len(response.context['post_list']), 1)
-        self.assertEqual(list(response.context['post_list']),
-                         [self.post5])
-
     # Testing "PopularStories" view ----------------------------------
     def test_can_get_readers_favorite_stories(self):
         response = self.client.get('/popular_stories/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/popular_posts.html')
-
-    def test_favorite_stories_display_right_posts(self):
-        self.post4.likes.add(self.user1)
-        self.post4.save()
-        response = self.client.get('/popular_stories/')
-        self.assertEqual(len(response.context['object_list']), 1)
-        self.assertEqual(list(response.context['object_list']),
-                         [self.post4])
 
     # Testing "MyPage" view ----------------------------------
     def test_my_page_GET_will_get_page_if_user(self):

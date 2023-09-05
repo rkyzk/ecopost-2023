@@ -42,10 +42,10 @@
             {% if my_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button id="show-my-posts" class="btn btn-link show-posts mb-4">Show more
+        <button id="show-my-posts" class="btn btn-link show-posts mb-4 show">Show more
             <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
         </button>
-        <div id="my-posts" class="hide">
+        <div id="my-posts" class="hide more-posts">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>
@@ -94,10 +94,10 @@
             {% if commented_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button class="btn btn-link show-posts mb-4">Show more
+        <button class="btn btn-link show-posts mb-4 show">Show more
             <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
         </button>
-        <div class="hide">
+        <div class="hide more-posts">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>
@@ -146,10 +146,10 @@
             {% if bookmarked_posts|length > 3 %}
             {% if forloop.counter == 3 %}
         </div>
-        <button class="btn btn-link show-posts mb-4">Show more
+        <button class="btn btn-link show-posts mb-4 show">Show more
             <span><i class="fa fa-caret-down" aria-hidden="true"></i></span>
         </button>
-        <div class="hide">
+        <div class="hide more-posts">
             <div class="row mt-2">
                 {% elif forloop.last %}
             </div>

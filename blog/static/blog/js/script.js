@@ -34,26 +34,26 @@ document.addEventListener("DOMContentLoaded", function () {
     for (btn of button) {
         btn.addEventListener("click", function () {
             let posts = this.nextElementSibling;
-            if (this.textContent == 'Show more') {
-                this.textContent = 'Show less'
+            if (this.classList.contains('show')) {
+                this.classList.remove('show');
+                this.classList.add('hide');
                 posts.classList.remove('hide');
                 posts.classList.add('show');
-            } else {
-                this.textContent = 'Show more'
-                posts.classList.remove('show');
-                posts.classList.add('hide');
             }
         });
     }
+
 
     // Clicking 'Show less' button will hide posts.
     let hideButton = document.getElementsByClassName('hide-posts');
     for (hideBtn of hideButton) {
         hideBtn.addEventListener("click", function () {
             let posts = this.parentElement;
-            posts.previousElementSibling.textContent = 'Show more'
             posts.classList.remove('show');
             posts.classList.add('hide');
+            // add 'show' to button 'show-posts'
+            posts.previousElementSibling.classList.add('show');
+            posts.previousElementSibling.classList.remove('hide');
         });
     }
 });

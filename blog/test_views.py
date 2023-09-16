@@ -233,9 +233,7 @@ class TestViews(TestCase):
                             'Error occurred. Your comment was not saved.',
                             status_code=200)
 
-    def test_detail_GET_shows_update_and_delete_btn_if_draft_and_author(self):
-        self.post1.status = 0
-        self.post1.save()
+    def test_detail_GET_shows_update_and_delete_btn_if_author(self):
         response = self.c.get(f'/detail/{self.post1.slug}/')
         self.assertContains(response,
                             '<button class="beige-btn" name="update-post"' +
@@ -245,32 +243,6 @@ class TestViews(TestCase):
                             '<button type="submit" class="beige-btn ' +
                             'btn-right" name="delete_post"',
                             status_code=200)
-
-    def test_detail_GET_no_update_delete_btn_if_status1_and_author(self):
-        self.post1.status = 1
-        self.post1.save()
-        response = self.c.get(f'/detail/{self.post1.slug}/')
-        self.assertNotContains(response,
-                               '<button class="beige-btn" name="update-post"' +
-                               ' type="submit">Update</button>',
-                               status_code=200)
-        self.assertNotContains(response,
-                               '<button type="submit" class="beige-btn ' +
-                               'btn-right" name="delete_post"',
-                               status_code=200)
-
-    def test_detail_GET_no_update_and_delete_btn_if_status2_and_author(self):
-        self.post1.status = 2
-        self.post1.save()
-        response = self.c.get(f'/detail/{self.post1.slug}/')
-        self.assertNotContains(response,
-                               '<button class="beige-btn" name="update-post"' +
-                               ' type="submit">Update</button>',
-                               status_code=200)
-        self.assertNotContains(response,
-                               '<button type="submit" class="beige-btn ' +
-                               'btn-right" name="delete_post"',
-                               status_code=200)
 
     def test_detail_GET_no_show_update_and_delete_btn_if_not_author(self):
         response = self.c2.get(f'/detail/{self.post1.slug}/')
@@ -355,7 +327,8 @@ class TestViews(TestCase):
     def test_update_post_GET_gets_the_page_if_right_user(self):
         response = self.c.get(f'/update/{self.post6.slug}/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'blog/update_post.html', 'blog/base.html')
+        self.assertTemplateUsed(response, 'blog/update_post.html',
+                                'blog/base.html')
 
     def test_update_post_GET_will_redirect_to_login_if_not_logged_in(self):
         response = self.client.get(f'/update/{self.post1.slug}/')
@@ -364,12 +337,6 @@ class TestViews(TestCase):
 
     def test_update_post_GET_will_403_if_wrong_user(self):
         response = self.c2.get(f'/update/{self.post1.slug}/')
-        self.assertEqual(response.status_code, 403)
-
-    def test_update_post_GET_will_403_if_published(self):
-        self.post1.status = 1
-        self.post1.save()
-        response = self.c.get(f'/update/{self.post1.slug}/')
         self.assertEqual(response.status_code, 403)
 
     def test_update_post_POST_will_update_title(self):

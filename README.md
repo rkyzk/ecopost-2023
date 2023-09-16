@@ -19,10 +19,10 @@
 * [Credits](#credits)
 - - -
 
-![ecopost-home](./documents/media/readme/home.png)
-<img src="./documents/media/readme/mobile.png" width="250" alt="ecopost displayed on mobile">
+![ecopost-home](./ecopost/documents/media/readme/eco-post.png)
+<img src="./documents/media/readme/eco-post-mobile.png" width="250" alt="ecopost displayed on mobile">
 
-The website is deployed [here](https://ecopost.herokuapp.com/).
+The website is deployed [here](https://eco-post-2023-10366a3320ac.herokuapp.com/).
 
 ## Project Goals
 eco post offers a platform where users can share their stories on what they are doing to protect the environment. Many people feel helpless, thinking that individuals cannot do so much. Here, visitors can read posts written by others, leave comments and write their own stories. Users can connect with others who are concerned about the environmental crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
@@ -97,7 +97,7 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 ## Each Part and Function in Detail
 
 ### Navigation (common to all pages)
-![nav-bar](./documents/media/readme/navbar.png)
+![nav-bar](./documents/media/readme/navigation.png)
 - The logo of the website is located on the left side of the navigation bar. 
 - On the right side, links to other pages are provided.
 - Logged-in users will find links to ‘Home,’ ‘Search,’ ‘Write Stories,’ ‘My Page’ and ‘Sign out.

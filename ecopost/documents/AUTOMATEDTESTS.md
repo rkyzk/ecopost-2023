@@ -2,16 +2,18 @@ update category
 
 # Automated Testing
 
+**As of Sep 16th, 2023, I'm still adding automated tests.  The section below will be constantly updated.**
+
 ## Coverage report
 
 According to the coverage report, the automated tests covered…<br> 
-- 88% of blog/forms.py
-- 97% of blog/models.py
-- 89% of views.py
+- % of blog/forms.py
+-  of blog/models.py
+- of views.py
 
 <img src="./media/automated-tests/coverage_report.png" width="600px" alt="coverage report">
 
-Manual tests complement most of the aspects that weren't covered by automated tests.
+The aspects that aren't covered by automated tests are covered by [manual tests](./MANUALTESTS.md).
 
 ## Tested features
 
@@ -82,15 +84,14 @@ Comment Form
 8. When the post method is called, ‘bookmarked’ will be set to false if the user isn’t logged in or hasn’t bookmarked the post
 9.  When the post method is called, ‘bookmarked’ will be set to true if the user has bookmarked the post
 10. comment can be created.
-11.  When a comment is posted, a message “You posted a comment.” will be displayed.)
+11.  When a comment is posted, a message “You posted a comment.” will be displayed.
 12. The validation will throw an error message if only a space is entered for the comment.      ———————————fix this!
-13. If the post is draft status and the user is the owner of the post, update and delete buttons are displayed.
-15. If the post is published and the user is the owner of the post, update and delte buttons won’t be displayed.
-16. If the user is not the owner of the post, update and delte buttons won’t be displayed.
+13. If the user is the author of the post, update and delete buttons are displayed.
+14. If the user is not the owner of the post, update and delte buttons won’t be displayed.
 
 - PostLike view
-17.  Logged in user can ‘like’ a post
-18. Sending a post request to post like view for the second time will ‘unlike’ the post. 
+1.  Logged in user can ‘like’ a post
+2. Sending a post request to post like view for the second time will ‘unlike’ the post. 
 
 - Bookmark view
 1. Logged in user can bookmark a post
@@ -109,14 +110,13 @@ Comment Form
 1. The author of the post can get ‘Update Post’ page of their posts if logged in.
 2. If not logged in, trying to get ‘Update Post’ page will redirect to the login page
 3. Trying to get ‘Update Post’ page of another user’s post will redirect to 403 page. 
-4. Trying to get ‘Update Post’ page of published posts will redirec to 403 page.
-5. The title of the post can be updated.
-6. The content of the post can be updated.
-7. The city can be updated.
-8. Canceling update will not update the post.
-9. The feedback message will say the change has been saved if the post is updated.
-10. The feedback message will say the post has been published if the post is published.
-11. Publishing the post on ‘Update Post’ page will set the post status to 1 (‘Published’)
+4. The title of the post can be updated.
+5. The content of the post can be updated.
+6. The city can be updated.
+7. Canceling update will not update the post.
+8. The feedback message will say the change has been saved if the post is updated.
+9. The feedback message will say the post has been published if the post is published.
+10. Publishing the post on ‘Update Post’ page will set the post status to 1 (‘Published’)
 
 - DeletePost view
 1. Posts can be deleted if the user is the writer of the posts.
@@ -135,4 +135,3 @@ Comment Form
 2.  Trying to get another user’s ‘My Page’ will redirect to 403 page.
 
 <img src="../media/automated-tests/test_views.png" width="600" alt="results of testing test_models">
-<img src="../media/automated-tests/test_views-2.png" width="600" alt="results of testing test_models">

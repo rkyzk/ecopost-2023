@@ -217,6 +217,7 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
         """
         slug = self.kwargs.get('slug')
         post = get_object_or_404(Post, slug=slug)
+        context = super().get_context_data(**kwargs)
         context["post"] = post
         return context
 

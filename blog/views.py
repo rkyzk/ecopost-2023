@@ -207,7 +207,18 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
         """
         slug = self.kwargs.get('slug')
         post = get_object_or_404(Post, slug=slug)
-        return post.status == 0 and post.author == self.request.user
+        return post.author == self.request.user
+
+    def get_context_data(self, **kwargs):
+        """
+        send post information to the template as context
+        :return: context
+        :rtype: object
+        """
+        slug = self.kwargs.get('slug')
+        post = get_object_or_404(Post, slug=slug)
+        context["post"] = post
+        return context
 
 
 class DeletePost(LoginRequiredMixin, View):

@@ -38,7 +38,7 @@ DEBUG = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
-    '8000-rkyzk-ecopost2023-pdnz0a51q8j.ws-us104.gitpod.io',
+    '8000-rkyzk-ecopost2023-512pihqy7p7.ws-us104.gitpod.io/',
     'eco-post-a732dab85eab.herokuapp.com'
 ]
 

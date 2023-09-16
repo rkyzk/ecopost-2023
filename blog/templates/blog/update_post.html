@@ -14,8 +14,10 @@
                 <div class="update-post-btn-box">
                     <button type="submit" class="beige-btn update-post-btn" name="save" value="draft">Save
                         changes</button>
+                    {% if post.status == 0 %}
                     <button type="submit" class="beige-btn update-post-btn submit-post" name="publish"
                         value="complete">Publish</button>
+                    {% endif %}
                     <a href="{% url 'detail_page' post.slug %}" class="beige-btn cancel">Cancel Update</a>
                 </div>
             </div>

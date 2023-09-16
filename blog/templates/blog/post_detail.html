@@ -81,8 +81,7 @@
         </section>
         <section class="post-content mt-3">
             <div>{{ post.content | safe }}</div>
-            <!-- Update and Delete buttons, if the user is the author, and the post hasn't been submitted -->
-            {% if post.status == 0 %}
+            <!-- Update and Delete buttons, if the user is the author -->
             {% if post.author == user %}
             <div class="mt-3 d-flex justify-content-start">
                 <form method="GET" action="{% url 'update_post' post.slug %}">
@@ -95,7 +94,6 @@
                         value="{{post.slug}}">Delete</button>
                 </form>
             </div>
-            {% endif %}
             {% endif %}
         </section>
         <!-- Comments section if the post has been published -->

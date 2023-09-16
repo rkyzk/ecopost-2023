@@ -20,12 +20,12 @@
 - - -
 
 ![ecopost-home](./ecopost/documents/media/readme/eco-post.png)
-<img src="./documents/media/readme/eco-post-mobile.png" width="250" alt="ecopost displayed on mobile">
+<img src="./ecopost/documents/media/readme/eco-post-mobile.png" width="250" alt="ecopost displayed on mobile">
 
-The website is deployed [here](https://eco-post-2023-10366a3320ac.herokuapp.com/).
+The website is deployed [here](https://eco-post-a732dab85eab.herokuapp.com/).
 
 ## Project Goals
-eco post offers a platform where users can share their stories on what they are doing to protect the environment. Many people feel helpless, thinking that individuals cannot do so much. Here, visitors can read posts written by others, leave comments and write their own stories. Users can connect with others who are concerned about the environmental crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
+eco post offers a platform where users can share their stories on what they are doing to protect the environment. Many people feel helpless, thinking that individuals cannot do so much. Here, visitors can read posts, leave comments and write their own posts. Users can connect with others who are concerned about the same issue, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
 
 ## User Stories
 
@@ -97,7 +97,7 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 ## Each Part and Function in Detail
 
 ### Navigation (common to all pages)
-![nav-bar](./documents/media/readme/navigation.png)
+![nav-bar](./ecopost/documents/media/readme/navigation.png)
 - The logo of the website is located on the left side of the navigation bar. 
 - On the right side, links to other pages are provided.
 - Logged-in users will find links to ‘Home,’ ‘Search,’ ‘Write Stories,’ ‘My Page’ and ‘Sign out.
@@ -111,7 +111,7 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 ### Home Page
 
 **Heading**<br>
-<img src="./media/readme/heading.png" alt="heading" width="400px">
+<img src="./ecopost/documents/media/readme/heading.png" alt="heading" width="400px">
 - The heading at the center states the title of this website ‘ecopost.’
 - A graphic of earth is placed on the right side. 
 
@@ -165,9 +165,10 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 - Users are warned that if the post includes any inappropriate content, the post will be removed from the site.
 
 ### Update Post
-- Authors of the posts can update their own drafts before publishing them.
+- Authors of the posts can update their own writings.
 - They can update the post by writing over prepopulated fields or uploading a new image.
-- They can click on 'Save', ‘Publish’ or 'Cancel'.
+- For unpublished posts, 'Save', ‘Publish’ and 'Cancel' buttons are displayed.
+- For published posts, 'Save' and 'Cancel' buttons are displayed.
 
 ### Delete Post Function (no page)
 - Authors of the posts can delete their own drafts before submitting them by clicking 'Delete' button on "Detail Page.'

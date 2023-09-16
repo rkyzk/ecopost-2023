@@ -194,7 +194,6 @@ class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
             form.instance.status = 1
             message = "Your post has been published."
         form.save()
-        print(form.instance.category)
         messages.add_message(self.request, messages.SUCCESS, message)
         return super(UpdatePost, self).form_valid(form)
 

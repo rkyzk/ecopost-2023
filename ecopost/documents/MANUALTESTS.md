@@ -1,6 +1,8 @@
 # Manual Tests
 
-The aspects that weren't tested by automated tests were tested.
+The aspects that weren't covered by automated tests are conducted manually and are documented on this page.
+**As of Sep. 16th, 2023, I'm still adding screen shots and adding new manual tests.  This page will be updated constantly.**
+
 
 ### Testing User Stories
 No. | Goals | How they are achieved | 

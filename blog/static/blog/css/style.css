@@ -165,8 +165,31 @@ h1 {
 
 .earth {
     width: 150px;
-    height: auto;
     padding-left: 20px;
+}
+
+.right-leaves,
+.left-leaves {
+    width: 30%;
+}
+
+.heading {
+    width: 40%;
+}
+
+.leaf-2 {
+    width: 120px;
+    height: 50px;
+}
+
+.leaf-3 {
+    width: 80px;
+    height: 100px;
+}
+
+.p-leaf {
+    width: 80px;
+    height: 80px;
 }
 
 .intro-box {

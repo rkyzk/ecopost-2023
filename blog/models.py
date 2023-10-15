@@ -10,6 +10,7 @@ from datetime import datetime
 from cloudinary.models import CloudinaryField
 
 
+# status of posts
 STATUS = ((0, "Draft"), (1, "Published"))
 
 COMMENT_STATUS = ((0, "original"), (1, "edited"), (2, "deleted"))
@@ -68,7 +69,7 @@ class Post(models.Model):
             random_str = ''.join(random.choices(string.ascii_letters +
                                  string.digits, k=16))
             self.slug = slugify(self.title + '-' + random_str)
-        # if the status is 2 ("Published") but published_on is None,
+        # if the status is 1 ("Published") but published_on is None,
         # assign the current date & time.
         if self.status == 1 and not self.published_on:
             self.published_on = datetime.utcnow()

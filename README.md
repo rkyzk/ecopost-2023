@@ -25,7 +25,7 @@
 The website is deployed [here](https://eco-post-a732dab85eab.herokuapp.com/).
 
 ## Project Goals
-eco post offers a platform where users can share their stories on what they are doing to protect the environment. Many people feel helpless, thinking that individuals cannot do so much. Here, visitors can read posts, leave comments and write their own posts. Users can connect with others who are concerned about the same issue, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
+eco post offers a platform where users can share their ideas on what individuals could do to protect the environment. Many people feel helpless, thinking that individuals cannot do so much in face of the environmental crisis. Here, visitors can read posts written by others, leave comments and write their own posts. Users can connect with others who are concerned about the crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
 
 ## User Stories
 
@@ -345,8 +345,6 @@ Other sources for code snippets taken in this project:
 - The code to display links to social networks (lines in 68-87 in base.html) was taken from “Love Running” project.
 
 - The code for turning the navbar to a hamburger menu (lines 9-19 in script.js & lines 21-45 in base.html) was taken from [this site.](https://stackoverflow.com/questions/70370519/how-can-i-turn-my-navbar-into-hamburger-menu-for-mobile-using-responsive-design)
-
-- For the code for search system, I took basic ideas from this [youtube video](https://www.youtube.com/watch?v=G-Rct7Na0UQ)
 
 - The code to sign in a testuser (line 16-20 in test_views.py) was taken from [this site](https://stackoverflow.com/questions/2619102/djangos-self-client-login-does-not-work-in-unit-tests)
 

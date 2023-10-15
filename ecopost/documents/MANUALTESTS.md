@@ -47,14 +47,14 @@ country: Ireland
 
 Test No.| Feature | Preparation Steps if any | Test Steps | Expected results | Actual results | Pass/Fail | Image|Date |
 |:---| :--- | :--- |:---| :--- | :--- |:---| :--- |:--- |
-|1|Logo link|Go to “Search Stories”|Click the logo|Redirected to the home page|Redirected to the home page|pass|[image](./media/manual-tests/navlinks/1.png)|2023/8/14|
-|2|Link to ”Home”|Go to “Search Stories” page|Click the link “Home”|Redirected to ”Home"|Redirected to ”Home”|pass|[image](./media/manual-tests/navlinks/2.png)|2023/8/14|
-|3|Link to ”Search stories”|Go to “Home”|Click “Search Stories”|Redirected to ”Search Stories”|Redirected to ”Search Stories”|pass|[image](./media/manual-tests/navlinks/3.png)|2023/8/14|
-|4|”Become a Member”|Go to “Home” page|Click “Become a Member”|Redirected to ”Become a Member” | Redirected to “Become a Member”|pass|[image](./media/manual-tests/navlinks/4.png)|2023/8/14|
-|5|”Log in”|Go to “Home” page|Click “Log in”|Redirected to ”Log in”|Redirected to “Log in”|pass|[image](./media/manual-tests/navlinks/5.png)|2023/8/14|
-|6|”Write Stories”|Log in and go to “Home”|Click “Write Stories”|Redirected to ”Write Stories”|Redirected to ” Write Stories”|pass|[image](./media/manual-tests/navlinks/6.png)|2023/8/14|
-|7|”My Page”|Go to “Home” page|Click “My Page”|Redirected to ”My Page”|Redirected to “My Page”|pass|[image](./media/manual-tests/navlinks/7.png)|2023/8/14|
-|8|”Log out”|Go to “Home” page|Click “Log out”|Redirected to ”Log out”|Redirected to “Log out”|pass|[image](./media/manual-tests/navlinks/8.png)|2023/8/14|
+|1|Logo link|Go to “Search Stories”|Click the logo|Redirected to the home page|Redirected to the home page|pass|[image](./media/manual-tests/navlinks/1.png)|2023/10/15|
+|2|Link to ”Home”|Go to “Search Stories” page|Click the link “Home”|Redirected to ”Home"|Redirected to ”Home”|pass|[image](./media/manual-tests/navlinks/2.png)|2023/10/15|
+|3|Link to ”Search Stories”|Go to “Home”|Click “Search Stories”|Redirected to ”Search Stories”|Redirected to ”Search Stories”|pass|[image](./media/manual-tests/navlinks/3.png)|2023/10/15|
+|4|”Become a Member”|Go to “Home” page|Click “Become a Member”|Redirected to ”Become a Member” | Redirected to “Become a Member”|pass|[image](./media/manual-tests/navlinks/4.png)|2023/10/15|
+|5|”Sign in”|Go to “Home” page|Click "Sign in”|Redirected to ”Sign in”|Redirected to “Sign in”|pass|[image](./media/manual-tests/navlinks/5.png)|2023/10/15|
+|6|”Write Stories”|Log in and go to “Home”|Click “Write Stories”|Redirected to ”Write Stories”|Redirected to ” Write Stories”|pass|[image](./media/manual-tests/navlinks/6.png)|2023/10/15|
+|7|”My Page”|Go to “Home” page|Click “My Page”|Redirected to ”My Page”|Redirected to “My Page”|pass|[image](./media/manual-tests/navlinks/7.png)|2023/10/15|
+|8|”Sign out”|Go to “Home” page|Click “Sign out”|Redirected to ”Sign out”|Redirected to “Sign out”|pass|[image](./media/manual-tests/navlinks/8.png)|2023/10/15|
 
 #### Burger Menu for screen sizes below 700px
 *Conduct test no. 2 & 3 without any actions in between.*

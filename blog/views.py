@@ -384,15 +384,21 @@ class SearchPosts(View):
         postFilterForm = PostFilter()
         if 'search' in request.GET.keys():
             search = True
-            input = request.GET['title'].strip() + request.GET['author__username'].strip() + \
-                    request.GET['keyword'].strip() + \
-                    request.GET['city'].strip() + \
-                    request.GET['published_after'].strip() + \
-                    request.GET['published_before'].strip()
-
-            if (input == "" and
-                (request.GET['category'] == "Choose..." or request.GET['category'] == "") and
-                (request.GET['num_of_likes'] == "0" or request.GET['num_of_likes'] == "")):
+            # check if no input was made
+            if all(ipt is None or ipt == '' for ipt in [
+                request.GET['title'].strip(),
+                request.GET['author__username'].strip(),
+                request.GET['keyword'].strip(),
+                request.GET['city'].strip(),
+                request.GET['published_after'].strip(),
+                request.GET['published_before'].strip()
+            ]): 
+                # check if category & num of likes weren't specified,
+                # then set no_input = True 
+                if (request.GET['category'] == "Choose..." or
+                    request.GET['category'] == "") and (
+                        request.GET['num_of_likes'] == "0" or
+                        request.GET['num_of_likes'] == ""):
                     no_input = True
             else:
                 posts = Post.objects.filter(status=1).order_by('-published_on')

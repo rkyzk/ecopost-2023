@@ -133,19 +133,20 @@ footer {
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
     border-radius: 100px;
-    background-color: rgb(71, 174, 183);
+    background-color: rgb(46, 176, 202);
     min-width: 100px;
     border: none;
     outline: none;
     color: #fff;
 }
 
-.beige-btn:hover {
-    background-color: rgb(69, 61, 15);
+.blue-btn:hover {
+    background-color: rgb(219, 224, 225);
     opacity: 0.8;
     outline: none;
     border: none;
     color: #fff;
+    color: #4c4141;
 }
 
 .btn-right {

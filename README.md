@@ -1,5 +1,7 @@
 # eco post
 
+The deployed app: https://eco-post-a732dab85eab.herokuapp.com/
+
 ## Contents
 
 * [Project Goals](#project-goals)
@@ -19,10 +21,8 @@
 * [Credits](#credits)
 - - -
 
-![ecopost-home](./ecopost/documents/media/readme/eco-post.png)
+<img src="./ecopost/documents/media/readme/eco-post.png" width="600" alt="ecopost">
 <img src="./ecopost/documents/media/readme/eco-post-mobile.png" width="250" alt="ecopost displayed on mobile">
-
-The website is deployed [here](https://eco-post-a732dab85eab.herokuapp.com/).
 
 ## Project Goals
 eco post offers a platform where users can share their ideas on what individuals could do to protect the environment. Many people feel helpless, thinking that individuals cannot do so much in face of the environmental crisis. Here, visitors can read posts written by others, leave comments and write their own posts. Users can connect with others who are concerned about the crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.

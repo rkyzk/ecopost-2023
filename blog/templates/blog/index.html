@@ -29,9 +29,11 @@
             those who are taking actions, and join their activities or start up
             your own movements in your area.
         </p>
-        <p>In order to submit your own stories for publication and/or leave comments
+        {% if user.is_authenticated == False %}
+        <p>To submit your own stories and/or leave comments
             on the posts, <a href="{% url 'account_signup' %}">become a member</a>.
         </p>
+        {% endif %}
         <hr>
     </div>
 </div>

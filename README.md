@@ -1,6 +1,6 @@
 # eco post
 
-The deployed app: https://eco-post-a732dab85eab.herokuapp.com/
+The deployed app: https://eco-post-b42d6f9baa98.herokuapp.com/
 
 ## Contents
 

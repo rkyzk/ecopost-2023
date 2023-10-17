@@ -153,8 +153,8 @@ footer {
     margin-left: 5px;
 }
 
-.content {
-    width: 80%;
+.featured-stories {
+    width: 75%;
 }
 
 /*   ------------ index.html ------------------------  */
@@ -171,16 +171,16 @@ h1 {
 }
 
 .heading-row {
-    height: 250px;
+    height: 180px;
 }
 
 .heading {
-    width: 400px;
+    width: 410px;
 }
 
 .left-leaves,
 .right-leaves {
-    width: 295px;
+    width: 260px;
 }
 
 .right-leaves {
@@ -339,19 +339,13 @@ h1 {
     padding-top: 40px;
 }
 
-@media screen and (max-width: 1200px) {
-    .content {
-        width: 95%;
-    }
+.page-title {
+    text-align: center;
 }
 
 @media screen and (max-width: 991px) {
     .mt-custom {
         margin-top: 40px;
-    }
-
-    .content {
-        width: 100%;
     }
 
     .comments-left {
@@ -363,8 +357,9 @@ h1 {
         padding: 0;
     }
 
-    .intro-box {
-        width: 90%;
+    .intro-box,
+    .featured-stories {
+        width: 85%;
     }
 }
 
@@ -399,7 +394,7 @@ h1 {
 
     /* -------- index --------------- */
     .intro-box {
-        width: 100%;
+        width: 90%;
     }
 
     .links-to-posts {
@@ -416,6 +411,10 @@ h1 {
 
     .posts-mt {
         margin-top: 10px;
+    }
+
+    .featured-stories {
+        width: 70%;
     }
 
     /* ------- post_detail.html --------------*/
@@ -506,7 +505,8 @@ h1 {
         width: 90%;
     }
 
-    .content {
+    .content,
+    .featured-stories {
         width: 80%;
     }
 }
@@ -552,5 +552,9 @@ h1 {
 
     .link-to-favorites {
         margin-top: 10px;
+    }
+
+    .featured-stories {
+        width: 90%;
     }
 }

@@ -3,17 +3,21 @@
 {% block content %}
 <div class="d-flex justify-content-center">
     <div class="container mt-4">
-        <h1>Search Stories</h1>
+        <div class="row">
+            <div class="offset-md-1">
+                <h1>Search Stories</h1>
+            </div>
+        </div>
         <!-- Search form -->
         <form method="get" class="search-form">
             <div class="row mt-2">
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 offset-md-1 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.title.label_tag}}
                         {% render_field postForm.form.title class="form-control" %}
                     </div>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.author__username.label_tag}}
                         {% render_field postForm.form.author__username class="form-control" %}
@@ -21,7 +25,7 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 offset-md-1 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.keyword.label_tag}}
                         {% render_field postForm.form.keyword class="form-control" %}
@@ -33,19 +37,19 @@
                         {% render_field postForm.form.num_of_likes class="form-control" %}
                     </div>
                 </div>
-                <div class="col-md-3 col-3 align-self-end">
+                <div class="col-md-2 col-3 align-self-end">
                     <span>times</span>
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 offset-md-1 col-12">
                     <div class="form-lable-group">
                         <span>Published date range</span>
                         {{postForm.form.published_after.label_tag}}
                         {% render_field postForm.form.published_after class="form-control" %}
                     </div>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.published_before.label_tag}}
                         {% render_field postForm.form.published_before class="form-control" %}
@@ -53,21 +57,25 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 offset-md-1 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.city.label_tag}}
                         {% render_field postForm.form.city class="form-control" %}
                     </div>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-5 col-12">
                     <div class="form-lable-group">
                         {{postForm.form.category.label_tag}}
                         {% render_field postForm.form.category class="form-control" %}
                     </div>
                 </div>
             </div>
-            <button class="blue-btn mt-3" type="submit" name="search">search</button>
-            <button class="blue-btn mt-3 btn-right" type="submit">clear form</button>
+            <div class="row">
+                <div class="offset-md-1">
+                    <button class="blue-btn mt-3" type="submit" name="search">search</button>
+                    <button class="blue-btn mt-3 btn-right" type="submit">clear form</button>
+                </div>
+            </div>
         </form>
         <!-- Search results -->
         {% if search %}

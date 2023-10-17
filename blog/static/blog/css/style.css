@@ -482,9 +482,9 @@ h1 {
         display: block !important;
     }
 
-    .content {
+    /* .content {
         width: 90%;
-    }
+    } */
 }
 
 @media screen and (max-width: 575px) {
@@ -505,7 +505,7 @@ h1 {
         width: 90%;
     }
 
-    .content,
+    /* .content, */
     .featured-stories {
         width: 80%;
     }
@@ -545,7 +545,7 @@ h1 {
 
     .search-contnet,
     .individual-post,
-    .content,
+    /* .content, */
     .img-box {
         width: 100%;
     }

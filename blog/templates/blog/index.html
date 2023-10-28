@@ -11,18 +11,19 @@
             those who are taking actions, and join their activities or start up
             your own movements in your area.
         </p>
-        {% if user.is_authenticated == False %}
-        <p>To submit your own stories and/or leave comments
+        <p>In order to submit your own stories for publication and/or leave comments
             on the posts, <a href="{% url 'account_signup' %}">become a member</a>.
         </p>
-        {% endif %}
         <hr>
     </div>
 </div>
 <!-- Featured stories -->
 <div class="d-flex justify-content-center mt-5">
-    <div class="featured-stories">
-        <h2 class="featured-heading">Featured Stories</h2>
+    <div class="content">
+        <h2 class="featured-heading">
+            <i class="fa-brands fa-pagelines"></i>
+            Featured Stories
+        </h2>
         <div class="row posts">
             {% for post in post_list %}
             <div class="col-md-4 individual-post">
@@ -34,14 +35,19 @@
                     <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% endif %}
                 </div>
-                <div class="mx-2 mt-2 post-text">
+                <div class="mt-2 post-title">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
-                    <span class="excerpt-author">by {{ post.author }}</span>
-                    <div class="d-flex justify-content-end pub-date">
-                        <span>{{ post.pub_date }}</span>
-                    </div>
+                    <span class="excerpt-author text-secondary">
+                        <em>by {{ post.author }}</em>
+                    </span>
+                    <span class="likes text-secondary">
+                        <i class="fa-regular fa-heart space-left space-right"></i>{{ post.num_of_likes }}
+                    </span>
+                </div>
+                <div class="d-flex justify-content-end pub-date">
+                    <span>{{ post.pub_date }}</span>
+                </div>
+                <div class="post-excerpt">
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
                 </div>
@@ -53,10 +59,11 @@
             <!-- links to 'Recent Stories' and 'Popular Stories' -->
             <div class="links-to-posts">
                 <a href="{% url 'recent_stories' %}">
-                    <p>More stories from this week &raquo;</p>
+                    <p><i class="fa-solid fa-seedling big-space-right"></i>More stories from this week &raquo;</p>
                 </a>
                 <a href="{% url 'popular_stories' %}" class="mt-4">
-                    <p>Readers' favorite stories of all time &raquo;</p>
+                    <p><i class="fa-solid fa-seedling big-space-right"></i>Readers' favorite stories of all time &raquo;
+                    </p>
                 </a>
             </div>
         </div>

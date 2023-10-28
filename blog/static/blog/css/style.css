@@ -218,12 +218,6 @@ h1 {
     color: rgb(141, 111, 56);
 }
 
-.earth {
-    width: 140px;
-    height: 140px;
-    margin-left: 20px;
-}
-
 .heading-row {
     height: 180px;
 }
@@ -397,9 +391,75 @@ h1 {
     text-align: center;
 }
 
+@media screen and (max-width: 1300px) {
+    .heading {
+        left: 25%;
+    }
+}
+
+@media screen and (min-width: 1161px) {
+    #nav-menu {
+        display: block !important;
+        width: 470px;
+        margin-top: 50px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1160px) {
+    .hamburger {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: 20px;
+        position: absolute;
+        top: 53px;
+        right: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .heading {
+        left: 40%;
+    }
+
+    #nav-menu {
+        position: relative;
+    }
+
+    .pop-up-menu {
+        background-color: #f8f8f8;
+        opacity: 0.9;
+        position: absolute;
+        top: 100px;
+        right: 15px;
+        z-index: 2;
+        padding: 5px 8px;
+    }
+
+    .nav-list {
+        grid-auto-flow: row;
+        list-style-type: none;
+        row-gap: 10px;
+        column-gap: 0;
+        justify-items: start;
+    }
+
+    #nav-menu {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 991px) {
     .mt-custom {
         margin-top: 40px;
+    }
+
+    .content {
+        width: 90%;
     }
 
     .comments-left {
@@ -411,17 +471,26 @@ h1 {
         padding: 0;
     }
 
-    .intro-box,
-    .featured-stories {
+    .intro-box {
         width: 85%;
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 767px) {
+    .post-title {
+        height: auto;
+    }
+}
 
-    .left-leaves,
-    .right-leaves {
+@media (max-width: 705px) {
+    .left-leaves {
         display: none !important;
+    }
+
+    .heading {
+        margin-left: 30px;
+        position: static;
+        justify-content: start;
     }
 }
 
@@ -447,10 +516,6 @@ h1 {
     }
 
     /* -------- index --------------- */
-    .intro-box {
-        width: 90%;
-    }
-
     .links-to-posts {
         margin-top: 0;
     }
@@ -461,14 +526,6 @@ h1 {
 
     .posts {
         margin-top: 20px;
-    }
-
-    .posts-mt {
-        margin-top: 10px;
-    }
-
-    .featured-stories {
-        width: 70%;
     }
 
     /* ------- post_detail.html --------------*/
@@ -487,61 +544,11 @@ h1 {
     }
 }
 
-@media screen and (max-width: 700px) {
-    .hamburger {
-        display: block;
-    }
-
-    .mobile-header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .header {
-        flex-direction: column;
-        padding: 20px;
-        position: relative;
-    }
-
-    .pop-up-menu {
-        background-color: #f8f8f8;
-        opacity: 0.9;
-        position: absolute;
-        top: 50px;
-        right: 50px;
-        z-index: 2;
-        padding: 5px 8px;
-    }
-
-    .nav-list {
-        grid-auto-flow: row;
-        list-style-type: none;
-        row-gap: 10px;
-        column-gap: 0;
-        justify-items: start;
-    }
-
-    #nav-menu {
-        display: none;
-    }
-
-    .block-content {
-        margin-top: 20px;
-    }
-}
-
-@media screen and (min-width: 701px) {
-    #nav-menu {
-        display: block !important;
-    }
-
-    /* .content {
-        width: 90%;
-    } */
-}
-
 @media screen and (max-width: 575px) {
+    .intro-box {
+        width: 95%;
+    }
+
     .featured-heading {
         margin-left: 20px;
     }
@@ -558,11 +565,6 @@ h1 {
     .authentication {
         width: 90%;
     }
-
-    /* .content, */
-    .featured-stories {
-        width: 80%;
-    }
 }
 
 @media screen and (max-width: 500px) {
@@ -570,11 +572,26 @@ h1 {
         font-size: 2.5rem;
     }
 
-    /* ------ index.html ----------------------*/
+    .heading {
+        width: 300px;
+        margin: 30px 0 0 15px;
+    }
+
     .earth {
-        width: 30%;
-        height: auto;
-        padding-left: 15px;
+        height: 85px;
+        width: 85px;
+    }
+
+    .header {
+        padding: 0 0 0 15px;
+    }
+
+    .hamburger {
+        top: 35px;
+    }
+
+    .pop-up-menu {
+        top: 40px;
     }
 
     /* ------- Update Post ------------------------*/
@@ -596,19 +613,31 @@ h1 {
 }
 
 @media screen and (max-width: 420px) {
+    .hamburger {
+        top: 10px;
+    }
 
-    .search-contnet,
+    .pop-up-menu {
+        top: 60px;
+        right: 8px;
+    }
+
+    .heading {
+        margin-top: 60px;
+    }
+
+    .featured-heading {
+        margin-left: 10px;
+    }
+
+    .search-content,
     .individual-post,
-    /* .content, */
+    .content,
     .img-box {
-        width: 100%;
+        width: 95%;
     }
 
     .link-to-favorites {
         margin-top: 10px;
-    }
-
-    .featured-stories {
-        width: 90%;
     }
 }

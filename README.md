@@ -56,22 +56,22 @@ No.|As a… |I can…|so that …|Priority (1 is the highest)|
 |23| user |bookmark posts | I can easily access certain posts later.| 2|
 
 ## Features in a Nutshell:
-Users can see lists of excerpts from
--	featured stories
--	posts published in the previous 7 days
--	most liked stories of all time
--	posts written by them
--	posts commented by them
--	posts bookmarked by them
+- Users can see lists of excerpts from
+1.	featured stories
+2.	posts published in the previous 7 days
+3.	most liked stories of all time
+4.	posts written by them
+5.	posts commented by them
+6.	posts bookmarked by them
 
-Users can read the entire content of published posts<br>
-Users can search stories by title, authors and other factors<br>
-Users can sign up to become members<br>
-Members can like and bookmark posts<br>
-Members can leave comments on the posts<br>
-Members can write their own stories and publish them<br>
-Members can edit and delete comments<br>
-Members can update or delete their posts before publishing them<br>
+- Users can read the entire content of published posts
+- Users can search stories by title, authors and other factors
+- Users can sign up to become members
+- Members can like and bookmark posts
+- Members can leave comments on the posts
+- Members can write their own stories and publish them
+- Members can update and delete their posts 
+- Members can update and delete their comments
 
 ## Wireframes
 Wireframes for the app can be found [here.](https://wireframe.cc/pro/pp/873798723651976)
@@ -92,14 +92,16 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 
 **Logo, Favicon and other graphics**
 - I used a clover for the logo and favicon because it’s a widely liked symbol and is associated with good luck and hope, giving a friendly and positive impression. 
-- I used a graphic of blue and green earth next to the heading, because this graphic is beautiful and improves the appearance of the page
+- I used graphics of colorful leaves as well as a blue and green earth around the page header, because these beautiful graphics improve the appearance of the page.
 
 ## Each Part and Function in Detail
 
 ### Navigation (common to all pages)
 ![nav-bar](./ecopost/documents/media/readme/navigation.png)
-- The logo of the website is located on the left side of the navigation bar. 
-- On the right side, links to other pages are provided.
+- On the left side of the navigation, graphics of leaves are displayed
+- In the middle the heading states the page title.
+- A graphic of the earth is placed on the right side of the page title. 
+- On the right side, navigation links to other pages are provided.
 - Logged-in users will find links to ‘Home,’ ‘Search,’ ‘Write Stories,’ ‘My Page’ and ‘Sign out.
 - Other users will find links to ‘Home,’ ‘Search,’ ‘Become a Member,’ and ‘Sign in.’
 - These terms clearly indicate what these linked pages will present.
@@ -109,11 +111,6 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 - Links to social networks are provided.
 
 ### Home Page
-
-**Heading**<br>
-<img src="./ecopost/documents/media/readme/heading.png" alt="heading" width="400px">
-- The heading at the center states the title of this website ‘ecopost.’
-- A graphic of earth is placed on the right side. 
 
 **Introduction**
 - Below the heading an introductory paragraph explains what the site is for and how to use it.

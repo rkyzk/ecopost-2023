@@ -247,10 +247,22 @@ def getComment(request, slug):
     if request.is_ajax and request.method == 'GET':
         id = request.GET['id']
         comment = get_object_or_404(Comment, id=id)
-        print(id)
-        print(comment.body)
         response = {
             'content': comment.body
+        }
+        return JsonResponse(response)
+
+
+def updateComment(request, slug):
+    if request.is_ajax and request.method == 'POST':
+        id = request.POST['id']
+        comment = get_object_or_404(Comment, id=id)
+        updatedCmmt = request.POST['comment']
+        comment.comment_status = 1
+        comment.body = updatedCmmt
+        comment.save()
+        response = {
+            'message': 'Comment updated'
         }
         return JsonResponse(response)
 

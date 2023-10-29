@@ -7,7 +7,7 @@
             <div class="title-box">
                 <h1>{{ post.title }}</h1>
                 <div>
-                    <span class="text-secondary"><em>Author: {{ post.author }}</em></span>
+                    <span class="text-secondary"><em>Written by {{ post.author }}</em></span>
                     <div class="date-city d-flex justify-content-end text-secondary">
                         <ul>
                             <!-- if the post has been submitted, show the published date -->
@@ -35,21 +35,18 @@
                     <!-- if the post has been published and the user is logged in show 'like' buttons -->
                     {% if post.status == 1 %}
                     {% if user.is_authenticated %}
-                    <form class="d-inline" action="{% url 'post_like' post.slug %}" method="POST">
-                        {% csrf_token %}
-                        <!-- if liked, show a solid heart -->
-                        {% if liked %}
-                        <button type="submit" name="unlike" value="{{post.slug}}" class="btn">
-                            <i class="fa-solid fa-heart heart"></i>
-                        </button>
-                        <!-- if not liked, show a heart outline -->
-                        {% else %}
-                        <button type="submit" name="like" value="{{post.slug}}" class="btn">
-                            <i class="fa-regular fa-heart heart"></i>
-                        </button>
-                        {% endif %}
-                        <span class="text-secondary">{{ post.num_of_likes }}</span>
-                    </form>
+                    <!-- if liked, show a solid heart -->
+                    {% if liked %}
+                    <button type="button" name="unlike" value="{{post.num_of_likes}}" class="btn space-right">
+                        <i class="fa-solid fa-heart heart post-like"></i>
+                    </button>
+                    <!-- if not liked, show a heart outline -->
+                    {% else %}
+                    <button type="button" name="like" value="{{post.num_of_likes}}" class="btn space-right">
+                        <i class="fa-regular fa-heart heart post-like"></i>
+                    </button>
+                    {% endif %}
+                    <span class="text-secondary num-likes">{{ post.num_of_likes }}</span>
                     {% else %}
                     <!-- if not logged in, show a heart (without 'like' button function) -->
                     <span><i class="far fa-heart heart"></i></span>
@@ -61,16 +58,16 @@
                         {% csrf_token %}
                         <!-- if already bookmarked, show a filled-out book icon -->
                         {% if bookmarked %}
-                        <button type="submit" name="unbookmark" value="{{post.slug}}" class="btn">
+                        <button type="button" name="unbookmark" value="{{post.slug}}" class="btn bookmark"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unbookmark this article">>
                             <i class="fa fa-bookmark" aria-hidden="true"></i>
                         </button>
-                        <span class="text-secondary">Bookmarked</span>
                         {% else %}
                         <!-- if not bookmarked, show the outline of a book icon -->
-                        <button type="submit" name="bookmark" value="{{post.slug}}" class="btn">
+                        <button type="button" name="bookmark" value="{{post.slug}}" class="btn bookmark"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bookmark this article">
                             <i class="fa fa-bookmark-o" aria-hidden="true"></i>
                         </button>
-                        <span class="text-secondary bookmark-text">Click to bookmark</span>
                         {% endif %}
                     </form>
                     {% endif %}
@@ -86,10 +83,12 @@
             <div class="mt-3 d-flex justify-content-start">
                 <form method="GET" action="{% url 'update_post' post.slug %}">
                     {% csrf_token %}
-                    <button class="blue-btn" name="update-post" type="submit">update</button>
+                    <button class="blue-btn" name="update-post" type="submit">Update</button>
                 </form>
-                <button type="button" class="blue-btn btn-right ml-2" data-toggle="modal"
-                    data-target="#confirm-delete-post">delete</button>
+                <button type="button" class="blue-btn btn-right" onClick="showModal()" data-toggle="modal"
+                    data-target="#confirmDelete">
+                    Delete
+                </button>
             </div>
             {% endif %}
         </section>
@@ -97,7 +96,7 @@
         {% if post.status == 1 %}
         <section class="d-lg-flex justify-content-between mt-5 comments">
             <div class="comments-left">
-                <h2>Comments</h2>
+                <h2><i class="fa-brands fa-pagelines big-space-right"></i>Comments</h2>
                 {% for comment in comments %}
                 <!-- if the comment has been edited, say 'edited.' -->
                 <div>
@@ -109,12 +108,14 @@
                     {% if comment.comment_status == 1 %}
                     <span class="text-muted"><em>edited</em></span>
                     {% endif %}
+                    <span class="text-muted hide"><em>edited</em></span>
                     <div class="comment-form">{{ comment.body | linebreaks }}</div>
                     <!-- if the comment has been written by the user, show update and delete buttons -->
                     {% if comment.commenter == user %}
                     <div class="d-flex justify-content-end update-comment show">
                         <div class="col-1">
-                            <button type="submit" class="btn btn-sm" name="update-comment" onclick="showForm()">
+                            <button type="submit" class="btn btn-sm edit-btn" data-id={{comment.id}}
+                                onClick="showCommentEditForm(this)">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                         </div>
@@ -142,8 +143,8 @@
             <div class="mt-custom comments-right">
                 <!-- if user is logged in, invite them to leave comments -->
                 {% if user.is_authenticated %}
-                <h2>Leave a comment:</h2>
-                <p class="mt-3">Posting as: {{ user.username }}</p>
+                <h2><i class="fa-brands fa-pagelines big-space-right"></i>Leave a comment:</h2>
+                <p class="mt-2">Posting as: {{ user.username }}</p>
                 <form method="post" class="mt-3">
                     {{ comment_form | crispy }}
                     {% csrf_token %}
@@ -151,7 +152,7 @@
                 </form>
                 {% else %}
                 <!-- if user is not logged in, provide the links to sign up or sign in -->
-                <h2>Want to leave comments?</h2>
+                <h2><i class="fa-brands fa-pagelines big-space-right"></i>Want to leave comments?</h2>
                 <p>
                     <a href="{% url 'account_signup' %}">Become a member</a>
                     <span>or</span>

@@ -213,23 +213,25 @@ footer {
     display: block;
 }
 
-.beige-btn {
-    padding: 0.4rem 0.8rem;
+.blue-btn {
+    padding: 0.3rem 0.6rem;
+    font-family: 'Montserrat Alternates', sans-serif;
     font-size: 1.1rem;
+    font-weight: 600;
     border-radius: 80px;
-    background-color: rgb(153, 139, 59);
-    min-width: 100px;
+    background-color: rgb(33, 150, 154);
+    min-width: 90px;
     border: none;
     outline: none;
     color: #fff;
 }
 
-.beige-btn:hover {
-    background-color: rgb(69, 61, 15);
+.blue-btn:hover {
+    background-color: rgb(201, 208, 213);
     opacity: 0.8;
     outline: none;
     border: none;
-    color: #fff;
+    color: #204966;
 }
 
 .btn-right {
@@ -271,6 +273,11 @@ footer {
 }
 
 /* -------------- post_detail.html -------------------*/
+.title-box>h1 {
+    word-wrap: break-word;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
 
 .date-city>ul {
     list-style: none;
@@ -308,16 +315,16 @@ footer {
     margin-left: 4px;
 }
 
-.bookmark-text {
-    margin-top: 15px;
-}
-
 .heart {
     color: #d87979;
 }
 
-/* ---------- search.html -------------------------*/
+.update-form {
+    width: 85%;
+    margin-right: 8px;
+}
 
+/* ---------- search.html -------------------------*/
 .item-right {
     margin-left: 10px;
 }
@@ -352,16 +359,12 @@ footer {
     margin-top: 50px;
 }
 
-.date-coty {
+.date-city {
     width: 100%;
 }
 
 .more-posts {
     padding-top: 40px;
-}
-
-.page-title {
-    text-align: center;
 }
 
 @media screen and (max-width: 1300px) {
@@ -399,7 +402,7 @@ footer {
         left: 40%;
     }
 
-    #nav-menu {
+    .nav-menu {
         position: relative;
     }
 

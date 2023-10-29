@@ -11,6 +11,7 @@ from django.core.exceptions import PermissionDenied
 from .filters import PostFilter
 from .forms import PostForm, CommentForm
 from .models import Post, Comment, CATEGORY
+from django.http import JsonResponse
 
 # Set the num. of likes above which posts will be included in "Popular Stories"
 min_num_likes = 1
@@ -240,6 +241,18 @@ class DeletePost(LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse('home'))
         else:
             raise PermissionDenied()
+
+
+def getComment(request, slug):
+    if request.is_ajax and request.method == 'GET':
+        id = request.GET['id']
+        comment = get_object_or_404(Comment, id=id)
+        print(id)
+        print(comment.body)
+        response = {
+            'content': comment.body
+        }
+        return JsonResponse(response)
 
 
 class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):

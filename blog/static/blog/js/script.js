@@ -21,6 +21,47 @@ const openMenu = () => {
     }
 }
 
+// display comments to be updated
+showCommentEditForm = (event) => {
+    // if another comment edit form is open, hide it
+    let shownForm = document.getElementById('save-comment-form');
+    if (shownForm) {
+        let cancelBtn = shownForm.lastElementChild.lastElementChild;
+        hideForm(cancelBtn);
+    }
+    let id = event.dataset.id;
+    let url = 'get_comment/';
+    let icons = event.parentElement.parentElement;
+    icons.classList.remove('show');
+    icons.classList.remove('d-flex');
+    icons.classList.add('hide');
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: {
+            id: id
+        },
+        success: function (response) {
+            var content = response['content'];
+            let comment = icons.previousElementSibling;
+            let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
+                'Please enter this field.</span>' +
+                '<form class="d-flex" id="save-comment-form" data-id=' +
+                id + ' method="POST"><textarea type="text"' +
+                ' class="update-form" id="comment">' +
+                content + '</textarea><div>' +
+                '<button class="blue-btn" type="submit">save</button>' +
+                '<button class="blue-btn mt-1" onClick="hideForm(this)">' +
+                'cancel</button></div></form>';
+            comment.innerHTML = commentBox;
+            $('#comment').focus();
+        },
+        error: function (response) {
+            alert("error getting data");
+        }
+    })
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Let messages appear for 5 seconds
     setTimeout(function () {

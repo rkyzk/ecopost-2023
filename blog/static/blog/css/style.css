@@ -141,16 +141,13 @@ a:hover,
     margin-top: -3px;
 }
 
-.post-likes {
-    margin-top: -3px;
+.btn:focus,
+.btn:active {
+    box-shadow: none;
 }
 
 .num-likes {
     margin: 3px 0 0 3px;
-}
-
-.bookmark {
-    margin-top: -12px;
 }
 
 /* post excerpt */
@@ -346,12 +343,6 @@ footer {
 .cancel:hover {
     text-decoration: none;
     color: #fff;
-}
-
-/* ---------------- update comment ---------------------*/
-.cancel-comment {
-    position: relative;
-    top: 3px;
 }
 
 /* ---------------- my page -----------*/

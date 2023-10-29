@@ -137,23 +137,23 @@ class PostDetail(View):
         )
 
 
-class PostLike(View):
-    """Add or remove user in the foreign key likes of the post."""
-
-    def post(self, request, slug, *args, **kwargs):
-        """
-        If user exists in 'likes' of the post, removes him/her.
-        If not, add the user to 'likes.'
-        arguments: self, request, slug, *args, **kwargs
-        :return: HttpResponseRedirect
-        """
+def postLike(request, slug):
+    """
+    If user exists in 'likes' of the post, removes him/her.
+    If not, add the user to 'likes.'
+    arguments: self, request, slug, *args, **kwargs
+    """
+    if request.is_ajax and request.method == 'POST':
         post = get_object_or_404(Post, slug=slug)
         if post.likes.filter(id=request.user.id).exists():
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
         post.save()
-        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
+        response = {
+            'message': 'done'
+        }
+        return JsonResponse(response)        
 
 
 class Bookmark(View):

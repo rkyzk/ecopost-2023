@@ -37,16 +37,16 @@
                     {% if user.is_authenticated %}
                     <!-- if liked, show a solid heart -->
                     {% if liked %}
-                    <button type="button" name="unlike" value="{{post.num_of_likes}}" class="btn space-right">
-                        <i class="fa-solid fa-heart heart post-like"></i>
+                    <button type="button" name="unlike" value="{{post.num_of_likes}}" class="btn space-right like-btn">
+                        <i class="fa-solid fa-heart heart"></i>
                     </button>
                     <!-- if not liked, show a heart outline -->
                     {% else %}
-                    <button type="button" name="like" value="{{post.num_of_likes}}" class="btn space-right">
-                        <i class="fa-regular fa-heart heart post-like"></i>
+                    <button type="button" name="like" value="{{post.num_of_likes}}" class="btn space-right like-btn">
+                        <i class="fa-regular fa-heart heart"></i>
                     </button>
                     {% endif %}
-                    <span class="text-secondary num-likes">{{ post.num_of_likes }}</span>
+                    <span class="text-secondary num-likes">{{post.num_of_likes}}</span>
                     {% else %}
                     <!-- if not logged in, show a heart (without 'like' button function) -->
                     <span><i class="far fa-heart heart"></i></span>
@@ -54,22 +54,19 @@
                     {% endif %}
                     <!-- bookmark -->
                     {% if user.is_authenticated %}
-                    <form class=" d-inline" action="{% url 'bookmark' post.slug %}" method="POST">
-                        {% csrf_token %}
-                        <!-- if already bookmarked, show a filled-out book icon -->
-                        {% if bookmarked %}
-                        <button type="button" name="unbookmark" value="{{post.slug}}" class="btn bookmark"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unbookmark this article">>
-                            <i class="fa fa-bookmark" aria-hidden="true"></i>
-                        </button>
-                        {% else %}
-                        <!-- if not bookmarked, show the outline of a book icon -->
-                        <button type="button" name="bookmark" value="{{post.slug}}" class="btn bookmark"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bookmark this article">
-                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
-                        </button>
-                        {% endif %}
-                    </form>
+                    <!-- if already bookmarked, show a filled-out book icon -->
+                    {% if bookmarked %}
+                    <button type="button" name="unbookmark" class="btn bookmark" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="Unbookmark this article">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+                    </button>
+                    {% else %}
+                    <!-- if not bookmarked, show the outline of a book icon -->
+                    <button type="button" name="bookmark" class="btn bookmark" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="Bookmark this article">
+                        <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                    </button>
+                    {% endif %}
                     {% endif %}
                     {% endif %}
                 </div>

@@ -263,60 +263,6 @@ def updateComment(request, slug):
         return JsonResponse(response)
 
 
-class UpdateComment(LoginRequiredMixin, UserPassesTestMixin, View):
-    """Update comments."""
-
-    def get(self, request, id, *args, **kwargs):
-        """
-        Get comment from the DB, store the data in comment form
-        and display the update form for users to update it.
-        arguments: self, request, id: comment id, *args, **kwargs
-        :rtype: method
-        """
-        comment = get_object_or_404(Comment, id=id)
-        comment_form = CommentForm(instance=comment)
-        return render(
-            request,
-            "blog/update_comment.html",
-            {
-                "comment_form": comment_form,
-                "slug": comment.post.slug
-            }
-        )
-
-    def post(self, request, id, *args, **kwargs):
-        """
-        Receive comment form and validate it.
-        If it's valid, update the comment, otherwise store
-        an error message. Redirect to "Detail Page."
-        arguments: id: comment id
-        :returns: HttpResponseRedirect()
-        :rtype: method
-        """
-        comment = get_object_or_404(Comment, id=id)
-        slug = comment.post.slug
-        comment_form = CommentForm(self.request.POST, instance=comment)
-        if comment_form.is_valid():
-            updated = comment_form.save(commit=False)
-            updated.commneter = request.user
-            updated.comment_status = 1
-            updated.save()
-        else:
-            comment_form = CommentForm()
-            messages.add_message(request, messages.INFO, "Error occurred." +
-                                 " Your comment was not saved.")
-        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
-
-    def test_func(self):
-        """
-        Test if the user has written the comment.
-        :rtype: boolean
-        """
-        id = self.kwargs.get('id')
-        comment = get_object_or_404(Comment, id=id)
-        return comment.commenter == self.request.user
-
-
 class DeleteComment(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def post(self, request, id, *args, **kwargs):

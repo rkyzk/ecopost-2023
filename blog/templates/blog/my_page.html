@@ -13,26 +13,22 @@
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}
-                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% endif %}
                 </div>
-                <div class="mx-2 mt-2 post-text">
+                <div class="mt-2 post-title">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
-                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
-                    <div class="date-city text-secondary d-flex justify-content-end">
-                        <div>
-                            {% if post.status == 1 %}
-                            <span>Published on:</span>
-                            <p class="my-0">{{ post.pub_date }}</p>
-                            <!-- state if the post hasn't been published display the date written -->
-                            {% else %}
-                            <span>Saved as draft</span>
-                            <p class="my-0">{{ post.created_on|date:'M d, Y' }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
+                    <span class="excerpt-author text-secondary">
+                        <em>by {{ post.author }}</em>
+                    </span>
+                    <span class="likes text-secondary">
+                        <i class="fa-regular fa-heart space-left space-right"></i>{{ post.num_of_likes }}
+                    </span>
+                </div>
+                <div class="d-flex justify-content-end pub-date">
+                    <span>{{ post.pub_date }}</span>
+                </div>
+                <div class="post-excerpt">
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
                 </div>
@@ -75,17 +71,22 @@
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}
-                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% endif %}
                 </div>
-                <div class="mx-2 mt-2 post-text">
+                <div class="mt-2 post-title">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
-                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
-                    <div class="date-city d-flex justify-content-end">
-                        <p class="my-0 text-secondary">{{ post.pub_date }}</p>
-                    </div>
+                    <span class="excerpt-author text-secondary">
+                        <em>by {{ post.author }}</em>
+                    </span>
+                    <span class="likes text-secondary">
+                        <i class="fa-regular fa-heart space-left space-right"></i>{{ post.num_of_likes }}
+                    </span>
+                </div>
+                <div class="d-flex justify-content-end pub-date">
+                    <span>{{ post.pub_date }}</span>
+                </div>
+                <div class="post-excerpt">
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
                 </div>
@@ -127,17 +128,22 @@
                     <img src="https://res.cloudinary.com/dacgkk0so/image/upload/v1691891851/default-img_ojmwhd.jpg"
                         class="card-img-top" alt="forest image">
                     {% else %}
-                    <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% endif %}
                 </div>
-                <div class="mx-2 mt-2 post-text">
+                <div class="mt-2 post-title">
                     <span><strong>{{ post.title }}</strong></span>
-                    <span class="text-secondary mr-1 space-left"><i class="far fa-heart"></i></span>
-                    <span class="text-secondary">{{ post.num_of_likes }}</span><br>
-                    <span class="excerpt-author text-secondary">by {{ post.author }}</span>
-                    <div class="date-city d-flex justify-content-end">
-                        <p class="my-0 text-secondary">{{ post.pub_date }}</p>
-                    </div>
+                    <span class="excerpt-author text-secondary">
+                        <em>by {{ post.author }}</em>
+                    </span>
+                    <span class="likes text-secondary">
+                        <i class="fa-regular fa-heart space-left space-right"></i>{{ post.num_of_likes }}
+                    </span>
+                </div>
+                <div class="d-flex justify-content-end pub-date">
+                    <span>{{ post.pub_date }}</span>
+                </div>
+                <div class="post-excerpt">
                     <p class="mt-1 excerpt">{{ post.excerpt }}</p>
                     <a href="{% url 'detail_page' post.slug %}">Read the full story</a>
                 </div>

@@ -43,6 +43,8 @@ showCommentEditForm = (event) => {
     let id = event.dataset.id;
     let url = 'get_comment/';
     let icons = event.parentElement.parentElement;
+    let comment = icons.previousElementSibling;
+    var content = comment.textContent;
     icons.classList.remove('show');
     icons.classList.remove('d-flex');
     icons.classList.add('hide');
@@ -53,8 +55,7 @@ showCommentEditForm = (event) => {
             id: id
         },
         success: function (response) {
-            var content = response['content'];
-            let comment = icons.previousElementSibling;
+            content = response['content'];
             let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
                 'Please enter this field.</span>' +
                 '<form class="d-flex" id="save-comment-form" data-id=' +
@@ -69,6 +70,11 @@ showCommentEditForm = (event) => {
         },
         error: function (response) {
             alert("error getting data");
+            // Display the original comment and icons
+            comment.textContent = content;
+            icons.classList.remove("hide");
+            icons.classList.add("d-flex");
+            icons.classList.add("show");
         }
     })
 }

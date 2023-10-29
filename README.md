@@ -276,7 +276,7 @@ Manual tests are documented [here](./ecopost/documents/MANUALTESTS.md).
 ## Aspects to be improved in the future
 - Remember me function on “Log in” page needs to be fixed.
 - I will make Contact page where users can write and submit messages to admin.
-- I also want to simplify the process of updating comments.  Instead of displaying a whole new page of 'Update Comments,' I want to display a small input box on "Detail Page" where the original comment is displayed.
+- When the user clicks on the edit icon to update their comments, first the edit and delete icons disappear and after a delay, the update form will be displayed.  This might cause the user to wonder what is happening.  I need to display the comment faster, or delay removing the icons.  
 
 ## Validating python, CSS, Html code with Tools
 

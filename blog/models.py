@@ -25,8 +25,8 @@ CATEGORY = (('animals', 'Protecting animals'),
 
 class Post(models.Model):
     """Hold fields of Post model and functions around them."""
-    title = models.CharField(max_length=80)
-    slug = models.SlugField(max_length=80, unique=True)
+    title = models.CharField(max_length=45)
+    slug = models.SlugField(max_length=61, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="posts")
     featured_flag = models.BooleanField(default=False)

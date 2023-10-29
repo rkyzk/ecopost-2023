@@ -26,9 +26,8 @@ const hideForm = (event) => {
     let comment = event.parentElement.parentElement.parentElement;
     let textBox = event.parentElement.previousElementSibling;
     let icons = comment.nextElementSibling;
-    icons.classList.remove('hide');
+    icons.classList.remove('d-none');
     icons.classList.add('d-flex');
-    icons.classList.add('show');
     comment.innerText = textBox.textContent;
 }
 
@@ -52,9 +51,8 @@ showCommentEditForm = (event) => {
             id: id
         },
         success: function (response) {
-            icons.classList.remove('show');
             icons.classList.remove('d-flex');
-            icons.classList.add('hide');
+            icons.classList.add('d-none');
             content = response['content'];
             let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
                 'Please enter this field.</span>' +
@@ -62,7 +60,8 @@ showCommentEditForm = (event) => {
                 id + ' method="POST"><textarea type="text"' +
                 ' class="update-form" id="comment">' +
                 content + '</textarea><div>' +
-                '<button class="blue-btn" type="submit">save</button>' +
+                '<button class="blue-btn" type="submit" value="' + content +
+                '" id="save-cmmt-btn">save</button>' +
                 '<button class="blue-btn mt-1" onClick="hideForm(this)">' +
                 'cancel</button></div></form>';
             comment.innerHTML = commentBox;
@@ -72,9 +71,8 @@ showCommentEditForm = (event) => {
             alert("error getting data");
             // Display the original comment and icons
             comment.textContent = content;
-            icons.classList.remove("hide");
+            icons.classList.remove("d-none");
             icons.classList.add("d-flex");
-            icons.classList.add("show");
         }
     })
 }
@@ -104,7 +102,9 @@ $(document).on('submit', '#save-comment-form', function (e) {
     let id = this.dataset.id;
     let url = 'update_comment/';
     let comment = document.getElementById("comment").value;
-    let validation = this.previousElementSibling;
+    var originalCmmt = document.getElementById("save-cmmt-btn").value;
+    var validation = this.previousElementSibling;
+    var editedLabel = validation.parentElement.previousElementSibling.previousElementSibling;
     // if input is empty, display a note 'Please enter this field'
     if (comment.trim() === "") {
         validation.classList.remove('hide');
@@ -123,23 +123,24 @@ $(document).on('submit', '#save-comment-form', function (e) {
             },
             success: function (response) {
                 commentParent.textContent = comment;
-                icons.classList.remove('hide');
+                icons.classList.remove('d-none');
                 icons.classList.add('d-flex');
-                icons.classList.add('show');
                 // if the note 'Please enter this field' is displayed, hide it.
                 if (validation.classList.contains('show')) {
                     validation.classList.remove('show');
                     validation.classList.add('hide');
                 }
                 // if 'edited' label is absent, display it until the next page refresh
-                let editedLabel = validation.parentElement.previousElementSibling;
-                if (editedLabel.previousElementSibling.textContent !== 'edited') {
-                    editedLabel.classList.remove('hide');
-                    editedLabel.classList.add('show');
+                if (editedLabel.textContent != 'edited') {
+                    editedLabel.nextElementSibling.classList.remove('hide');
+                    editedLabel.nextElementSibling.classList.add('show');
                 }
             },
             error: function (response) {
                 alert("Error occured.  Your comment wasn't saved.");
+                commentParent.textContent = originalCmmt;
+                icons.classList.remove('d-none');
+                icons.classList.add('d-flex');
             }
         })
     }

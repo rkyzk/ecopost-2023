@@ -252,7 +252,7 @@ def getComment(request, slug):
 def updateComment(request, slug):
     if request.is_ajax and request.method == 'POST':
         id = request.POST['id']
-        comment = get_object_or_404(Comment, id=id)
+        comment = get_object_or_404(Comment, id=200)
         updatedCmmt = request.POST['comment']
         comment.comment_status = 1
         comment.body = updatedCmmt

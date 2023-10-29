@@ -109,7 +109,7 @@
                     <div class="comment-form">{{ comment.body | linebreaks }}</div>
                     <!-- if the comment has been written by the user, show update and delete buttons -->
                     {% if comment.commenter == user %}
-                    <div class="d-flex justify-content-end update-comment show">
+                    <div class="d-flex justify-content-end update-comment">
                         <div class="col-1">
                             <button type="submit" class="btn btn-sm edit-btn" data-id={{comment.id}}
                                 onClick="showCommentEditForm(this)">

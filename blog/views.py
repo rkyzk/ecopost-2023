@@ -156,23 +156,19 @@ def postLike(request, slug):
         return JsonResponse(response)        
 
 
-class Bookmark(View):
+def bookmark(request, slug):
     """Add or remove user to/from the foreign key 'bookmark' of the post."""
-
-    def post(self, request, slug, *args, **kwargs):
-        """
-        If user exists in 'bookmark,' remove him/her.
-        If not, add the user to 'bookmark.'
-        arguments: self, request, slug, *args, **kwargs
-        :return: HttpResponseRedirect()
-        :rtype: method
-        """
+    if request.is_ajax and request.method == 'POST':
         post = get_object_or_404(Post, slug=slug)
         if post.bookmark.filter(id=request.user.id).exists():
             post.bookmark.remove(request.user)
         else:
             post.bookmark.add(request.user)
-        return HttpResponseRedirect(reverse('detail_page', args=[slug]))
+        post.save()
+        response = {
+            'message': 'done'
+        }
+        return JsonResponse(response)
 
 
 class UpdatePost(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):

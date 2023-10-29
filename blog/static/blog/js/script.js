@@ -110,20 +110,9 @@ $(document).on('submit', '#save-comment-form', function (e) {
         validation.classList.remove('hide');
         validation.classList.add('show');
     } else {
-        // if the note 'Please enter this field' is displayed, hide it.
-        if (validation.classList.contains('show')) {
-            validation.classList.remove('show');
-            validation.classList.add('hide');
-        }
         // get edit and delete icons
         let commentParent = this.parentElement;
         let icons = commentParent.nextElementSibling;
-        // if 'edited' label is absent, display it until the next page refresh
-        let editedLabel = validation.parentElement.previousElementSibling;
-        if (editedLabel.previousElementSibling.textContent !== 'edited') {
-            editedLabel.classList.remove('hide');
-            editedLabel.classList.add('show');
-        }
         $.ajax({
             url: url,
             type: 'POST',
@@ -137,6 +126,17 @@ $(document).on('submit', '#save-comment-form', function (e) {
                 icons.classList.remove('hide');
                 icons.classList.add('d-flex');
                 icons.classList.add('show');
+                // if the note 'Please enter this field' is displayed, hide it.
+                if (validation.classList.contains('show')) {
+                    validation.classList.remove('show');
+                    validation.classList.add('hide');
+                }
+                // if 'edited' label is absent, display it until the next page refresh
+                let editedLabel = validation.parentElement.previousElementSibling;
+                if (editedLabel.previousElementSibling.textContent !== 'edited') {
+                    editedLabel.classList.remove('hide');
+                    editedLabel.classList.add('show');
+                }
             },
             error: function (response) {
                 alert("Error occured.  Your comment wasn't saved.");

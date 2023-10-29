@@ -45,9 +45,6 @@ showCommentEditForm = (event) => {
     let icons = event.parentElement.parentElement;
     let comment = icons.previousElementSibling;
     var content = comment.textContent;
-    icons.classList.remove('show');
-    icons.classList.remove('d-flex');
-    icons.classList.add('hide');
     $.ajax({
         url: url,
         type: 'GET',
@@ -55,6 +52,9 @@ showCommentEditForm = (event) => {
             id: id
         },
         success: function (response) {
+            icons.classList.remove('show');
+            icons.classList.remove('d-flex');
+            icons.classList.add('hide');
             content = response['content'];
             let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
                 'Please enter this field.</span>' +

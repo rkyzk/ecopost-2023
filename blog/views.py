@@ -392,7 +392,7 @@ class RecentPosts(generic.ListView):
     send the queryset and display 'Recent Posts' page.
     """
     model = Post
-    template_name = "blog/recent_posts.html"
+    template_name = "blog/paginated_posts_list.html"
     paginate_by = 6
     # filter 'Published' posts published in the previous 7 days.
     filterargs = {
@@ -402,6 +402,16 @@ class RecentPosts(generic.ListView):
             }
     queryset = Post.objects.filter(**filterargs).order_by("-published_on")
 
+    def get_context_data(self, **kwargs):
+        """
+        set page title as context
+        :return: context
+        :rtype: object
+        """
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "More Stories from This Week"
+        return context
+
 
 class PopularPosts(generic.ListView):
     """
@@ -409,7 +419,7 @@ class PopularPosts(generic.ListView):
     sends the queryset and displays 'Popular Stories' page.
     """
     model = Post
-    template_name = "blog/popular_posts.html"
+    template_name = "blog/paginated_posts_list.html"
     paginate_by = 6
     # get posts whose num_of_likes is above min_num_likes defined at line 16 of this module.
     queryset = Post.objects.filter(
@@ -417,3 +427,13 @@ class PopularPosts(generic.ListView):
             featured_flag=False,
             num_of_likes__gte=min_num_likes
         ).order_by("-published_on")
+
+    def get_context_data(self, **kwargs):
+        """
+        set page title as context
+        :return: context
+        :rtype: object
+        """
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Readers' Favorite Stories of All Time"
+        return context

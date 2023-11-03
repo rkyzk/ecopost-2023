@@ -12,6 +12,7 @@ from .filters import PostFilter
 from .forms import PostForm, CommentForm
 from .models import Post, Comment, CATEGORY
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 # Set the num. of likes above which posts will be included in "Popular Stories"
 min_num_likes = 1
@@ -371,9 +372,13 @@ class SearchPosts(View):
                 posts = Post.objects.filter(status=1).order_by('-published_on')
                 postFilterForm = PostFilter(request.GET, queryset=posts)
                 posts = postFilterForm.qs
+        paginator = Paginator(posts, 6)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
         context = {
             'categories': categories,
             'posts': posts,
+            'page_obj': page_obj,
             'postForm': postFilterForm,
             'search': search,
             'no_input': no_input,

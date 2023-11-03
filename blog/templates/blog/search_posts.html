@@ -123,6 +123,8 @@
             <p>No posts</p>
             {% endfor %}
         </div>
+        <!-- if there are more than 6 posts, display links 'NEXT' and/or 'PREV' -->
+        {% include "blog/pagination.html" %}
         {% endif %}
         {% endif %}
     </div>

@@ -51,8 +51,6 @@ showCommentEditForm = (event) => {
             id: id
         },
         success: function (response) {
-            icons.classList.remove('d-flex');
-            icons.classList.add('d-none');
             content = response['content'];
             let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
                 'Please enter this field.</span>' +
@@ -71,6 +69,8 @@ showCommentEditForm = (event) => {
             alert("error getting data");
             // Display the original comment and icons
             comment.textContent = content;
+        },
+        complete: function (response) {
             icons.classList.remove("d-none");
             icons.classList.add("d-flex");
         }
@@ -123,8 +123,6 @@ $(document).on('submit', '#save-comment-form', function (e) {
             },
             success: function (response) {
                 commentParent.textContent = comment;
-                icons.classList.remove('d-none');
-                icons.classList.add('d-flex');
                 // if the note 'Please enter this field' is displayed, hide it.
                 if (validation.classList.contains('show')) {
                     validation.classList.remove('show');
@@ -139,6 +137,8 @@ $(document).on('submit', '#save-comment-form', function (e) {
             error: function (response) {
                 alert("Error occured.  Your comment wasn't saved.");
                 commentParent.textContent = originalCmmt;
+            },
+            complete: function (response) {
                 icons.classList.remove('d-none');
                 icons.classList.add('d-flex');
             }

@@ -81,8 +81,8 @@ Please click on "Homepage" in the upper left corner to see wireframes of differe
 The overall appearance is kept simple and clean so as not to interfere with various colors that the featured images will bring in.
 
 **About the Colors**
-- I used beige (rgb(141, 111, 56)) for the navigation links, headings and buttons.
-- I used blue (color: rgb(46, 122, 145)) for links in the text.
+- I used beige (rgb(141, 111, 56)) for the navigation links and headings.
+- I used blue (color: rgb(46, 122, 145)) for links in the text and buttons.
 - I used light grey (#e8e8e8) for the footer.
 - Beige and blue were chosen because they are associated with nature.
 
@@ -91,8 +91,8 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 - For the content Lato is used since it's readable and familiar.
 
 **Logo, Favicon and other graphics**
-- I used a clover for the logo and favicon because it’s a widely liked symbol and is associated with good luck and hope, giving a friendly and positive impression. 
-- I used graphics of colorful leaves as well as a blue and green earth around the page header, because these beautiful graphics improve the appearance of the page.
+- I used a clover for the favicon because it’s a widely liked symbol and is associated with good luck and hope, giving a friendly and positive impression. 
+- I used graphics of colorful leaves as well as a blue and green earth around the page header since these graphics improve the appearance of the page.
 
 ## Each Part and Function in Detail
 
@@ -276,7 +276,7 @@ Manual tests are documented [here](./ecopost/documents/MANUALTESTS.md).
 ## Aspects to be improved in the future
 - Remember me function on “Log in” page needs to be fixed.
 - I will make Contact page where users can write and submit messages to admin.
-- When the user clicks on the edit icon to update their comments, first the edit and delete icons disappear and after a delay, the update form will be displayed.  This might cause the user to wonder what is happening.  I need to display the comment faster, or delay removing the icons.  
+- I want to use Ajax for posting & deleting comments 
 
 ## Validating python, CSS, Html code with Tools
 
@@ -304,14 +304,16 @@ Screenshots of the reports are available [here](./documents/LIGHTHOUSE.md)
 
 ## Media
 
-Logo image: clover
-https://www.freepik.com/free-photos-vectors/clover-logo
-
 Favicon: Clover
 https://icons8.com/icons/set/favicon-clover
 
 Heading image: blue earth
 https://www.freepik.com/free-vector/watercolor-background-earth-day-with-natural-elements_1069886.htm#query=earth%20plants%20free&position=24&from_view=search&track=ais
+
+colorful leaves
+https://www.freepik.com/free-vector/watercolor-leaves-falling_18774856.htm#query=colorful%20leaves%20transparent%20background&position=8&from_view=search&track=ais
+
+https://www.freepik.com/free-vector/watercolor-summer-leaves-collection-background_2198954.htm#query=colorful%20leaves%20transparent%20background&position=7&from_view=search&track=ais
 
 Default featured image
 https://www.pexels.com/photo/forest-345522/

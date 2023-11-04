@@ -241,6 +241,7 @@ class DeletePost(LoginRequiredMixin, View):
 
 
 def getComment(request, slug):
+    """get comment and send it to be displayed when comment is being updated."""
     if request.is_ajax and request.method == 'GET':
         id = request.GET['id']
         comment = get_object_or_404(Comment, id=id)
@@ -251,6 +252,7 @@ def getComment(request, slug):
 
 
 def updateComment(request, slug):
+    """update comments"""
     if request.is_ajax and request.method == 'POST':
         id = request.POST['id']
         comment = get_object_or_404(Comment, id=id)

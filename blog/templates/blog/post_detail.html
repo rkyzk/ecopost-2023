@@ -80,11 +80,11 @@
             <div class="mt-3 d-flex justify-content-start">
                 <form method="GET" action="{% url 'update_post' post.slug %}">
                     {% csrf_token %}
-                    <button class="blue-btn" name="update-post" type="submit">Update</button>
+                    <button class="blue-btn" name="update-post" type="submit">update</button>
                 </form>
-                <button type="button" class="blue-btn btn-right" onClick="showModal()" data-toggle="modal"
-                    data-target="#confirmDelete">
-                    Delete
+                <button type="button" class="btn blue-btn btn-right modal-btn" name="post" data-bs-toggle="modal"
+                    data-bs-target="#confirm-delete">
+                    delete
                 </button>
             </div>
             {% endif %}
@@ -161,4 +161,23 @@
         </section>
     </div>
 </main>
+<!-- Delete confirmation dialog -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Are you sure you want to delete your post?
+                    You won't be able to retrieve the data.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue-btn" data-bs-dismiss="modal">cancel</button>
+                <form method="POST" action="{% url 'delete_post' post.slug %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn blue-btn">delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

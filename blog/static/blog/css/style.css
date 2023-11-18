@@ -37,7 +37,6 @@ h4 {
     grid-auto-flow: column;
     list-style-type: none;
     column-gap: 20px;
-    padding-left: 25px;
 }
 
 .list-item {
@@ -45,11 +44,11 @@ h4 {
     white-space: nowrap;
 }
 
-.nav-list a {
+.list-item {
     color: rgb(141, 111, 56);
 }
 
-.nav-list a:hover {
+.list-item:hover {
     color: rgb(65, 60, 53);
     text-decoration: underline;
 }
@@ -71,7 +70,7 @@ h4 {
 
 .heading {
     margin-top: 40px;
-    width: 440px;
+    width: 340px;
     position: absolute;
     left: 38%;
 }

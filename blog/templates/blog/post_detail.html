@@ -50,7 +50,8 @@
                     {% else %}
                     <!-- if not logged in, show a heart (without 'like' button function) -->
                     <span><i class="far fa-heart heart"></i></span>
-                    <span class="text-secondary likes-count">{{ post.num_of_likes }}</span>
+                    <span class="text-secondary likes-count" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Log in to like the post">{{ post.num_of_likes }}</span>
                     {% endif %}
                     <!-- bookmark -->
                     {% if user.is_authenticated %}

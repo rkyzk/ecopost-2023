@@ -1,18 +1,19 @@
 {% extends "blog/base.html" %}
 {% block content %}
 <!-- Posts written by the user -->
+
 <div class="d-flex justify-content-center">
     <div class="content my-page">
-        <h1 class="mt-5">My Page</h1>
-        <h2 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Written by Me</h2>
+        <h2 class="mt-5 page-title"><i class="fa-brands fa-envira big-space-right"></i></i>My Page</h2>
+        <h3 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Written by Me</h3>
         {% include "blog/my_page_template.html" with posts=my_posts only %}
         <hr class="d-none d-lg-block mt-5">
         <!-- Commented Posts -->
-        <h2 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Commented by Me</h2>
+        <h3 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Commented by Me</h3>
         {% include "blog/my_page_template.html" with posts=commented_posts only %}
         <hr class="d-none d-lg-block mt-5">
         <!-- Bookmarked Posts -->
-        <h2 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Bookmarked by Me</h2>
+        <h3 class="mt-5 mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Bookmarked by Me</h3>
         {% include "blog/my_page_template.html" with posts=bookmarked_posts only %}
     </div>
 </div>

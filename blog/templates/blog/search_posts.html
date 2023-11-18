@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="offset-md-1">
-                <h1>Search Stories</h1>
+                <h2 class="page-title"><i class="fa-solid fa-magnifying-glass big-space-right"></i>Search Stories</h2>
             </div>
         </div>
         <!-- Search form -->
@@ -82,19 +82,23 @@
         {% if no_input %}
         <p class="warning mt-3">Please enter at least one field.</p>
         {% else %}
-        <div class="row posts">
-            <h2>Search Results</h2>
-            {% for post in posts %}
-            {% include "blog/post_excerpt.html" %}
-            <!-- For every 3 posts, open a new row -->
-            {% if forloop.counter|divisibleby:3 %}
-        </div>
-        <hr class="d-none d-lg-block mt-5">
-        <div class="row posts">
-            {% endif %}
-            {% empty %}
-            <p>No posts</p>
-            {% endfor %}
+        <div class="d-flex justify-content-center">
+            <div class="content">
+                <div class="row posts">
+                    <h2><i class="fa-brands fa-pagelines big-space-right"></i>Search Results</h2>
+                    {% for post in posts %}
+                    {% include "blog/post_excerpt.html" %}
+                    <!-- For every 3 posts, open a new row -->
+                    {% if forloop.counter|divisibleby:3 %}
+                </div>
+                <hr class="d-none d-lg-block mt-5">
+                <div class="row posts">
+                    {% endif %}
+                    {% empty %}
+                    <p>No posts</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         <!-- if there are more than 6 posts, display links 'NEXT' and/or 'PREV' -->
         {% include "blog/pagination.html" %}

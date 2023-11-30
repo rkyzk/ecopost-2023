@@ -28,15 +28,24 @@ h4 {
 
 /* header */
 .header {
-    height: 150px;
+    height: 90px;
     width: 100%;
+    background-color: #f2f2f2;
+}
+
+.pop-up-menu {
+    margin-top: -20px;
+}
+
+.heading {
+    margin-top: 20px;
 }
 
 .nav-list {
     display: grid;
     grid-auto-flow: column;
     list-style-type: none;
-    column-gap: 20px;
+    padding: 0 0 0 25px;
 }
 
 .list-item {
@@ -44,14 +53,16 @@ h4 {
     white-space: nowrap;
 }
 
-.list-item {
-    color: rgb(141, 111, 56);
+.nav-list a {
+    color: rgb(100, 80, 44);
+    font-size: 1rem;
 }
 
-.list-item:hover {
+.nav-list a:hover {
     color: rgb(65, 60, 53);
     text-decoration: underline;
 }
+
 
 .hamburger {
     display: none;
@@ -59,7 +70,7 @@ h4 {
     font-size: 1.5rem;
     rotate: 90deg;
     color: rgb(153, 139, 59);
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .mobile-header {
@@ -68,48 +79,42 @@ h4 {
     justify-content: space-between;
 }
 
-.heading {
-    margin-top: 40px;
-    width: 340px;
-    position: absolute;
-    left: 38%;
-}
-
 h1 {
     font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 3rem;
+    font-size: 2rem;
     color: rgb(141, 111, 56);
 }
 
-.earth {
-    width: 100px;
-    height: 100px;
-    margin-left: 20px;
-}
-
-.left-leaves {
-    width: 280px;
-}
-
-.leaf-1 {
-    width: 110px;
-    height: 40px;
-    margin-top: 20px;
-    margin-left: 10px;
-}
-
 .leaf-2 {
-    width: 110px;
-    height: 40px;
-    margin-top: 90px;
-    margin-left: -40px;
+    width: 70px;
+    height: 30px;
+    rotate: 10deg;
+    margin-left: 15px
+}
+
+.leaf-3 {
+    width: 40px;
+    height: 50px;
+    margin: -8px 10px 0 5px;
+}
+
+.leaf-4 {
+    width: 70px;
+    height: 30px;
+    rotate: 25deg;
+}
+
+.leaf-5 {
+    width: 60px;
+    height: 50px;
+    margin: -5px 0 0 10px;
 }
 
 .purple-leaf {
-    width: 75px;
-    height: 62px;
-    margin-top: 10px;
-    margin-left: -30px;
+    width: 50px;
+    height: 40px;
+    rotate: 60deg;
+    margin: -12px 0 0 10px;
 }
 
 a,
@@ -135,9 +140,9 @@ a:hover,
 
 .like-btn,
 .bookmark {
-    width: 20px;
-    height: 20px;
-    margin-top: -3px;
+    width: 30px;
+    height: 30px;
+    margin-top: -7px;
 }
 
 .btn:focus,
@@ -165,7 +170,7 @@ a:hover,
 
 .post-title {
     width: 100%;
-    height: 75px;
+    height: 45px;
     word-wrap: break-word;
 }
 
@@ -219,15 +224,15 @@ footer {
     min-width: 90px;
     border: none;
     outline: none;
-    color: #fff;
+    color: aliceblue;
 }
 
 .blue-btn:hover {
-    background-color: rgb(201, 208, 213);
+    background-color: #204966;
     opacity: 0.8;
     outline: none;
     border: none;
-    color: #204966;
+    color: aliceblue;
 }
 
 .btn-right {
@@ -375,7 +380,7 @@ footer {
     width: 289px;
 }
 
-@media screen and (min-width: 1161px) {
+@media screen and (min-width: 995px) {
     #nav-menu {
         display: block !important;
         width: 470px;
@@ -384,30 +389,18 @@ footer {
     }
 }
 
-@media screen and (max-width: 1300px) {
-    .heading {
-        left: 30%;
-    }
-}
-
-@media screen and (max-width: 1160px) {
+@media screen and (max-width: 994px) {
     .hamburger {
         display: block;
         width: 20px;
         height: 20px;
-        margin-top: 20px;
         position: absolute;
-        top: 53px;
+        top: 28px;
         right: 10px;
     }
 
     .header {
         flex-direction: column;
-        padding: 0 15px;
-    }
-
-    .heading {
-        left: 40%;
     }
 
     .nav-menu {
@@ -415,21 +408,22 @@ footer {
     }
 
     .pop-up-menu {
-        background-color: #f8f8f8;
+        background-color: #e5e5e5;
         opacity: 0.9;
         position: absolute;
-        top: 100px;
+        top: 85px;
         right: 15px;
         z-index: 2;
-        padding: 5px 8px;
+        padding: 10px 15px 0 0;
     }
 
     .nav-list {
         grid-auto-flow: row;
         list-style-type: none;
-        row-gap: 10px;
+        row-gap: 5px;
         column-gap: 0;
         justify-items: start;
+        margin-left: -10px;
     }
 
     #nav-menu {
@@ -458,53 +452,13 @@ footer {
     .intro-box {
         width: 85%;
     }
-
-    .leaf-1 {
-        width: 90px;
-        height: 30px;
-        margin-top: 20px;
-        margin-left: 10px;
-    }
-
-    .leaf-2 {
-        width: 90px;
-        height: 30px;
-        margin-top: 90px;
-        margin-left: -40px;
-    }
-
-    .purple-leaf {
-        width: 65px;
-        height: 50px;
-        margin-top: 10px;
-        margin-left: -30px;
-    }
-
-    .earth {
-        width: 80px;
-        height: 80px;
-    }
 }
 
 @media (max-width: 767px) {
+
     .post-title {
         height: auto;
     }
-}
-
-@media (max-width: 705px) {
-    .left-leaves {
-        display: none !important;
-    }
-
-    .heading {
-        margin-left: 30px;
-        position: static;
-        justify-content: start;
-    }
-}
-
-@media (max-width: 767px) {
 
     .individual-post,
     .img-box {
@@ -550,6 +504,15 @@ footer {
     }
 }
 
+@media screen and (max-width: 620px) {
+
+    .leaf-4,
+    .leaf-5 {
+        display: none;
+    }
+
+}
+
 @media screen and (max-width: 575px) {
     .intro-box {
         width: 95%;
@@ -574,25 +537,13 @@ footer {
 }
 
 @media screen and (max-width: 500px) {
-    h1 {
-        font-size: 2.5rem;
+
+    .leaf-2 {
+        display: none;
     }
 
-    .heading {
-        width: 300px;
-        margin: 30px 0 0 15px;
-    }
-
-    .header {
-        padding: 0 0 0 15px;
-    }
-
-    .hamburger {
-        top: 35px;
-    }
-
-    .pop-up-menu {
-        top: 40px;
+    .leaf-3 {
+        margin-left: 15px;
     }
 
     /* ------- Update Post ------------------------*/
@@ -614,22 +565,6 @@ footer {
 }
 
 @media screen and (max-width: 420px) {
-    .hamburger {
-        top: 10px;
-    }
-
-    .pop-up-menu {
-        top: 60px;
-        right: 8px;
-    }
-
-    .heading {
-        margin-top: 60px;
-    }
-
-    .featured-heading {
-        margin-left: 10px;
-    }
 
     .search-content,
     .individual-post,
@@ -644,5 +579,24 @@ footer {
 
     .signup-text {
         width: auto;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .header {
+        height: 100px;
+    }
+
+    .hamburger {
+        top: 70px;
+    }
+
+    .pop-up-menu {
+        top: 120px;
+        right: 8px;
+    }
+
+    .heading {
+        margin-top: 20px;
     }
 }

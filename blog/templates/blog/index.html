@@ -2,8 +2,7 @@
 {% block content %}
 <!-- Introduction -->
 <div class="d-flex justify-content-center">
-    <div class="intro-box mt-2">
-        <hr>
+    <div class="intro-box mt-5">
         <p>Are you feeling helpless over the environmental crisis? Don't give up.
             This website is for anyone who wants to find out what individuals
             and local communities are doing to help tackle the environmental crisis.
@@ -20,27 +19,28 @@
 <!-- Featured stories -->
 <div class="d-flex justify-content-center mt-5">
     <div class="content">
-        <h2 class="featured-heading">
+        <h3 class="featured-heading">
             <i class="fa-brands fa-pagelines"></i>
             Featured Stories
-        </h2>
-        <div class="row posts">
-            {% for post in post_list %}
-            {% include "blog/post_excerpt.html" %}
-            {% empty %}
-            <p>No posts</p>
-            {% endfor %}
-            <!-- links to 'Recent Stories' and 'Popular Stories' -->
-            <div class="links-to-posts">
-                <a href="{% url 'recent_stories' %}">
-                    <p><i class="fa-solid fa-seedling big-space-right"></i>More stories from this week &raquo;</p>
-                </a>
-                <a href="{% url 'popular_stories' %}" class="mt-4">
-                    <p><i class="fa-solid fa-seedling big-space-right"></i>Readers' favorite stories of all time &raquo;
-                    </p>
-                </a>
+            </h2>
+            <div class="row posts">
+                {% for post in post_list %}
+                {% include "blog/post_excerpt.html" %}
+                {% empty %}
+                <p>No posts</p>
+                {% endfor %}
+                <!-- links to 'Recent Stories' and 'Popular Stories' -->
+                <div class="links-to-posts">
+                    <a href="{% url 'recent_stories' %}">
+                        <p><i class="fa-solid fa-seedling big-space-right"></i>More stories from this week &raquo;</p>
+                    </a>
+                    <a href="{% url 'popular_stories' %}" class="mt-4">
+                        <p><i class="fa-solid fa-seedling big-space-right"></i>Readers' favorite stories of all time
+                            &raquo;
+                        </p>
+                    </a>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 {% endblock %}

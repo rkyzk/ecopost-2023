@@ -1,4 +1,4 @@
-/* Common rules for multiple pages */
+/* Common rules for multiple pages ------------------*/
 h2 {
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 1.8rem;
@@ -21,12 +21,39 @@ h4 {
     color: #666;
 }
 
-/* base.html */
+/* -- buttons ---*/
+.blue-btn {
+    padding: 0.3rem 0.9rem;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 80px;
+    background-color: rgb(33, 150, 154);
+    min-width: 90px;
+    border: none;
+    outline: none;
+    color: aliceblue;
+}
+
+.blue-btn:hover {
+    background-color: #204966;
+    opacity: 0.8;
+    outline: none;
+    border: none;
+    color: aliceblue;
+}
+
+.btn:focus,
+.btn:active {
+    box-shadow: none;
+}
+
+/* ---- base.html ------------------------------------*/
 .block-content {
     min-height: 85vh;
 }
 
-/* header */
+/* header ----------*/
 .header {
     height: 90px;
     width: 100%;
@@ -53,16 +80,15 @@ h4 {
     white-space: nowrap;
 }
 
-.nav-list a {
-    color: rgb(100, 80, 44);
+.pop-up-menu>.nav-list .list-item {
+    color: rgb(133, 102, 43);
     font-size: 1rem;
 }
 
-.nav-list a:hover {
+.pop-up-menu>.nav-list .list-item:hover {
     color: rgb(65, 60, 53);
     text-decoration: underline;
 }
-
 
 .hamburger {
     display: none;
@@ -138,23 +164,23 @@ a:hover,
     outline: none;
 }
 
-.like-btn,
-.bookmark {
-    width: 30px;
-    height: 30px;
-    margin-top: -7px;
-}
-
-.btn:focus,
-.btn:active {
-    box-shadow: none;
-}
-
 .num-likes {
-    margin: 3px 0 0 3px;
+    margin: 0 0 0 3px;
 }
 
-/* post excerpt */
+/*---- footer --------- */
+footer {
+    width: 100%;
+    height: 60px;
+    background-color: #eee;
+    margin-top: 40px;
+}
+
+.social-networks {
+    list-style: none;
+}
+
+/* ------------ post excerpt --------------------- */
 .space-left {
     margin-left: 5px;
 }
@@ -195,44 +221,12 @@ a:hover,
     margin-top: 0;
 }
 
-footer {
-    width: 100%;
-    height: 60px;
-    background-color: #eee;
-    margin-top: 40px;
-}
-
-.social-networks {
-    list-style: none;
-}
-
 .hide {
     display: none;
 }
 
 .show {
     display: block;
-}
-
-.blue-btn {
-    padding: 0.3rem 0.9rem;
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 80px;
-    background-color: rgb(33, 150, 154);
-    min-width: 90px;
-    border: none;
-    outline: none;
-    color: aliceblue;
-}
-
-.blue-btn:hover {
-    background-color: #204966;
-    opacity: 0.8;
-    outline: none;
-    border: none;
-    color: aliceblue;
 }
 
 .btn-right {
@@ -243,7 +237,7 @@ footer {
     width: 80%;
 }
 
-/*   ------------ index.html ------------------------  */
+/* ------------ index.html ------------------------ */
 .intro-box {
     color: rgb(79, 73, 73);
     width: 730px
@@ -293,6 +287,13 @@ footer {
     width: 40%;
 }
 
+.like-btn,
+.bookmark {
+    width: 30px;
+    height: 30px;
+    margin-top: -7px;
+}
+
 .comments-left {
     width: 50%;
 }
@@ -325,6 +326,10 @@ footer {
     margin-right: 8px;
 }
 
+.comment-form form textarea {
+    border: solid 1px #ccc;
+}
+
 /* ---------- search.html -------------------------*/
 .item-right {
     margin-left: 10px;
@@ -350,7 +355,7 @@ footer {
     color: #fff;
 }
 
-/* ---------------- my page -----------*/
+/* ---------------- my page ----------------------*/
 .show-posts {
     margin-top: 50px;
 }
@@ -363,7 +368,7 @@ footer {
     padding-top: 40px;
 }
 
-/* ------ signup.html --------- */
+/* ------ signup.html ------------------------ */
 .signup-text {
     width: 382px;
 }
@@ -376,6 +381,7 @@ footer {
     padding-left: 2px;
 }
 
+/* ------ signout.html ------------------------ */
 .signout {
     width: 289px;
 }
@@ -432,9 +438,6 @@ footer {
 }
 
 @media screen and (max-width: 991px) {
-    .mt-custom {
-        margin-top: 40px;
-    }
 
     .content {
         width: 90%;
@@ -451,6 +454,11 @@ footer {
 
     .intro-box {
         width: 85%;
+    }
+
+    /** post detail comment section */
+    .mt-custom {
+        margin-top: 40px;
     }
 }
 

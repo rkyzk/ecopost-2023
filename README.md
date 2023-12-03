@@ -25,7 +25,7 @@ The deployed app: https://eco-post-b42d6f9baa98.herokuapp.com/
 <img src="./ecopost/documents/media/readme/eco-post-mobile.png" width="250" alt="ecopost displayed on mobile">
 
 ## Project Goals
-eco post offers a platform where users can share their ideas on what individuals could do to protect the environment. Many people feel helpless, thinking that individuals cannot do so much in face of the environmental crisis. Here, visitors can read posts written by others, leave comments and write their own posts. Users can connect with others who are concerned about the crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
+Eco Post offers a platform where users can share their ideas on what individuals could do to protect the environment. Many people feel helpless, thinking that individuals cannot do so much in face of the environmental crisis. Here, visitors can read posts written by others, leave comments and write their own posts. Users can connect with others who are concerned about the crisis, get motivated to take actions, or at least find some hope.  The app can target users in a particular region or a country.
 
 ## User Stories
 
@@ -92,7 +92,7 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 
 **Logo, Favicon and other graphics**
 - I used a clover for the favicon because it’s a widely liked symbol and is associated with good luck and hope, giving a friendly and positive impression. 
-- I used graphics of colorful leaves as well as a blue and green earth around the page header since these graphics improve the appearance of the page.
+- I used graphics of colorful leaves in the header since these graphics improve the appearance of the page.
 
 ## Each Part and Function in Detail
 
@@ -172,7 +172,7 @@ The overall appearance is kept simple and clean so as not to interfere with vari
 - A confirmation dialog will ask if users really want to proceed.
 - If 'OK' is clicked, the post will be deleted from the database, and the users are redirected to the home page.
 
-### Update and Delete Comment (Delete comment has no page)
+### Update and Delete Comment (no page)
 - The writer of the comment can update or delete their comment by clicking on the update icon or the trash bin icon right by their comment on 'Detail Page.'
 - If edited, the comment will be labeled with a note 'edited.'
 - If deleted, a note will say 'Comment deleted' in place of the comment
@@ -295,10 +295,7 @@ After the above corrections the html validation showed no errors.
 Performance scored 99% on Sign in page, but on other pages it scored between 52% and 72%, and this aspect needs to be improved in the future.
 ‘Opportunity’ section of the analysis report stated the score can be improved if initial server response time is reduced.  I will try to optimize the code to prepare pages faster. 
 
-Accessibility scored 91% on Update Comment page.
-On all other pages accessibility scored 100%.
-
-On Update Comment page, the report said that the score was lowered because the comment form doesn’t have a label.  I inserted a label tag with 'for' attribute in the update_comment.html, but I still got the same score and a warning that I need a label.  I will try to find out how to solve the issue.
+Accessibility scored 100% on all pages.
 
 Screenshots of the reports are available [here](./documents/LIGHTHOUSE.md)
 
@@ -306,9 +303,6 @@ Screenshots of the reports are available [here](./documents/LIGHTHOUSE.md)
 
 Favicon: Clover
 https://icons8.com/icons/set/favicon-clover
-
-Heading image: blue earth
-https://www.freepik.com/free-vector/watercolor-background-earth-day-with-natural-elements_1069886.htm#query=earth%20plants%20free&position=24&from_view=search&track=ais
 
 colorful leaves
 https://www.freepik.com/free-vector/watercolor-leaves-falling_18774856.htm#query=colorful%20leaves%20transparent%20background&position=8&from_view=search&track=ais

@@ -1,4 +1,4 @@
-/* Common rules for multiple pages ------------------*/
+/* ------------ Common rules for multiple pages ------------------ */
 h2 {
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 1.8rem;
@@ -21,7 +21,7 @@ h4 {
     color: #666;
 }
 
-/* -- buttons ---*/
+/* ------- buttons ------- */
 .blue-btn {
     padding: 0.3rem 0.9rem;
     font-family: 'Montserrat Alternates', sans-serif;
@@ -48,12 +48,18 @@ h4 {
     box-shadow: none;
 }
 
-/* ---- base.html ------------------------------------*/
+/* ------- base.html ------- */
 .block-content {
     min-height: 85vh;
 }
 
-/* header ----------*/
+/* ------- header ------- */
+h1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 2rem;
+    color: rgb(141, 111, 56);
+}
+
 .header {
     height: 90px;
     width: 100%;
@@ -103,12 +109,6 @@ h4 {
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-h1 {
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 2rem;
-    color: rgb(141, 111, 56);
 }
 
 .leaf-2 {
@@ -168,7 +168,7 @@ a:hover,
     margin: 0 0 0 3px;
 }
 
-/*---- footer --------- */
+/* --------- footer --------- */
 footer {
     width: 100%;
     height: 60px;
@@ -180,7 +180,7 @@ footer {
     list-style: none;
 }
 
-/* ------------ post excerpt --------------------- */
+/* --------- post excerpt --------- */
 .space-left {
     margin-left: 5px;
 }
@@ -237,7 +237,7 @@ footer {
     width: 80%;
 }
 
-/* ------------ index.html ------------------------ */
+/* ------------------ index.html ------------------ */
 .intro-box {
     color: rgb(79, 73, 73);
     width: 730px
@@ -267,7 +267,7 @@ footer {
     margin-right: 10px;
 }
 
-/* -------------- post_detail.html -------------------*/
+/* ------------------ post_detail.html ------------------ */
 .title-box>h1 {
     word-wrap: break-word;
     font-size: 2.2rem;
@@ -330,7 +330,7 @@ footer {
     border: solid 1px #ccc;
 }
 
-/* ---------- search.html -------------------------*/
+/* ------------------ search.html ------------------ */
 .item-right {
     margin-left: 10px;
 }
@@ -340,7 +340,7 @@ footer {
     margin-left: 10%;
 }
 
-/* ----------- update_post.html -------------------*/
+/* ------------------ update_post.html ------------------ */
 
 .update-post-btn {
     margin-right: 5px;
@@ -355,7 +355,7 @@ footer {
     color: #fff;
 }
 
-/* ---------------- my page ----------------------*/
+/* ------------------ my page ------------------ */
 .show-posts {
     margin-top: 50px;
 }
@@ -368,7 +368,7 @@ footer {
     padding-top: 40px;
 }
 
-/* ------ signup.html ------------------------ */
+/* ------------------ signup.html ------------------------ */
 .signup-text {
     width: 382px;
 }
@@ -381,7 +381,7 @@ footer {
     padding-left: 2px;
 }
 
-/* ------ signout.html ------------------------ */
+/* ------------------ signout.html ------------------------ */
 .signout {
     width: 289px;
 }

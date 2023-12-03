@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let csrftoken = getCookie('csrftoken');
             let url = 'bookmark/';
             let bMark = bmBtn.lastElementChild.classList.contains('fa-bookmark-o');
-            console.log(bMark);
             $.ajax({
                 url: url,
                 type: 'POST',

@@ -1,3 +1,5 @@
+/** display and hide alert messages */
+
 document.addEventListener("DOMContentLoaded", function () {
     // Let messages appear for 4 seconds
     setTimeout(function () {

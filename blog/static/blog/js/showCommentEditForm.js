@@ -31,16 +31,21 @@ showCommentEditForm = (event) => {
         },
         success: function (response) {
             content = response['content'];
-            let commentBox = '<span id="comment-validation" class="hide" style="color: red;">' +
-                'Please enter this field.</span>' +
-                '<form class="d-flex" id="save-comment-form" data-id=' +
-                id + ' method="POST"><textarea type="text"' +
-                ' class="update-form" id="comment">' +
-                content + '</textarea><div>' +
-                '<button class="blue-btn" type="submit" value="' + content +
-                '" id="save-cmmt-btn">save</button>' +
-                '<button class="blue-btn mt-1" onClick="hideForm(this)">' +
-                'cancel</button></div></form>';
+            let commentBox = `
+                <span id="comment-validation" class="hide" style="color: red;">
+                  Please enter this field.
+                </span>
+                <form class="d-flex" id="save-comment-form" data-id=${id} method="POST">
+                  <textarea type="text" class="update-form" id="comment">${content}</textarea>
+                  <div>
+                    <button class="blue-btn" type="submit" value="${content}"
+                      id="save-cmmt-btn">save</button>
+                    <button class="blue-btn mt-1" onClick="hideForm(this)">
+                      cancel
+                    </button>
+                  </div>
+                </form>
+                `;
             comment.innerHTML = commentBox;
             $('#comment').focus();
         },

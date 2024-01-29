@@ -1,16 +1,14 @@
 {% extends "blog/base.html" %}
 {% load i18n %}
 {% block head_title %}{% trans "Signup" %}{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
   <div class="d-flex justify-content-center">
     <div class="signup-text">
-      <h2 class="page-title mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Become a Member</h2>
+      <h2 class="page-title mb-3"><i class="fa-brands fa-pagelines big-space-right"></i>Sign Up</h2>
       <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
           in</a>.{% endblocktrans %}
       </p>
-
       <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
@@ -22,5 +20,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

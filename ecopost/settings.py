@@ -32,13 +32,13 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # This allows summer note to be loaded on the deployed project.
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
-    '8000-rkyzk-ecopost2023-512pihqy7p7.ws-us106.gitpod.io',
+    '8000-rkyzk-ecopost2023-512pihqy7p7.ws-us107.gitpod.io',
     'eco-post-a732dab85eab.herokuapp.com'
 ]
 
@@ -154,7 +154,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 STATIC_URL = '/static/'
 
